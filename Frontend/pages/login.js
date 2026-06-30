@@ -166,6 +166,23 @@ document.addEventListener("DOMContentLoaded", () => {
   let resetTimerInterval = null;
   let resetCountdownSeconds = 300;
 
+  // Reset Password Visibility Toggle
+  const toggleResetPass = document.getElementById("toggleResetPassword");
+  if (toggleResetPass) {
+    toggleResetPass.addEventListener("click", () => {
+      const resetPassInput = document.getElementById("resetNewPassword");
+      if (resetPassInput.type === "password") {
+        resetPassInput.type = "text";
+        toggleResetPass.classList.remove("fa-eye");
+        toggleResetPass.classList.add("fa-eye-slash");
+      } else {
+        resetPassInput.type = "password";
+        toggleResetPass.classList.remove("fa-eye-slash");
+        toggleResetPass.classList.add("fa-eye");
+      }
+    });
+  }
+
   function startResetCountdown() {
     clearInterval(resetTimerInterval);
     resetCountdownSeconds = 60; // 1 minute cooldown to resend

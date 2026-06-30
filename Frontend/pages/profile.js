@@ -782,6 +782,62 @@ function initChangePasswordModal() {
   // Password toggle icons
   const toggles = modal.querySelectorAll(".toggle-password");
 
+  const changeStepForm = document.getElementById("changePasswordStepForm");
+  const changeStepOtp = document.getElementById("changePasswordStepOtp");
+  const confirmChangeBtn = document.getElementById("confirmChangePasswordBtn");
+  const resendChangeOtpBtn = document.getElementById("resendChangeOtpBtn");
+  const cancelChangeOtpBtn = document.getElementById("cancelChangeOtpBtn");
+  const changeDigits = changeStepOtp.querySelectorAll(".otp-digit");
+
+  let changeTimerInterval = null;
+  let changeCountdownSeconds = 300;
+
+  function startChangeCountdown() {
+    clearInterval(changeTimerInterval);
+    changeCountdownSeconds = 60; // 1 minute resend cooldown
+    resendChangeOtpBtn.disabled = true;
+    resendChangeOtpBtn.style.cursor = "not-allowed";
+
+    const countdownText = document.getElementById("changeCountdown");
+
+    changeTimerInterval = setInterval(() => {
+      changeCountdownSeconds--;
+      const mins = Math.floor(changeCountdownSeconds / 60);
+      const secs = changeCountdownSeconds % 60;
+      countdownText.textContent = `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+
+      if (changeCountdownSeconds <= 0) {
+        clearInterval(changeTimerInterval);
+        countdownText.textContent = "Expired";
+        resendChangeOtpBtn.disabled = false;
+        resendChangeOtpBtn.style.cursor = "pointer";
+      }
+    }, 1000);
+  }
+
+  // Auto-tabbing focus logic for OTP digits
+  changeDigits.forEach((digitInput, index) => {
+    digitInput.addEventListener("input", (e) => {
+      const val = e.target.value;
+      if (val && index < changeDigits.length - 1) {
+        changeDigits[index + 1].focus();
+      }
+    });
+
+    digitInput.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !digitInput.value && index > 0) {
+        changeDigits[index - 1].focus();
+      }
+    });
+  });
+
+  if (cancelChangeOtpBtn) {
+    cancelChangeOtpBtn.addEventListener("click", () => {
+      clearInterval(changeTimerInterval);
+      closeModal();
+    });
+  }
+
   function openModal() {
     // Clear values first
     currentPass.value = "";
@@ -796,10 +852,15 @@ function initChangePasswordModal() {
       toggle.classList.add("fa-eye");
     });
 
+    changeStepForm.style.display = "block";
+    changeStepOtp.style.display = "none";
+    clearInterval(changeTimerInterval);
+
     modal.classList.add("show");
   }
 
   function closeModal() {
+    clearInterval(changeTimerInterval);
     modal.classList.remove("show");
   }
 
@@ -853,34 +914,121 @@ function initChangePasswordModal() {
 
     // Disable button during request
     submitBtn.disabled = true;
-    submitBtn.textContent = "Updating...";
+    submitBtn.textContent = "Sending...";
 
-    fetch(`${CONFIG.API_BASE_URL}/api/profile/change-password`, {
-      method: "PUT",
+    fetch(`${CONFIG.API_BASE_URL}/api/profile/send-otp`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ currentPassword, newPassword }),
     })
       .then((res) => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Code";
         if (!res.ok) {
           return res.json().then((err) => {
-            throw new Error(err.message || "Failed to update password");
+            throw new Error(err.message || "Failed to send verification code");
           });
         }
         return res.json();
       })
       .then((data) => {
-        showToast("Password Updated Successfully! 🔐");
-        closeModal();
+        alert(data.message);
+        changeStepForm.style.display = "none";
+        changeStepOtp.style.display = "block";
+        changeDigits.forEach((input) => (input.value = ""));
+        changeDigits[0].focus();
+        startChangeCountdown();
+
+        if (data.otp) {
+          const digits = data.otp.split("");
+          changeDigits.forEach((input, idx) => {
+            if (digits[idx]) input.value = digits[idx];
+          });
+          alert(`For testing purpose, verification code is: ${data.otp}`);
+        }
       })
       .catch((err) => {
-        alert(err.message);
-      })
-      .finally(() => {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Update Password";
+        submitBtn.textContent = "Send Code";
+        alert(err.message);
       });
   });
+
+  if (confirmChangeBtn) {
+    confirmChangeBtn.addEventListener("click", () => {
+      const currentPassword = currentPass.value.trim();
+      const newPassword = newPass.value.trim();
+
+      let otp = "";
+      changeDigits.forEach((input) => (otp += input.value.trim()));
+
+      if (otp.length < 6) {
+        alert("Please enter the full 6-digit confirmation code.");
+        return;
+      }
+
+      confirmChangeBtn.disabled = true;
+      confirmChangeBtn.textContent = "Updating...";
+
+      fetch(`${CONFIG.API_BASE_URL}/api/profile/change-password`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ currentPassword, newPassword, otp }),
+      })
+        .then((res) => {
+          confirmChangeBtn.disabled = false;
+          confirmChangeBtn.textContent = "Verify & Update";
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.message || "Failed to update password");
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          showToast("Password Updated Successfully! 🔐");
+          clearInterval(changeTimerInterval);
+          closeModal();
+        })
+        .catch((err) => {
+          confirmChangeBtn.disabled = false;
+          confirmChangeBtn.textContent = "Verify & Update";
+          alert(err.message);
+        });
+    });
+  }
+
+  if (resendChangeOtpBtn) {
+    resendChangeOtpBtn.addEventListener("click", () => {
+      fetch(`${CONFIG.API_BASE_URL}/api/profile/send-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to resend code");
+          return res.json();
+        })
+        .then((data) => {
+          alert(data.message);
+          startChangeCountdown();
+
+          if (data.otp) {
+            const digits = data.otp.split("");
+            changeDigits.forEach((input, idx) => {
+              if (digits[idx]) input.value = digits[idx];
+            });
+            alert(`For testing purpose, verification code is: ${data.otp}`);
+          }
+        })
+        .catch((err) => alert(err.message));
+    });
+  }
 }
