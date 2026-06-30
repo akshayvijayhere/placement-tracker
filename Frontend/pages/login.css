@@ -674,3 +674,141 @@ label {
     font-size: 14px;
   }
 }
+
+/* OTP Verification Modal Overlay */
+.otp-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.otp-modal-card {
+  width: 100%;
+  max-width: 460px;
+  background: white;
+  border-radius: 24px;
+  padding: 35px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  animation: cardSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardSlideUp {
+  from {
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.otp-modal-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.otp-modal-header i {
+  font-size: 40px;
+  color: #5b5cff;
+  background: #f0f0ff;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.otp-modal-header h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.otp-modal-header p {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.otp-input-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.otp-digit {
+  width: 50px;
+  height: 55px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.otp-digit:focus {
+  border-color: #5b5cff;
+  box-shadow: 0 0 0 4px rgba(91, 92, 255, 0.15);
+}
+
+.otp-timer {
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.otp-timer span {
+  color: #5b5cff;
+  font-weight: 600;
+}
+
+.otp-modal-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otp-modal-footer .cancel-btn {
+  transition: all 0.2s ease;
+}
+
+.otp-modal-footer .cancel-btn:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.otp-modal-footer .resend-btn {
+  transition: color 0.2s ease;
+}
+
+.otp-modal-footer .resend-btn:hover:not(:disabled) {
+  color: #4a4aee !important;
+}

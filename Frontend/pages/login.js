@@ -157,4 +157,201 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(err.message);
       });
   }
+
+  // Forgot Password / Password Reset Flow
+  const forgotLink = document.getElementById("forgotPasswordLink");
+  const forgotModal = document.getElementById("forgotPasswordModal");
+  const cancelResetBtn = document.getElementById("cancelResetBtn");
+  const resetDigits = document.querySelectorAll("#forgotStepReset .otp-digit");
+  let resetTimerInterval = null;
+  let resetCountdownSeconds = 300;
+
+  function startResetCountdown() {
+    clearInterval(resetTimerInterval);
+    resetCountdownSeconds = 60; // 1 minute cooldown to resend
+    const resendBtn = document.getElementById("resendResetBtn");
+    resendBtn.disabled = true;
+    resendBtn.style.cursor = "not-allowed";
+
+    const countdownText = document.getElementById("resetCountdown");
+
+    resetTimerInterval = setInterval(() => {
+      resetCountdownSeconds--;
+      const mins = Math.floor(resetCountdownSeconds / 60);
+      const secs = resetCountdownSeconds % 60;
+      countdownText.textContent = `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+
+      if (resetCountdownSeconds <= 0) {
+        clearInterval(resetTimerInterval);
+        countdownText.textContent = "Expired";
+        resendBtn.disabled = false;
+        resendBtn.style.cursor = "pointer";
+      }
+    }, 1000);
+  }
+
+  // Auto-tabbing focus logic for OTP digits
+  resetDigits.forEach((digitInput, index) => {
+    digitInput.addEventListener("input", (e) => {
+      const val = e.target.value;
+      if (val && index < resetDigits.length - 1) {
+        resetDigits[index + 1].focus();
+      }
+    });
+
+    digitInput.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !digitInput.value && index > 0) {
+        resetDigits[index - 1].focus();
+      }
+    });
+  });
+
+  if (forgotLink) {
+    forgotLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      forgotModal.style.display = "flex";
+      document.getElementById("forgotStepEmail").style.display = "block";
+      document.getElementById("forgotStepReset").style.display = "none";
+      document.getElementById("forgotEmail").value = "";
+      document.getElementById("resetNewPassword").value = "";
+    });
+  }
+
+  if (cancelResetBtn) {
+    cancelResetBtn.addEventListener("click", () => {
+      clearInterval(resetTimerInterval);
+      forgotModal.style.display = "none";
+    });
+  }
+
+  const sendCodeBtn = document.getElementById("sendResetCodeBtn");
+  if (sendCodeBtn) {
+    sendCodeBtn.addEventListener("click", () => {
+      const email = document.getElementById("forgotEmail").value.trim();
+      if (!email || !email.includes("@")) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      sendCodeBtn.disabled = true;
+      sendCodeBtn.textContent = "Sending...";
+
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+        .then((res) => {
+          sendCodeBtn.disabled = false;
+          sendCodeBtn.textContent = "Send Reset Code";
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.message || "Failed to send reset code");
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          alert(data.message);
+          document.getElementById("forgotStepEmail").style.display = "none";
+          document.getElementById("forgotStepReset").style.display = "block";
+          document.getElementById("resetEmailPlaceholder").textContent = email;
+          resetDigits.forEach((input) => (input.value = ""));
+          resetDigits[0].focus();
+          startResetCountdown();
+
+          if (data.otp) {
+            const digits = data.otp.split("");
+            resetDigits.forEach((input, idx) => {
+              if (digits[idx]) input.value = digits[idx];
+            });
+            alert(`For testing purpose, reset code is: ${data.otp}`);
+          }
+        })
+        .catch((err) => {
+          sendCodeBtn.disabled = false;
+          sendCodeBtn.textContent = "Send Reset Code";
+          alert(err.message);
+        });
+    });
+  }
+
+  const submitResetBtn = document.getElementById("submitResetBtn");
+  if (submitResetBtn) {
+    submitResetBtn.addEventListener("click", () => {
+      const email = document.getElementById("forgotEmail").value.trim();
+      const newPassword = document.getElementById("resetNewPassword").value;
+
+      let otp = "";
+      resetDigits.forEach((input) => (otp += input.value.trim()));
+
+      if (otp.length < 6) {
+        alert("Please enter the full 6-digit verification code.");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        alert("Password must be at least 6 characters long.");
+        return;
+      }
+
+      submitResetBtn.disabled = true;
+      submitResetBtn.textContent = "Resetting...";
+
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp, newPassword }),
+      })
+        .then((res) => {
+          submitResetBtn.disabled = false;
+          submitResetBtn.textContent = "Reset Password";
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.message || "Failed to reset password");
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          alert(data.message);
+          clearInterval(resetTimerInterval);
+          forgotModal.style.display = "none";
+        })
+        .catch((err) => {
+          submitResetBtn.disabled = false;
+          submitResetBtn.textContent = "Reset Password";
+          alert(err.message);
+        });
+    });
+  }
+
+  const resendResetBtn = document.getElementById("resendResetBtn");
+  if (resendResetBtn) {
+    resendResetBtn.addEventListener("click", () => {
+      const email = document.getElementById("forgotEmail").value.trim();
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to resend code");
+          return res.json();
+        })
+        .then((data) => {
+          alert(data.message);
+          startResetCountdown();
+
+          if (data.otp) {
+            const digits = data.otp.split("");
+            resetDigits.forEach((input, idx) => {
+              if (digits[idx]) input.value = digits[idx];
+            });
+            alert(`For testing purpose, reset code is: ${data.otp}`);
+          }
+        })
+        .catch((err) => alert(err.message));
+    });
+  }
 });

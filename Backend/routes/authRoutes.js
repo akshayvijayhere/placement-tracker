@@ -685,6 +685,181 @@ router.post("/google/mock", async (req, res) => {
   }
 });
 
+// Request password reset OTP
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "No account found with this email address" });
+    }
+
+    // Generate a 6-digit random numerical code
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Save to Otp collection
+    await Otp.findOneAndUpdate(
+      { email },
+      { otp, createdAt: new Date() },
+      { upsert: true, new: true },
+    );
+
+    const htmlContent = `
+      <div style="font-family: 'Poppins', sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #eef2ff; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h2 style="color: #5b5cff; margin: 0; font-size: 24px;">Placement Tracker</h2>
+          <p style="color: #64748b; font-size: 14px; margin: 5px 0 0 0;">Reset Your Password</p>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 20px 0;" />
+        <p style="color: #334155; font-size: 15px; line-height: 1.5; margin: 0 0 15px 0;">Hello ${user.name},</p>
+        <p style="color: #334155; font-size: 15px; line-height: 1.5; margin: 0 0 20px 0;">We received a request to reset your password. Please use the following 6-digit verification code to complete the process. This code is valid for <strong>5 minutes</strong>.</p>
+        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 20px;">
+          <span style="font-size: 32px; font-weight: 700; color: #5b5cff; letter-spacing: 5px;">${otp}</span>
+        </div>
+        <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin: 0; text-align: center;">If you didn't request a password reset, you can safely ignore this email.</p>
+      </div>
+    `;
+
+    // Try Brevo HTTP API
+    const brevoApiKey = process.env.BREVO_API_KEY;
+    const smtpUser = process.env.SMTP_USER;
+    let brevoErrorMsg = "";
+
+    if (brevoApiKey) {
+      try {
+        const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "api-key": brevoApiKey,
+            "content-type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify({
+            sender: {
+              name: "Placement Tracker",
+              email: smtpUser || "vijayvargiyaakshay062@gmail.com",
+            },
+            to: [{ email: email }],
+            subject: "Reset Your Password | Placement Prep Tracker",
+            htmlContent: htmlContent,
+          }),
+        });
+
+        if (brevoRes.ok) {
+          return res.json({ message: "Reset code sent successfully" });
+        } else {
+          const errData = await brevoRes.json();
+          brevoErrorMsg = errData.message || JSON.stringify(errData);
+          throw new Error(brevoErrorMsg);
+        }
+      } catch (brevoErr) {
+        console.error(
+          "Brevo Password Reset OTP delivery failed:",
+          brevoErr.message,
+        );
+        brevoErrorMsg = brevoErr.message;
+      }
+    }
+
+    // Try Nodemailer SMTP
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const smtpPass = process.env.SMTP_PASS;
+
+    if (smtpHost && smtpPort && smtpUser && smtpPass) {
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: parseInt(smtpPort),
+        secure: smtpPort === "465",
+        auth: { user: smtpUser, pass: smtpPass },
+        connectionTimeout: 3000,
+        greetingTimeout: 3000,
+        socketTimeout: 5000,
+      });
+
+      const mailOptions = {
+        from: `"Placement Tracker" <${smtpUser}>`,
+        to: email,
+        subject: "Reset Your Password | Placement Prep Tracker",
+        html: htmlContent,
+      };
+
+      try {
+        await transporter.sendMail(mailOptions);
+        return res.json({ message: "Reset code sent successfully" });
+      } catch (mailErr) {
+        console.error("SMTP Reset Mail Send Failed:", mailErr.message);
+        return res.json({
+          message: `Reset code generated. (Email delivery failed. SMTP: ${mailErr.message}${brevoErrorMsg ? `, Brevo: ${brevoErrorMsg}` : ""})`,
+          otp,
+        });
+      }
+    } else {
+      return res.json({
+        message: `Reset OTP code sent. (Dev Mode: Check server console logs${brevoErrorMsg ? `. Brevo error: ${brevoErrorMsg}` : ""})`,
+        otp,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server error: " + err.message });
+  }
+});
+
+// Reset password using OTP verification code
+router.post("/reset-password", async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    if (!email || !otp || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    if (newPassword.length < 6) {
+      return res
+        .status(400)
+        .json({ message: "New password must be at least 6 characters long" });
+    }
+
+    // Verify OTP code
+    const otpRecord = await Otp.findOne({ email, otp });
+    if (!otpRecord) {
+      return res
+        .status(400)
+        .json({ message: "Invalid or expired verification code" });
+    }
+
+    // Delete verified OTP record
+    await Otp.deleteOne({ _id: otpRecord._id });
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update password in DB
+    const user = await User.findOneAndUpdate(
+      { email },
+      { $set: { password: hashedPassword } },
+      { new: true },
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "Password reset successful! You can now log in." });
+  } catch (err) {
+    res.status(500).json({ message: "Server error: " + err.message });
+  }
+});
+
 // Environment configuration debugger endpoint
 router.get("/debug", (req, res) => {
   res.json({
