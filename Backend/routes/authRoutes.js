@@ -51,6 +51,8 @@ router.post("/send-otp", async (req, res) => {
     // 1. First choice: Use Brevo HTTP REST API (port 443 - never blocked by cloud firewalls)
     const brevoApiKey = process.env.BREVO_API_KEY;
     const smtpUser = process.env.SMTP_USER;
+    let brevoErrorMsg = "";
+
     if (brevoApiKey) {
       try {
         const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -77,15 +79,15 @@ router.post("/send-otp", async (req, res) => {
           });
         } else {
           const errData = await brevoRes.json();
-          throw new Error(
-            errData.message || "Brevo API rejected email dispatch",
-          );
+          brevoErrorMsg = errData.message || JSON.stringify(errData);
+          throw new Error(brevoErrorMsg);
         }
       } catch (brevoErr) {
         console.error(
           "Brevo HTTP API delivery failed, falling back to SMTP:",
           brevoErr.message,
         );
+        brevoErrorMsg = brevoErr.message;
       }
     }
 
@@ -122,7 +124,7 @@ router.post("/send-otp", async (req, res) => {
       } catch (mailErr) {
         console.error("SMTP Mail Send Failed:", mailErr.message);
         res.json({
-          message: `Verification code generated. (Email delivery failed: ${mailErr.message})`,
+          message: `Verification code generated. (Email delivery failed. SMTP: ${mailErr.message}${brevoErrorMsg ? `, Brevo: ${brevoErrorMsg}` : ""})`,
           otp,
         });
       }
@@ -134,8 +136,7 @@ router.post("/send-otp", async (req, res) => {
       console.log(`Verification Code: ${otp}`);
       console.log(`--------------------------------------------\n`);
       res.json({
-        message:
-          "Verification OTP code sent (Dev Mode: Check server console logs)",
+        message: `Verification OTP code sent. (Dev Mode: Check server console logs${brevoErrorMsg ? `. Brevo error: ${brevoErrorMsg}` : ""})`,
         otp,
       });
     }
