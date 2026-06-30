@@ -23,15 +23,37 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
     <script src="../js/config.js" defer></script>
+    <script src="../js/mobile-nav.js" defer></script>
     <script src="applications.js" defer></script>
   </head>
 
   <body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-logo">
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Placement Tracker</span>
+      </div>
+      <div class="mobile-avatar" id="mobileAvatar"></div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="dashboard-container">
       <!-- Sidebar -->
 
       <aside class="sidebar">
+        <!-- Sidebar close button for mobile -->
+        <button class="sidebar-close" id="sidebarClose">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
         <div class="logo">
           <div class="logo-box">
             <i class="fa-solid fa-briefcase"></i>
