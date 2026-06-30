@@ -32,10 +32,66 @@ router.post("/send-otp", async (req, res) => {
       { upsert: true, new: true },
     );
 
-    // Check if SMTP is configured in env
+    const htmlContent = `
+      <div style="font-family: 'Poppins', sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #eef2ff; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h2 style="color: #5b5cff; margin: 0; font-size: 24px;">Placement Tracker</h2>
+          <p style="color: #64748b; font-size: 14px; margin: 5px 0 0 0;">Confirm your email address</p>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 20px 0;" />
+        <p style="color: #334155; font-size: 15px; line-height: 1.5; margin: 0 0 15px 0;">Hello,</p>
+        <p style="color: #334155; font-size: 15px; line-height: 1.5; margin: 0 0 20px 0;">Thank you for signing up! Please use the following 6-digit verification code to complete your registration. This code is valid for <strong>5 minutes</strong>.</p>
+        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 20px;">
+          <span style="font-size: 32px; font-weight: 700; color: #5b5cff; letter-spacing: 5px;">${otp}</span>
+        </div>
+        <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin: 0; text-align: center;">If you didn't request this code, you can safely ignore this email.</p>
+      </div>
+    `;
+
+    // 1. First choice: Use Brevo HTTP REST API (port 443 - never blocked by cloud firewalls)
+    const brevoApiKey = process.env.BREVO_API_KEY;
+    const smtpUser = process.env.SMTP_USER;
+    if (brevoApiKey) {
+      try {
+        const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "api-key": brevoApiKey,
+            "content-type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify({
+            sender: {
+              name: "Placement Tracker",
+              email: smtpUser || "vijayvargiyaakshay062@gmail.com",
+            },
+            to: [{ email: email }],
+            subject: "Email Verification Code | Placement Prep Tracker",
+            htmlContent: htmlContent,
+          }),
+        });
+
+        if (brevoRes.ok) {
+          return res.json({
+            message: "Verification email sent successfully",
+          });
+        } else {
+          const errData = await brevoRes.json();
+          throw new Error(
+            errData.message || "Brevo API rejected email dispatch",
+          );
+        }
+      } catch (brevoErr) {
+        console.error(
+          "Brevo HTTP API delivery failed, falling back to SMTP:",
+          brevoErr.message,
+        );
+      }
+    }
+
+    // 2. Second choice: Standard SMTP via nodemailer
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = process.env.SMTP_PORT;
-    const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASS;
 
     if (smtpHost && smtpPort && smtpUser && smtpPass) {
@@ -57,21 +113,7 @@ router.post("/send-otp", async (req, res) => {
         from: `"Placement Tracker" <${smtpUser}>`,
         to: email,
         subject: "Email Verification Code | Placement Prep Tracker",
-        html: `
-          <div style="font-family: 'Poppins', sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #eef2ff; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-            <div style="text-align: center; margin-bottom: 20px;">
-              <h2 style="color: #5b5cff; margin: 0; font-size: 24px;">Placement Tracker</h2>
-              <p style="color: #64748b; font-size: 14px; margin: 5px 0 0 0;">Confirm your email address</p>
-            </div>
-            <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 20px 0;" />
-            <p style="color: #334155; font-size: 15px; line-height: 1.5; margin: 0 0 15px 0;">Hello,</p>
-            <p style="color: #334155; font-size: 15px; line-height: 1.5; margin: 0 0 20px 0;">Thank you for signing up! Please use the following 6-digit verification code to complete your registration. This code is valid for <strong>5 minutes</strong>.</p>
-            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 20px;">
-              <span style="font-size: 32px; font-weight: 700; color: #5b5cff; letter-spacing: 5px;">${otp}</span>
-            </div>
-            <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin: 0; text-align: center;">If you didn't request this code, you can safely ignore this email.</p>
-          </div>
-        `,
+        html: htmlContent,
       };
 
       try {
