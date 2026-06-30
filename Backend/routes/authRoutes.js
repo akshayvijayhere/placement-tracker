@@ -48,6 +48,9 @@ router.post("/send-otp", async (req, res) => {
           user: smtpUser,
           pass: smtpPass,
         },
+        connectionTimeout: 3000, // 3 seconds connect timeout
+        greetingTimeout: 3000, // 3 seconds SMTP handshake timeout
+        socketTimeout: 5000, // 5 seconds socket inactivity timeout
       });
 
       const mailOptions = {
