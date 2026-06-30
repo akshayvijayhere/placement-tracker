@@ -588,8 +588,28 @@ document.addEventListener("DOMContentLoaded", () => {
             "Are you sure you want to delete your account? This action is permanent!",
           )
         ) {
-          localStorage.clear();
-          window.location.href = "homepage.html";
+          fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error("Failed to delete account from server.");
+              }
+              return res.json();
+            })
+            .then(() => {
+              localStorage.clear();
+              alert(
+                "Your account and all associated data have been permanently deleted.",
+              );
+              window.location.href = "homepage.html";
+            })
+            .catch((err) => {
+              alert(err.message);
+            });
         }
       } else {
         alert(`${action} feature is currently simulated.`);

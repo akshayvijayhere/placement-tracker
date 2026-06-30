@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const Application = require("../models/Application");
+const DsaTopic = require("../models/DsaTopic");
 const { verifyToken } = require("../middleware/authMiddleware");
 const bcrypt = require("bcryptjs");
 
@@ -85,6 +87,24 @@ router.put("/change-password", verifyToken, async (req, res) => {
     await user.save();
 
     res.json({ message: "Password updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error: " + err.message });
+  }
+});
+
+// Delete user profile and all associated data permanently
+router.delete("/", verifyToken, async (req, res) => {
+  try {
+    // 1. Delete user's applications
+    await Application.deleteMany({ user: req.user.id });
+
+    // 2. Delete user's DSA topics
+    await DsaTopic.deleteMany({ user: req.user.id });
+
+    // 3. Delete user account
+    await User.findByIdAndDelete(req.user.id);
+
+    res.json({ message: "Account and associated data deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: "Server error: " + err.message });
   }
