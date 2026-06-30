@@ -104,22 +104,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Google Sign-In Integration
-  fetch(`${CONFIG.API_BASE_URL}/api/config/google`)
-    .then((response) => response.json())
-    .then((data) => {
-      const clientId = data.clientId;
-      if (
-        !clientId ||
-        typeof google === "undefined" ||
-        !google.accounts ||
-        !google.accounts.id
-      ) {
-        renderMockGoogleButton();
-        return;
-      }
-
-      // Initialize Google Identity Services
+  // Google Sign-In Integration (Instant Initializer)
+  const initGoogleSignIn = () => {
+    const clientId =
+      "115784618885-tnckr4693u6jg0j219fn6pkih3dl6ljg.apps.googleusercontent.com";
+    if (
+      typeof google !== "undefined" &&
+      google.accounts &&
+      google.accounts.id
+    ) {
       google.accounts.id.initialize({
         client_id: clientId,
         callback: handleGoogleLogin,
@@ -131,11 +124,13 @@ document.addEventListener("DOMContentLoaded", () => {
         width: "360",
         text: "continue_with",
       });
-    })
-    .catch((err) => {
-      console.error("Error fetching Google Auth config:", err);
-      renderMockGoogleButton();
-    });
+    } else {
+      // Retry in 50ms if script is still loading async
+      setTimeout(initGoogleSignIn, 50);
+    }
+  };
+
+  initGoogleSignIn();
 
   function handleGoogleLogin(response) {
     fetch(`${CONFIG.API_BASE_URL}/api/auth/google`, {
