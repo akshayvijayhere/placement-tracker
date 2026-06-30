@@ -684,4 +684,24 @@ router.post("/google/mock", async (req, res) => {
   }
 });
 
+// Environment configuration debugger endpoint
+router.get("/debug", (req, res) => {
+  res.json({
+    status: "online",
+    timestamp: new Date().toISOString(),
+    env: {
+      hasBrevoKey: !!process.env.BREVO_API_KEY,
+      brevoKeyLength: process.env.BREVO_API_KEY
+        ? process.env.BREVO_API_KEY.length
+        : 0,
+      hasSmtpUser: !!process.env.SMTP_USER,
+      hasSmtpPass: !!process.env.SMTP_PASS,
+      hasSmtpHost: !!process.env.SMTP_HOST,
+      hasSmtpPort: !!process.env.SMTP_PORT,
+      smtpPort: process.env.SMTP_PORT || null,
+      nodeVersion: process.version,
+    },
+  });
+});
+
 module.exports = router;
