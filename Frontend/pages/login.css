@@ -812,3 +812,29 @@ label {
 .otp-modal-footer .resend-btn:hover:not(:disabled) {
   color: #4a4aee !important;
 }
+
+@media (max-width: 480px) {
+  .otp-modal-card {
+    padding: 20px 15px !important;
+    border-radius: 16px !important;
+    max-width: 92% !important;
+    margin: 0 auto;
+  }
+  .otp-input-group {
+    gap: 6px !important;
+  }
+  .otp-digit {
+    width: 36px !important;
+    height: 42px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+  }
+  .otp-modal-header h3 {
+    font-size: 20px !important;
+  }
+  .otp-modal-header i {
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 30px !important;
+  }
+}

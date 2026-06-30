@@ -1033,6 +1033,31 @@ footer p {
     padding: 3rem 1rem;
   }
 
+  .contact-container {
+    gap: 2rem;
+  }
+
+  .contact-info h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .contact-info > p {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-list {
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .info-item {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
   .contact-form-container {
     padding: 1.5rem;
   }
@@ -1047,6 +1072,14 @@ footer p {
 }
 
 @media (max-width: 480px) {
+  nav {
+    gap: 0.75rem !important;
+  }
+
+  nav a {
+    font-size: 0.8rem !important;
+  }
+
   .dashboard-mockup {
     transform: scale(0.78);
     transform-origin: top center;
