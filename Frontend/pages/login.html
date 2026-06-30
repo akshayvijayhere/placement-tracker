@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login | Placement Tracker</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>"
+    />
+
+    <link rel="stylesheet" href="login.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="login.js" defer></script>
+  </head>
+
+  <body>
+    <header class="navbar">
+      <a
+        href="homepage.html"
+        class="logo"
+        style="text-decoration: none; color: inherit"
+      >
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Placement Tracker</span>
+      </a>
+
+      <div class="register-link">
+        <span class="text-hide-mobile">Don't have an account?</span>
+        <a href="registration.html">Register</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Left Section -->
+
+      <section class="left-panel">
+        <div class="hero-content">
+          <h1>
+            Track.<br />
+            Prepare.<br />
+            <span>Succeed.</span>
+          </h1>
+
+          <p>
+            Manage your job applications, track your DSA progress, and stay
+            ready for interviews — all in one place.
+          </p>
+        </div>
+      </section>
+
+      <!-- Right Section -->
+
+      <section class="right-panel">
+        <div class="login-card">
+          <div class="avatar">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+
+          <h2>Welcome Back</h2>
+
+          <p class="subtitle">Login to continue your placement journey</p>
+
+          <form action="#" method="POST">
+            <label>Email Address</label>
+
+            <div class="input-box">
+              <i class="fa-regular fa-envelope"></i>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <label>Password</label>
+
+            <div class="input-box">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                required
+              />
+              <i class="fa-regular fa-eye"></i>
+            </div>
+
+            <div class="forgot-password">
+              <a href="#">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+          </form>
+
+          <div class="divider">
+            <span>or</span>
+          </div>
+
+          <div
+            id="googleBtn"
+            style="margin-top: 15px; display: flex; justify-content: center"
+          ></div>
+
+          <p class="terms">
+            By continuing, you agree to our
+            <a href="#">Terms of Use</a>
+            and
+            <a href="#">Privacy Policy</a>
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

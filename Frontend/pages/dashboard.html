@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dashboard</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>"
+    />
+
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script src="dashboard.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-box">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+
+          <div class="logo-text">
+            <span>Placement</span>
+            <span>Tracker</span>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a href="dashboard.html" class="menu-item active">
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+          </a>
+
+          <a href="applications.html" class="menu-item">
+            <i class="fa-regular fa-clipboard"></i>
+
+            Applications
+          </a>
+
+          <a href="dsa_tracker.html" class="menu-item">
+            <i class="fa-solid fa-code"></i>
+
+            DSA Tracker
+          </a>
+
+          <a href="profile.html" class="menu-item">
+            <i class="fa-regular fa-user"></i>
+
+            Profile
+          </a>
+        </nav>
+
+        <button
+          class="logout-btn"
+          onclick="window.location.href = 'homepage.html'"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          Logout
+        </button>
+      </aside>
+
+      <!-- Main Content -->
+
+      <main class="main-content">
+        <!-- Topbar -->
+
+        <header class="topbar">
+          <div>
+            <h1>
+              <i class="fa-solid fa-house"></i>
+              Dashboard
+            </h1>
+
+            <p>Welcome back, Akshay! 👋 Here's your placement overview.</p>
+          </div>
+
+          <div class="top-actions">
+            <button
+              class="theme-toggle-btn"
+              id="themeToggleBtn"
+              title="Toggle Theme"
+            >
+              <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <div class="notification">
+              <i class="fa-regular fa-bell"></i>
+
+              <span>3</span>
+            </div>
+
+            <a href="profile.html" style="text-decoration: none"
+              ><div class="avatar">A</div></a
+            >
+          </div>
+        </header>
+
+        <!-- Section 2 Starts Here -->
+        <!-- SECTION 2 -->
+
+        <section class="stats-grid">
+          <!-- Card 1 -->
+
+          <div class="stat-card">
+            <div class="icon purple">
+              <i class="fa-regular fa-file-lines"></i>
+            </div>
+
+            <h3>Total Applications</h3>
+
+            <h1>-</h1>
+
+            <p>All time applications</p>
+          </div>
+
+          <!-- Card 2 -->
+
+          <div class="stat-card">
+            <div class="icon blue">
+              <i class="fa-regular fa-calendar-check"></i>
+            </div>
+
+            <h3>Interviews</h3>
+
+            <h1>-</h1>
+
+            <p>Interviews scheduled</p>
+          </div>
+
+          <!-- Card 3 -->
+
+          <div class="stat-card">
+            <div class="icon green">
+              <i class="fa-solid fa-check"></i>
+            </div>
+
+            <h3>Selected</h3>
+
+            <h1>-</h1>
+
+            <p>Offers received</p>
+          </div>
+
+          <!-- Card 4 -->
+
+          <div class="stat-card">
+            <div class="icon orange">
+              <i class="fa-solid fa-code"></i>
+            </div>
+
+            <h3>DSA Statistics</h3>
+
+            <h1>-%</h1>
+
+            <p>Overall Progress</p>
+          </div>
+
+          <!-- Card 5 (Daily Streak) -->
+
+          <div class="stat-card" id="streakStatCard">
+            <div
+              class="icon orange"
+              style="background: rgba(234, 88, 12, 0.1); color: #ea580c"
+            >
+              <i class="fa-solid fa-fire animate-pulse"></i>
+            </div>
+
+            <h3>Daily Streak</h3>
+
+            <h1 id="streakCountVal">0</h1>
+
+            <p id="streakLongestVal">Longest Streak: 0 days</p>
+          </div>
+        </section>
+
+        <!-- SECTION 3 STARTS HERE -->
+        <!-- SECTION 3 -->
+
+        <section class="overview-section">
+          <!-- Application Overview -->
+
+          <div class="overview-card">
+            <h2>Application Status Overview</h2>
+
+            <div class="overview-content">
+              <!-- Donut Chart -->
+
+              <div class="donut-chart">
+                <div class="donut-center"></div>
+              </div>
+
+              <!-- Legend -->
+
+              <div class="chart-legend">
+                <div class="legend-row">
+                  <div class="legend-left">
+                    <span class="dot applied-dot"></span>
+
+                    Applied
+                  </div>
+
+                  <strong>-</strong>
+                </div>
+
+                <div class="legend-row">
+                  <div class="legend-left">
+                    <span class="dot interview-dot"></span>
+
+                    Interview
+                  </div>
+
+                  <strong>-</strong>
+                </div>
+
+                <div class="legend-row">
+                  <div class="legend-left">
+                    <span class="dot rejected-dot"></span>
+
+                    Rejected
+                  </div>
+
+                  <strong>-</strong>
+                </div>
+
+                <div class="legend-row">
+                  <div class="legend-left">
+                    <span class="dot selected-dot"></span>
+
+                    Selected
+                  </div>
+
+                  <strong>-</strong>
+                </div>
+              </div>
+            </div>
+
+            <a href="applications.html" class="overview-link">
+              View all applications &rarr;
+            </a>
+          </div>
+
+          <!-- SECTION 4 WILL COME HERE -->
+          <!-- DSA PROGRESS OVERVIEW -->
+
+          <div class="overview-card">
+            <h2>DSA Progress Overview</h2>
+
+            <div class="dsa-wrapper">
+              <!-- LEFT -->
+
+              <div class="dsa-left">
+                <p class="progress-label">Overall Progress</p>
+
+                <h1 class="progress-percent">-%</h1>
+
+                <div class="main-progress">
+                  <div class="main-progress-fill"></div>
+                </div>
+
+                <p class="question-label">Total Questions Solved</p>
+
+                <h2 class="question-count">- / -</h2>
+              </div>
+
+              <!-- RIGHT -->
+
+              <div class="dsa-right">
+                <h4>Topic-wise Progress</h4>
+
+                <div class="topic-row">
+                  <span>Arrays</span>
+
+                  <div class="topic-progress">
+                    <div class="fill fill80"></div>
+                  </div>
+
+                  <span>80%</span>
+                </div>
+
+                <div class="topic-row">
+                  <span>Strings</span>
+
+                  <div class="topic-progress">
+                    <div class="fill fill60"></div>
+                  </div>
+
+                  <span>60%</span>
+                </div>
+
+                <div class="topic-row">
+                  <span>Linked List</span>
+
+                  <div class="topic-progress">
+                    <div class="fill fill40"></div>
+                  </div>
+
+                  <span>40%</span>
+                </div>
+
+                <div class="topic-row">
+                  <span>Trees</span>
+
+                  <div class="topic-progress">
+                    <div class="fill fill70"></div>
+                  </div>
+
+                  <span>70%</span>
+                </div>
+
+                <div class="topic-row">
+                  <span>Dynamic Programming</span>
+
+                  <div class="topic-progress">
+                    <div class="fill fill30"></div>
+                  </div>
+
+                  <span>30%</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="dsa_tracker.html" class="overview-link">
+              Go to DSA Tracker &rarr;
+            </a>
+          </div>
+        </section>
+        <!-- SECTION 5 -->
+
+        <section class="bottom-section">
+          <!-- Recent Applications -->
+
+          <div class="recent-applications-card">
+            <div class="card-header">
+              <h2>Recent Applications</h2>
+
+              <a href="applications.html"> View All </a>
+            </div>
+
+            <table class="recent-table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+
+                  <th>Role</th>
+
+                  <th>Status</th>
+
+                  <th>Date Applied</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Google</td>
+
+                  <td>Software Engineer</td>
+
+                  <td>
+                    <span class="status interview"> Interview </span>
+                  </td>
+
+                  <td>12 May 2025</td>
+                </tr>
+
+                <tr>
+                  <td>Microsoft</td>
+
+                  <td>SDE Intern</td>
+
+                  <td>
+                    <span class="status applied"> Applied </span>
+                  </td>
+
+                  <td>10 May 2025</td>
+                </tr>
+
+                <tr>
+                  <td>Amazon</td>
+
+                  <td>SDE Intern</td>
+
+                  <td>
+                    <span class="status rejected"> Rejected </span>
+                  </td>
+
+                  <td>08 May 2025</td>
+                </tr>
+
+                <tr>
+                  <td>Adobe</td>
+
+                  <td>Software Engineer</td>
+
+                  <td>
+                    <span class="status selected"> Selected </span>
+                  </td>
+
+                  <td>06 May 2025</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SECTION 6 WILL COME HERE -->
+          <!-- QUICK ACTIONS -->
+
+          <div class="quick-actions-card">
+            <h2>Quick Actions</h2>
+
+            <div class="action-buttons">
+              <button class="action-btn primary">
+                <i class="fa-solid fa-plus"></i>
+
+                Add New Application
+              </button>
+
+              <button class="action-btn secondary">
+                <i class="fa-solid fa-code"></i>
+
+                Update DSA Progress
+              </button>
+            </div>
+
+            <div class="summary-box">
+              <div class="summary-row">
+                <span>Total Applications</span>
+
+                <strong>32</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Interviews</span>
+
+                <strong>8</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Selected</span>
+
+                <strong>5</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- REPORT MODAL -->
+    <div class="modal-backdrop" id="reportModalBackdrop">
+      <div class="report-modal">
+        <div class="modal-header">
+          <h2>
+            <i class="fa-solid fa-chart-line"></i> Placement Analysis Report
+          </h2>
+          <button class="close-modal-btn" id="closeReportModalBtn">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="report-grid">
+            <div class="report-card">
+              <h3>Application Funnel</h3>
+              <div class="funnel-container">
+                <!-- Applied -->
+                <div class="funnel-step">
+                  <span>Applied</span>
+                  <div class="funnel-bar applied" id="funnelAppliedBar">
+                    <span id="funnelAppliedText">32</span>
+                  </div>
+                </div>
+                <!-- OA -->
+                <div class="funnel-step">
+                  <span>OA</span>
+                  <div class="funnel-bar oa" id="funnelOaBar">
+                    <span id="funnelOaText">4</span>
+                  </div>
+                </div>
+                <!-- Interview -->
+                <div class="funnel-step">
+                  <span>Interview</span>
+                  <div class="funnel-bar interview" id="funnelInterviewBar">
+                    <span id="funnelInterviewText">8</span>
+                  </div>
+                </div>
+                <!-- Selected -->
+                <div class="funnel-step">
+                  <span>Selected</span>
+                  <div class="funnel-bar selected" id="funnelSelectedBar">
+                    <span id="funnelSelectedText">5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-card">
+              <h3>Conversion Metrics</h3>
+              <div class="metrics-list">
+                <div class="metric-item">
+                  <span>Interview Rate</span>
+                  <strong id="metricInterviewRate">25%</strong>
+                </div>
+                <div class="metric-item">
+                  <span>Selection Rate</span>
+                  <strong id="metricSelectionRate">15.6%</strong>
+                </div>
+                <div class="metric-item">
+                  <span>Highest Offer Package</span>
+                  <strong id="metricHighestPackage">45 LPA</strong>
+                </div>
+                <div class="metric-item">
+                  <span>Dream Status</span>
+                  <strong id="metricDreamStatus" class="dream-badge"
+                    >Achieved</strong
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>DSA Tracker</title>
+
+    <link rel="stylesheet" href="dsa_tracker.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script src="dsa_tracker.js" defer></script>
+  </head>
+
+  <body>
+    <div class="dashboard-container">
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-box">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+
+          <div class="logo-text">
+            <span>Placement</span>
+            <span>Tracker</span>
+          </div>
+        </div>
+
+        <!-- MENU -->
+
+        <nav class="menu">
+          <a href="dashboard.html" class="menu-item">
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+          </a>
+
+          <a href="applications.html" class="menu-item">
+            <i class="fa-regular fa-clipboard"></i>
+
+            Applications
+          </a>
+
+          <a href="dsa_tracker.html" class="menu-item active">
+            <i class="fa-solid fa-code"></i>
+
+            DSA Tracker
+          </a>
+
+          <a href="profile.html" class="menu-item">
+            <i class="fa-regular fa-user"></i>
+
+            Profile
+          </a>
+        </nav>
+
+        <button
+          class="logout-btn"
+          onclick="window.location.href = 'homepage.html'"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+          Logout
+        </button>
+      </aside>
+
+      <!-- MAIN -->
+
+      <main class="main-content">
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+          <div>
+            <h1>
+              <i class="fa-solid fa-code"></i>
+
+              DSA Tracker
+            </h1>
+
+            <p>
+              Track your DSA practice and improve your problem solving skills.
+            </p>
+          </div>
+
+          <div class="topbar-right">
+            <button
+              class="theme-toggle-btn"
+              id="themeToggleBtn"
+              title="Toggle Theme"
+            >
+              <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <div class="notification">
+              <i class="fa-regular fa-bell"></i>
+
+              <span>3</span>
+            </div>
+
+            <a href="profile.html" style="text-decoration: none"
+              ><div class="avatar">A</div></a
+            >
+          </div>
+        </header>
+
+        <!-- SECTION 2 WILL START HERE -->
+        <!-- SECTION 2 -->
+
+        <section class="stats-grid">
+          <!-- Card 1 -->
+
+          <div class="stat-card">
+            <div class="card-top">
+              <div>
+                <span class="card-title"> Overall Progress </span>
+
+                <h2>-%</h2>
+              </div>
+
+              <div class="card-icon purple">
+                <i class="fa-solid fa-chart-column"></i>
+              </div>
+            </div>
+
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+
+            <p class="card-footer">- / - Questions Solved</p>
+          </div>
+
+          <!-- Card 2 -->
+
+          <div class="stat-card">
+            <div class="card-top">
+              <div>
+                <span class="card-title"> Topics Covered </span>
+
+                <h2>-</h2>
+              </div>
+
+              <div class="card-icon blue">
+                <i class="fa-solid fa-list"></i>
+              </div>
+            </div>
+
+            <p class="subtext">Out of - Topics</p>
+          </div>
+
+          <!-- Card 3 -->
+
+          <div class="stat-card">
+            <div class="card-top">
+              <div>
+                <span class="card-title"> Questions Solved </span>
+
+                <h2 class="green-text">-</h2>
+              </div>
+
+              <div class="card-icon green">
+                <i class="fa-solid fa-check"></i>
+              </div>
+            </div>
+
+            <p class="subtext">Total Solved</p>
+          </div>
+
+          <!-- Card 4 -->
+
+          <div class="stat-card">
+            <div class="card-top">
+              <div>
+                <span class="card-title"> Questions Remaining </span>
+
+                <h2 class="orange-text">-</h2>
+              </div>
+
+              <div class="card-icon orange">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+            </div>
+
+            <p class="subtext">Keep it up!</p>
+          </div>
+        </section>
+
+        <section class="table-section">
+          <div class="topics-card">
+            <!-- Header -->
+
+            <div class="topics-header">
+              <div class="left-header">
+                <h2>All Topics</h2>
+
+                <span class="topic-count"> 12 </span>
+              </div>
+
+              <div class="table-controls">
+                <div class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+
+                  <input type="text" placeholder="Search topic..." />
+                </div>
+
+                <select>
+                  <option>All Topics</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Table -->
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Topic Name</th>
+                  <th style="text-align: center">Easy</th>
+                  <th style="text-align: center">Medium</th>
+                  <th style="text-align: center">Hard</th>
+                  <th>Overall Progress</th>
+                  <th style="text-align: right; padding-right: 24px">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Arrays</td>
+
+                  <td>80</td>
+
+                  <td>64</td>
+
+                  <td>
+                    <div class="table-progress">
+                      <div class="table-fill fill80"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Strings</td>
+
+                  <td>70</td>
+
+                  <td>42</td>
+
+                  <td>
+                    <div class="table-progress">
+                      <div class="table-fill fill60"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Linked List</td>
+
+                  <td>50</td>
+
+                  <td>20</td>
+
+                  <td>
+                    <div class="table-progress">
+                      <div class="table-fill fill40"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Trees</td>
+
+                  <td>60</td>
+
+                  <td>42</td>
+
+                  <td>
+                    <div class="table-progress">
+                      <div class="table-fill fill70"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="pagination" id="dsaPagination"></div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="right-panel">
+            <div class="add-topic-card">
+              <div class="card-header">
+                <h3>Add New Topic</h3>
+                <button class="small-add-btn">Reset</button>
+              </div>
+
+              <div class="form-group">
+                <label for="topicNameInput">Topic Name</label>
+                <input
+                  type="text"
+                  id="topicNameInput"
+                  placeholder="e.g. Backtracking, Graphs"
+                />
+              </div>
+
+              <div class="difficulty-container">
+                <!-- Easy Row -->
+                <div class="difficulty-row">
+                  <div class="diff-label">
+                    <span class="dot easy"></span>
+                    <span>Easy</span>
+                  </div>
+                  <div class="diff-inputs-group">
+                    <input
+                      type="number"
+                      id="easySolvedInput"
+                      placeholder="Solved"
+                      min="0"
+                      value="0"
+                    />
+                    <span class="slash">/</span>
+                    <input
+                      type="number"
+                      id="easyTotalInput"
+                      placeholder="Total"
+                      min="0"
+                      value="0"
+                    />
+                  </div>
+                </div>
+
+                <!-- Medium Row -->
+                <div class="difficulty-row">
+                  <div class="diff-label">
+                    <span class="dot medium"></span>
+                    <span>Medium</span>
+                  </div>
+                  <div class="diff-inputs-group">
+                    <input
+                      type="number"
+                      id="mediumSolvedInput"
+                      placeholder="Solved"
+                      min="0"
+                      value="0"
+                    />
+                    <span class="slash">/</span>
+                    <input
+                      type="number"
+                      id="mediumTotalInput"
+                      placeholder="Total"
+                      min="0"
+                      value="0"
+                    />
+                  </div>
+                </div>
+
+                <!-- Hard Row -->
+                <div class="difficulty-row">
+                  <div class="diff-label">
+                    <span class="dot hard"></span>
+                    <span>Hard</span>
+                  </div>
+                  <div class="diff-inputs-group">
+                    <input
+                      type="number"
+                      id="hardSolvedInput"
+                      placeholder="Solved"
+                      min="0"
+                      value="0"
+                    />
+                    <span class="slash">/</span>
+                    <input
+                      type="number"
+                      id="hardTotalInput"
+                      placeholder="Total"
+                      min="0"
+                      value="0"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button class="add-topic-btn">Add Topic</button>
+            </div>
+
+            <!-- TOPIC OVERVIEW -->
+
+            <div class="overview-card">
+              <div class="card-header">
+                <h3>Topic Progress Overview</h3>
+              </div>
+
+              <!-- Donut Chart -->
+
+              <div class="chart-container">
+                <div class="donut-chart">
+                  <div class="chart-center">
+                    <h2>65%</h2>
+
+                    <span>Overall</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Legend -->
+
+              <div class="legend">
+                <div class="legend-item lvl-advanced">
+                  <div class="dot advanced"></div>
+
+                  <span>Advanced</span>
+
+                  <strong>4</strong>
+                </div>
+
+                <div class="legend-item lvl-good">
+                  <div class="dot good"></div>
+
+                  <span>Good</span>
+
+                  <strong>3</strong>
+                </div>
+
+                <div class="legend-item lvl-average">
+                  <div class="dot average"></div>
+
+                  <span>Average</span>
+
+                  <strong>3</strong>
+                </div>
+
+                <div class="legend-item lvl-beginner">
+                  <div class="dot beginner"></div>
+
+                  <span>Beginner</span>
+
+                  <strong>2</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

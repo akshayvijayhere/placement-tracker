@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Placement Tracker</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>"
+    />
+
+    <link rel="stylesheet" href="registration.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="registration.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Top Navbar -->
+    <header class="navbar">
+      <a href="homepage.html" class="logo" style="text-decoration: none">
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Placement Tracker</span>
+      </a>
+
+      <div class="login-link">
+        Already have an account?
+        <a href="login.html">Login</a>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Left Side -->
+      <div class="left-panel">
+        <div class="content">
+          <h1>
+            Start Your <br />
+            <span>Placement Journey</span><br />
+            with Us
+          </h1>
+
+          <p>
+            Track applications, prepare DSA, and stay organized throughout your
+            placement preparation.
+          </p>
+
+          <div class="features">
+            <div class="feature">
+              <i class="fa-solid fa-chart-column"></i>
+              <div>
+                <h4>Track Progress</h4>
+                <p>Monitor your preparation</p>
+              </div>
+            </div>
+
+            <div class="feature">
+              <i class="fa-solid fa-clipboard-list"></i>
+              <div>
+                <h4>Stay Organized</h4>
+                <p>Keep all your data in one place</p>
+              </div>
+            </div>
+
+            <div class="feature">
+              <i class="fa-solid fa-code"></i>
+              <div>
+                <h4>Crush Placements</h4>
+                <p>Prepare better, get placed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side -->
+
+      <div class="right-panel">
+        <div class="register-card">
+          <div class="avatar">
+            <i class="fa-regular fa-user"></i>
+          </div>
+
+          <h2>Create an Account</h2>
+
+          <p class="subtitle">Fill in the details below to get started</p>
+
+          <form action="#" method="POST">
+            <label>Full Name</label>
+
+            <div class="input-box">
+              <i class="fa-regular fa-user"></i>
+              <input
+                type="text"
+                id="registerName"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <label>Username</label>
+
+            <div class="input-box">
+              <i class="fa-solid fa-at"></i>
+              <input
+                type="text"
+                id="registerUsername"
+                placeholder="Enter your username"
+                required
+              />
+            </div>
+
+            <label>Email Address</label>
+
+            <div class="input-box">
+              <i class="fa-regular fa-envelope"></i>
+              <input
+                type="email"
+                id="registerEmail"
+                placeholder="Enter your email address"
+                required
+              />
+            </div>
+
+            <label>Password</label>
+
+            <div class="input-box">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="registerPassword"
+                placeholder="Enter your password"
+                required
+              />
+              <i class="fa-regular fa-eye"></i>
+            </div>
+
+            <button type="submit" class="register-btn">Create Account</button>
+          </form>
+
+          <div class="divider">
+            <span>or</span>
+          </div>
+
+          <div
+            id="googleBtn"
+            style="margin-top: 15px; display: flex; justify-content: center"
+          ></div>
+
+          <p class="terms">
+            By creating an account, you agree to our
+            <a href="#">Terms of Use</a> and
+            <a href="#">Privacy Policy</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- OTP Verification Modal Overlay -->
+    <div id="otpModal" class="otp-modal-overlay" style="display: none">
+      <div class="otp-modal-card">
+        <div class="otp-modal-header">
+          <i class="fa-regular fa-envelope-open"></i>
+          <h3>Verify Your Email</h3>
+          <p>
+            We've sent a 6-digit verification code to
+            <strong id="otpEmailPlaceholder"></strong>.
+          </p>
+        </div>
+
+        <div class="otp-input-group">
+          <input type="text" maxlength="1" class="otp-digit" />
+          <input type="text" maxlength="1" class="otp-digit" />
+          <input type="text" maxlength="1" class="otp-digit" />
+          <input type="text" maxlength="1" class="otp-digit" />
+          <input type="text" maxlength="1" class="otp-digit" />
+          <input type="text" maxlength="1" class="otp-digit" />
+        </div>
+
+        <div class="otp-timer">
+          Code expires in: <span id="otpCountdown">05:00</span>
+        </div>
+
+        <div class="otp-modal-footer">
+          <button id="resendOtpBtn" class="resend-btn" disabled>
+            Resend Code
+          </button>
+          <div class="footer-action-btns">
+            <button id="cancelOtpBtn" class="cancel-btn">Cancel</button>
+            <button id="submitOtpBtn" class="submit-btn">
+              Verify & Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Placement Tracker</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>"
+    />
+
+    <link rel="stylesheet" href="homepage.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="homepage.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <h2>
+          <i
+            class="fa-solid fa-briefcase"
+            style="color: #6d5cff; margin-right: 8px"
+          ></i>
+          Placement Tracker
+        </h2>
+      </div>
+
+      <nav>
+        <a href="#">Home</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="auth-buttons">
+        <button class="login-btn" onclick="window.location.href = 'login.html'">
+          Login
+        </button>
+        <button
+          class="register-btn"
+          onclick="window.location.href = 'registration.html'"
+        >
+          Register
+        </button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <!-- Premium Glowing background blobs -->
+      <div class="hero-blob hero-blob-1"></div>
+      <div class="hero-blob hero-blob-2"></div>
+
+      <div class="hero-left">
+        <span class="badge">
+          <i
+            class="fa-solid fa-star"
+            style="color: #f59e0b; margin-right: 6px"
+          ></i>
+          Track. Prepare. Succeed.
+        </span>
+
+        <h1>
+          Your Placement Journey,
+          <span>Organized & Simplified.</span>
+        </h1>
+
+        <p>
+          Placement Tracker helps you manage your job applications, track your
+          DSA progress, and stay on top of your placement preparation — all in
+          one place.
+        </p>
+
+        <div class="hero-buttons">
+          <button
+            class="primary-btn"
+            onclick="window.location.href = 'registration.html'"
+          >
+            Get Started <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+          <button
+            class="secondary-btn"
+            onclick="window.location.href = 'login.html'"
+          >
+            Login <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="dashboard-mockup">
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="mockup-title">
+              <i
+                class="fa-solid fa-lock-open"
+                style="font-size: 10px; margin-right: 4px"
+              ></i>
+              placementtracker.com
+            </div>
+            <div style="width: 42px"></div>
+          </div>
+
+          <div class="dashboard-layout">
+            <div class="sidebar">
+              <div class="sidebar-logo">
+                <i class="fa-solid fa-briefcase"></i> Tracker
+              </div>
+              <ul>
+                <li class="active">
+                  <i class="fa-solid fa-house"></i> Dashboard
+                </li>
+                <li><i class="fa-solid fa-folder-open"></i> Applications</li>
+                <li><i class="fa-solid fa-code"></i> DSA Tracker</li>
+                <li><i class="fa-solid fa-user"></i> Profile</li>
+              </ul>
+            </div>
+
+            <div class="dashboard-content">
+              <div class="cards">
+                <div class="card">
+                  <h4><i class="fa-solid fa-folder-open"></i> Apps</h4>
+                  <p>24</p>
+                </div>
+                <div class="card">
+                  <h4><i class="fa-solid fa-award"></i> Placed</h4>
+                  <p>1</p>
+                </div>
+                <div class="card">
+                  <h4><i class="fa-solid fa-laptop-code"></i> DSA</h4>
+                  <p>65%</p>
+                </div>
+              </div>
+
+              <div class="mockup-table">
+                <div class="mockup-row">
+                  <span class="company-name">
+                    <span class="company-logo" style="background: #ea4335"
+                      >G</span
+                    >
+                    Google
+                  </span>
+                  <span class="mockup-badge selected">Selected</span>
+                </div>
+                <div class="mockup-row">
+                  <span class="company-name">
+                    <span class="company-logo" style="background: #f25f22"
+                      >M</span
+                    >
+                    Microsoft
+                  </span>
+                  <span class="mockup-badge interview">Interview</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="features-header">
+        <h4>FEATURES</h4>
+        <h2>Everything You Need To Stay Ahead</h2>
+        <p class="features-subtitle">
+          Gain full control over your career preparation with our integrated
+          dashboard tools designed for student success.
+        </p>
+      </div>
+
+      <div class="feature-container">
+        <div class="feature-card" data-accent="blue">
+          <div class="feature-icon"><i class="fa-solid fa-chart-pie"></i></div>
+          <h3>Interactive Dashboard</h3>
+          <p>
+            Get a bird's-eye view of your recruitment process. Monitor active
+            job applications, selected status, current coding streaks, and
+            recent application listings in real-time.
+          </p>
+          <div class="card-accent-line"></div>
+        </div>
+
+        <div class="feature-card" data-accent="green">
+          <div class="feature-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <h3>Application Pipeline</h3>
+          <p>
+            Track and organize your job applications end-to-end. Keep records of
+            company names, roles, packages, dates, and interview stages with
+            clean status filters.
+          </p>
+          <div class="card-accent-line"></div>
+        </div>
+
+        <div class="feature-card" data-accent="purple">
+          <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
+          <h3>DSA Tracker</h3>
+          <p>
+            Log solved coding questions grouped by data structure topics. Keep
+            tabs on total solved counts, completion percentages, and manage your
+            progress across structures.
+          </p>
+          <div class="card-accent-line"></div>
+        </div>
+
+        <div class="feature-card" data-accent="orange">
+          <div class="feature-icon"><i class="fa-solid fa-fire"></i></div>
+          <h3>Gamified Badges & Streaks</h3>
+          <p>
+            Maintain daily coding streaks to earn consistency rewards. Unlock
+            motivational milestone badges like Getting Started, 3-Day Warrior,
+            7-Day Warrior, and 30-Day Legend.
+          </p>
+          <div class="card-accent-line"></div>
+        </div>
+
+        <div class="feature-card" data-accent="cyan">
+          <div class="feature-icon"><i class="fa-solid fa-user-gear"></i></div>
+          <h3>Secure Profile Manager</h3>
+          <p>
+            Manage your academic metadata, resumes, location details, and
+            profile pictures. Keep contact credentials and authentication tokens
+            securely saved.
+          </p>
+          <div class="card-accent-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-container">
+        <div class="about-left">
+          <h4>OUR MISSION</h4>
+          <h2>Bridging the Gap Between Preparation & Placement</h2>
+          <p>
+            Placement Tracker was built with a simple goal: to help students
+            navigate the chaotic placement season with absolute structure and
+            confidence.
+          </p>
+          <p>
+            By combining daily DSA consistency metrics with an organized job
+            application pipeline, the platform ensures you never miss a deadline
+            and always stay motivated.
+          </p>
+
+          <div class="about-points">
+            <div class="point-item">
+              <span class="point-check">✓</span>
+              <span
+                ><strong>Consistency-First:</strong> Built-in streaks to
+                cultivate daily coding habits.</span
+              >
+            </div>
+            <div class="point-item">
+              <span class="point-check">✓</span>
+              <span
+                ><strong>Pipeline Transparency:</strong> Track OAs, interviews,
+                and offers in one spot.</span
+              >
+            </div>
+            <div class="point-item">
+              <span class="point-check">✓</span>
+              <span
+                ><strong>Progress Tracking:</strong> Stay on top of recent
+                applications, streaks, and interview stages.</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="about-right">
+          <h3>How It Works</h3>
+          <div class="timeline">
+            <div class="timeline-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Register & Setup Profile</h4>
+                <p>
+                  Create your student profile and configure your contact
+                  information, college metadata, and avatar.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Track DSA & Consistency</h4>
+                <p>
+                  Log solved coding questions across data structure topics to
+                  build daily streaks and unlock milestones.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Track Applications & Get Placed</h4>
+                <p>
+                  Log job applications and update status flags dynamically to
+                  monitor your interview pipeline.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-header">
+        <h4>GET IN TOUCH</h4>
+        <h2>We'd Love To Hear From You</h2>
+      </div>
+
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Contact Information</h3>
+          <p>
+            Have questions about the Placement Tracker? Reach out to us and
+            we'll get back to you as soon as possible.
+          </p>
+
+          <div class="info-list">
+            <div class="info-item">
+              <span class="icon">📧</span>
+              <div>
+                <h4>Email Us</h4>
+                <p>akshayvijayvargiya26@gmail.com</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="icon">📞</span>
+              <div>
+                <h4>Call Us</h4>
+                <p>+91 6350383233</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="icon">📍</span>
+              <div>
+                <h4>Location</h4>
+                <p>Jaipur, India</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-container">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="contact-name">Full Name</label>
+              <input
+                type="text"
+                id="contact-name"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input
+                type="email"
+                id="contact-email"
+                placeholder="john@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Your Message</label>
+              <textarea
+                id="contact-message"
+                rows="5"
+                placeholder="How can we help you?"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Placement Tracker. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

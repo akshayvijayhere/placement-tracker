@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Applications</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>"
+    />
+
+    <link rel="stylesheet" href="applications.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script src="applications.js" defer></script>
+  </head>
+
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-box">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+
+          <div class="logo-text">
+            <span>Placement</span>
+            <span>Tracker</span>
+          </div>
+        </div>
+
+        <!-- Menu -->
+
+        <nav class="menu">
+          <a href="dashboard.html" class="menu-item">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+          </a>
+
+          <a href="applications.html" class="menu-item active">
+            <i class="fa-regular fa-clipboard"></i>
+            Applications
+          </a>
+
+          <a href="dsa_tracker.html" class="menu-item">
+            <i class="fa-solid fa-code"></i>
+            DSA Tracker
+          </a>
+
+          <a href="profile.html" class="menu-item">
+            <i class="fa-regular fa-user"></i>
+            Profile
+          </a>
+        </nav>
+
+        <button
+          class="logout-btn"
+          onclick="window.location.href = 'homepage.html'"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+          Logout
+        </button>
+      </aside>
+
+      <!-- Main -->
+
+      <main class="main-content">
+        <!-- Topbar -->
+
+        <header class="topbar">
+          <div>
+            <h1>
+              <i class="fa-regular fa-clipboard"></i>
+
+              Applications
+            </h1>
+
+            <p>Track all your job applications in one place.</p>
+          </div>
+
+          <div class="topbar-right">
+            <button
+              class="theme-toggle-btn"
+              id="themeToggleBtn"
+              title="Toggle Theme"
+            >
+              <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <div class="notification">
+              <i class="fa-regular fa-bell"></i>
+
+              <span>3</span>
+            </div>
+
+            <a href="profile.html" style="text-decoration: none"
+              ><div class="avatar">A</div></a
+            >
+          </div>
+        </header>
+
+        <!-- SECTION 2 STARTS HERE -->
+        <!-- SECTION 2 -->
+
+        <section class="applications-layout">
+          <div class="applications-card">
+            <!-- Header -->
+
+            <div class="applications-header">
+              <div class="header-left">
+                <h2>All Applications</h2>
+
+                <span class="app-count"> - </span>
+              </div>
+
+              <div class="filters">
+                <div class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+
+                  <input
+                    type="text"
+                    placeholder="Search by company or role..."
+                  />
+                </div>
+
+                <select>
+                  <option>All Status</option>
+
+                  <option>Applied</option>
+
+                  <option>Interview</option>
+
+                  <option>OA</option>
+
+                  <option>Selected</option>
+
+                  <option>Rejected</option>
+                </select>
+
+                <select>
+                  <option>Latest First</option>
+
+                  <option>Oldest First</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- SECTION 3 TABLE HERE -->
+            <!-- Applications Table -->
+
+            <table class="applications-table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Role</th>
+                  <th>Package</th>
+                  <th>Status</th>
+                  <th>Date Applied</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Google</td>
+
+                  <td>Software Engineer</td>
+
+                  <td>₹24 LPA</td>
+
+                  <td>
+                    <span class="status interview"> Interview </span>
+                  </td>
+
+                  <td>12 May 2024</td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Microsoft</td>
+
+                  <td>SDE Intern</td>
+
+                  <td>₹18 LPA</td>
+
+                  <td>
+                    <span class="status applied"> Applied </span>
+                  </td>
+
+                  <td>10 May 2024</td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Amazon</td>
+
+                  <td>SDE Intern</td>
+
+                  <td>₹20 LPA</td>
+
+                  <td>
+                    <span class="status oa"> OA </span>
+                  </td>
+
+                  <td>08 May 2024</td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Adobe</td>
+
+                  <td>Software Engineer</td>
+
+                  <td>₹22 LPA</td>
+
+                  <td>
+                    <span class="status applied"> Applied </span>
+                  </td>
+
+                  <td>07 May 2024</td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Flipkart</td>
+
+                  <td>SWE Intern</td>
+
+                  <td>₹16 LPA</td>
+
+                  <td>
+                    <span class="status interview"> Interview </span>
+                  </td>
+
+                  <td>05 May 2024</td>
+
+                  <td>
+                    <button class="edit-btn">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button class="delete-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Pagination -->
+
+            <div class="pagination">
+              <button>←</button>
+
+              <button class="active-page">1</button>
+
+              <button>2</button>
+
+              <button>→</button>
+            </div>
+          </div>
+
+          <!-- RIGHT PANEL COMING IN NEXT SECTION -->
+          <!-- RIGHT PANEL -->
+
+          <div class="right-panel">
+            <!-- Add Application Card -->
+
+            <div class="add-application-card">
+              <div class="card-header">
+                <h3 id="formTitleHeader">
+                  <i class="fa-regular fa-file-lines"></i>
+                  Add New Application
+                </h3>
+                <button class="small-add-btn">Reset</button>
+              </div>
+
+              <div class="form-group">
+                <label for="companyNameInput">Company Name</label>
+                <input
+                  type="text"
+                  id="companyNameInput"
+                  placeholder="e.g. Google"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="roleInput">Role</label>
+                <input
+                  type="text"
+                  id="roleInput"
+                  placeholder="e.g. Software Engineer"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="pkgInput">Package (CTC)</label>
+                <input type="text" id="pkgInput" placeholder="e.g. 15 LPA" />
+              </div>
+
+              <div class="form-group">
+                <label for="statusSelect">Status</label>
+                <select id="statusSelect">
+                  <option>Select Status</option>
+                  <option>Applied</option>
+                  <option>Interview</option>
+                  <option>OA</option>
+                  <option>Selected</option>
+                  <option>Rejected</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="dateInput">Date Applied</label>
+                <input type="date" id="dateInput" />
+              </div>
+
+              <button class="submit-btn">Add Application</button>
+            </div>
+
+            <!-- SECTION 5 HERE -->
+            <!-- APPLICATION SUMMARY -->
+
+            <div class="summary-card">
+              <div class="summary-header">
+                <h3>
+                  <i class="fa-solid fa-chart-pie"></i>
+
+                  Application Summary
+                </h3>
+              </div>
+
+              <div class="summary-list">
+                <div class="summary-item applied">
+                  <div class="left">
+                    <span class="dot applied-dot"></span>
+
+                    Applied
+                  </div>
+
+                  <strong>7</strong>
+                </div>
+
+                <div class="summary-item oa">
+                  <div class="left">
+                    <span class="dot oa-dot"></span>
+
+                    OA
+                  </div>
+
+                  <strong>2</strong>
+                </div>
+
+                <div class="summary-item interview">
+                  <div class="left">
+                    <span class="dot interview-dot"></span>
+
+                    Interview
+                  </div>
+
+                  <strong>4</strong>
+                </div>
+
+                <div class="summary-item rejected">
+                  <div class="left">
+                    <span class="dot rejected-dot"></span>
+
+                    Rejected
+                  </div>
+
+                  <strong>2</strong>
+                </div>
+
+                <div class="summary-item selected">
+                  <div class="left">
+                    <span class="dot selected-dot"></span>
+
+                    Selected
+                  </div>
+
+                  <strong>0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
