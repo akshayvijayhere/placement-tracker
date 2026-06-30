@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startCountdown() {
     clearInterval(timerInterval);
-    countdownSeconds = 300;
+    countdownSeconds = 60;
     resendOtpBtn.disabled = true;
     resendOtpBtn.style.cursor = "not-allowed";
 
