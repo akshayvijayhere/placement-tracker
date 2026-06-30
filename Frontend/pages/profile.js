@@ -834,7 +834,8 @@ function initChangePasswordModal() {
   if (cancelChangeOtpBtn) {
     cancelChangeOtpBtn.addEventListener("click", () => {
       clearInterval(changeTimerInterval);
-      closeModal();
+      changeStepForm.style.display = "block";
+      changeStepOtp.style.display = "none";
     });
   }
 
@@ -846,6 +847,13 @@ function initChangePasswordModal() {
     currentPass.type = "password";
     newPass.type = "password";
     confirmPass.type = "password";
+    const resetProfileNewPasswordInput = document.getElementById(
+      "resetProfileNewPasswordInput",
+    );
+    if (resetProfileNewPasswordInput) {
+      resetProfileNewPasswordInput.value = "";
+      resetProfileNewPasswordInput.type = "password";
+    }
 
     toggles.forEach((toggle) => {
       toggle.classList.remove("fa-eye-slash");
@@ -892,6 +900,69 @@ function initChangePasswordModal() {
     });
   });
 
+  // Forgot password in profile modal trigger
+  const forgotLink = document.getElementById("forgotPassProfileLink");
+  if (forgotLink) {
+    forgotLink.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const currentUserStr = localStorage.getItem("currentUser");
+      if (!currentUserStr) {
+        alert("User data not found. Please log in again.");
+        return;
+      }
+      const currentUser = JSON.parse(currentUserStr);
+      const email = currentUser.email;
+
+      forgotLink.style.pointerEvents = "none";
+      forgotLink.textContent = "Sending Code...";
+
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+        .then((res) => {
+          forgotLink.style.pointerEvents = "auto";
+          forgotLink.textContent = "Forgot current password?";
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.message || "Failed to send reset code");
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          alert(data.message);
+          changeStepForm.style.display = "none";
+          changeStepOtp.style.display = "block";
+          const resetProfileNewPasswordInput = document.getElementById(
+            "resetProfileNewPasswordInput",
+          );
+          if (resetProfileNewPasswordInput) {
+            resetProfileNewPasswordInput.value = "";
+          }
+          changeDigits.forEach((input) => (input.value = ""));
+          changeDigits[0].focus();
+          startChangeCountdown();
+
+          if (data.otp) {
+            const digits = data.otp.split("");
+            changeDigits.forEach((input, idx) => {
+              if (digits[idx]) input.value = digits[idx];
+            });
+            alert(`For testing purpose, reset code is: ${data.otp}`);
+          }
+        })
+        .catch((err) => {
+          forgotLink.style.pointerEvents = "auto";
+          forgotLink.textContent = "Forgot current password?";
+          alert(err.message);
+        });
+    });
+  }
+
+  // Normal Password Change update trigger
   submitBtn.addEventListener("click", () => {
     const currentPassword = currentPass.value.trim();
     const newPassword = newPass.value.trim();
@@ -914,103 +985,105 @@ function initChangePasswordModal() {
 
     // Disable button during request
     submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
+    submitBtn.textContent = "Updating...";
 
-    fetch(`${CONFIG.API_BASE_URL}/api/profile/send-otp`, {
-      method: "POST",
+    fetch(`${CONFIG.API_BASE_URL}/api/profile/change-password`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({ currentPassword, newPassword }),
     })
       .then((res) => {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Send Code";
+        submitBtn.textContent = "Update Password";
         if (!res.ok) {
           return res.json().then((err) => {
-            throw new Error(err.message || "Failed to send verification code");
+            throw new Error(err.message || "Failed to update password");
           });
         }
         return res.json();
       })
       .then((data) => {
-        alert(data.message);
-        changeStepForm.style.display = "none";
-        changeStepOtp.style.display = "block";
-        changeDigits.forEach((input) => (input.value = ""));
-        changeDigits[0].focus();
-        startChangeCountdown();
-
-        if (data.otp) {
-          const digits = data.otp.split("");
-          changeDigits.forEach((input, idx) => {
-            if (digits[idx]) input.value = digits[idx];
-          });
-          alert(`For testing purpose, verification code is: ${data.otp}`);
-        }
+        showToast("Password Updated Successfully! 🔐");
+        closeModal();
       })
       .catch((err) => {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Send Code";
+        submitBtn.textContent = "Update Password";
         alert(err.message);
       });
   });
 
+  // Verify and Reset Password using OTP trigger
   if (confirmChangeBtn) {
     confirmChangeBtn.addEventListener("click", () => {
-      const currentPassword = currentPass.value.trim();
-      const newPassword = newPass.value.trim();
+      const currentUserStr = localStorage.getItem("currentUser");
+      if (!currentUserStr) return;
+      const currentUser = JSON.parse(currentUserStr);
+      const email = currentUser.email;
+
+      const newPassword = document.getElementById(
+        "resetProfileNewPasswordInput",
+      ).value;
 
       let otp = "";
       changeDigits.forEach((input) => (otp += input.value.trim()));
 
       if (otp.length < 6) {
-        alert("Please enter the full 6-digit confirmation code.");
+        alert("Please enter the full 6-digit verification code.");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        alert("Password must be at least 6 characters long.");
         return;
       }
 
       confirmChangeBtn.disabled = true;
-      confirmChangeBtn.textContent = "Updating...";
+      confirmChangeBtn.textContent = "Resetting...";
 
-      fetch(`${CONFIG.API_BASE_URL}/api/profile/change-password`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ currentPassword, newPassword, otp }),
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp, newPassword }),
       })
         .then((res) => {
           confirmChangeBtn.disabled = false;
-          confirmChangeBtn.textContent = "Verify & Update";
+          confirmChangeBtn.textContent = "Verify & Reset Password";
           if (!res.ok) {
             return res.json().then((err) => {
-              throw new Error(err.message || "Failed to update password");
+              throw new Error(err.message || "Failed to reset password");
             });
           }
           return res.json();
         })
         .then((data) => {
-          showToast("Password Updated Successfully! 🔐");
+          showToast("Password Reset Successfully! 🔐");
           clearInterval(changeTimerInterval);
           closeModal();
         })
         .catch((err) => {
           confirmChangeBtn.disabled = false;
-          confirmChangeBtn.textContent = "Verify & Update";
+          confirmChangeBtn.textContent = "Verify & Reset Password";
           alert(err.message);
         });
     });
   }
 
+  // Resend OTP trigger in profile
   if (resendChangeOtpBtn) {
     resendChangeOtpBtn.addEventListener("click", () => {
-      fetch(`${CONFIG.API_BASE_URL}/api/profile/send-otp`, {
+      const currentUserStr = localStorage.getItem("currentUser");
+      if (!currentUserStr) return;
+      const currentUser = JSON.parse(currentUserStr);
+      const email = currentUser.email;
+
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/forgot-password`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       })
         .then((res) => {
           if (!res.ok) throw new Error("Failed to resend code");
@@ -1025,7 +1098,7 @@ function initChangePasswordModal() {
             changeDigits.forEach((input, idx) => {
               if (digits[idx]) input.value = digits[idx];
             });
-            alert(`For testing purpose, verification code is: ${data.otp}`);
+            alert(`For testing purpose, reset code is: ${data.otp}`);
           }
         })
         .catch((err) => alert(err.message));

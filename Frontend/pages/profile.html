@@ -307,6 +307,19 @@
                       data-target="currentPasswordInput"
                     ></i>
                   </div>
+                  <div style="margin-top: 6px; text-align: right">
+                    <a
+                      href="#"
+                      id="forgotPassProfileLink"
+                      style="
+                        font-size: 13px;
+                        color: #5b5cff;
+                        text-decoration: none;
+                        font-weight: 500;
+                      "
+                      >Forgot current password?</a
+                    >
+                  </div>
                 </div>
                 <div class="input-group" style="margin-top: 16px">
                   <label>New Password</label>
@@ -352,12 +365,12 @@
                   Cancel
                 </button>
                 <button class="modal-btn primary-btn" id="submitPasswordBtn">
-                  Send Code
+                  Update Password
                 </button>
               </div>
             </div>
 
-            <!-- Step 2: Verification Form (OTP) -->
+            <!-- Step 2: Verification Form (OTP & New Password Reset) -->
             <div id="changePasswordStepOtp" style="display: none">
               <div class="modal-body">
                 <p
@@ -368,7 +381,7 @@
                     color: #555;
                   "
                 >
-                  We've sent a 6-digit confirmation code to your email.
+                  Enter the 6-digit code sent to your email to reset password.
                 </p>
                 <div
                   class="otp-input-group"
@@ -384,12 +397,12 @@
                     maxlength="1"
                     class="otp-digit"
                     style="
-                      width: 45px;
-                      height: 50px;
+                      width: 40px;
+                      height: 45px;
                       border: 1.5px solid #cbd5e1;
-                      border-radius: 10px;
+                      border-radius: 8px;
                       text-align: center;
-                      font-size: 20px;
+                      font-size: 18px;
                       font-weight: 600;
                     "
                   />
@@ -398,12 +411,12 @@
                     maxlength="1"
                     class="otp-digit"
                     style="
-                      width: 45px;
-                      height: 50px;
+                      width: 40px;
+                      height: 45px;
                       border: 1.5px solid #cbd5e1;
-                      border-radius: 10px;
+                      border-radius: 8px;
                       text-align: center;
-                      font-size: 20px;
+                      font-size: 18px;
                       font-weight: 600;
                     "
                   />
@@ -412,12 +425,12 @@
                     maxlength="1"
                     class="otp-digit"
                     style="
-                      width: 45px;
-                      height: 50px;
+                      width: 40px;
+                      height: 45px;
                       border: 1.5px solid #cbd5e1;
-                      border-radius: 10px;
+                      border-radius: 8px;
                       text-align: center;
-                      font-size: 20px;
+                      font-size: 18px;
                       font-weight: 600;
                     "
                   />
@@ -426,12 +439,12 @@
                     maxlength="1"
                     class="otp-digit"
                     style="
-                      width: 45px;
-                      height: 50px;
+                      width: 40px;
+                      height: 45px;
                       border: 1.5px solid #cbd5e1;
-                      border-radius: 10px;
+                      border-radius: 8px;
                       text-align: center;
-                      font-size: 20px;
+                      font-size: 18px;
                       font-weight: 600;
                     "
                   />
@@ -440,12 +453,12 @@
                     maxlength="1"
                     class="otp-digit"
                     style="
-                      width: 45px;
-                      height: 50px;
+                      width: 40px;
+                      height: 45px;
                       border: 1.5px solid #cbd5e1;
-                      border-radius: 10px;
+                      border-radius: 8px;
                       text-align: center;
-                      font-size: 20px;
+                      font-size: 18px;
                       font-weight: 600;
                     "
                   />
@@ -454,12 +467,12 @@
                     maxlength="1"
                     class="otp-digit"
                     style="
-                      width: 45px;
-                      height: 50px;
+                      width: 40px;
+                      height: 45px;
                       border: 1.5px solid #cbd5e1;
-                      border-radius: 10px;
+                      border-radius: 8px;
                       text-align: center;
-                      font-size: 20px;
+                      font-size: 18px;
                       font-weight: 600;
                     "
                   />
@@ -480,6 +493,22 @@
                     >05:00</span
                   >
                 </div>
+
+                <div class="input-group" style="margin-top: 16px">
+                  <label>New Password</label>
+                  <div class="input-box password-toggle-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input
+                      type="password"
+                      id="resetProfileNewPasswordInput"
+                      placeholder="Enter new password (min. 6 chars)"
+                    />
+                    <i
+                      class="fa-solid fa-eye toggle-password"
+                      data-target="resetProfileNewPasswordInput"
+                    ></i>
+                  </div>
+                </div>
               </div>
               <div
                 class="modal-footer"
@@ -495,7 +524,7 @@
                   id="confirmChangePasswordBtn"
                   style="width: 100%"
                 >
-                  Verify & Update
+                  Verify & Reset Password
                 </button>
                 <button
                   id="resendChangeOtpBtn"
@@ -516,7 +545,7 @@
                   id="cancelChangeOtpBtn"
                   style="width: 100%"
                 >
-                  Cancel
+                  Back to Change Password
                 </button>
               </div>
             </div>
