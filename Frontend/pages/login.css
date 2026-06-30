@@ -7,6 +7,7 @@
 
 body {
   background: #f5f7ff;
+  overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -319,24 +320,25 @@ label {
 /* Mobile Portrait */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
+    flex-direction: row;
     height: auto;
-    gap: 15px;
-    padding: 1rem;
-    justify-content: center;
+    min-height: 60px;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    justify-content: space-between;
     align-items: center;
   }
 
   .logo {
     order: 1;
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-start;
   }
 
   .register-link {
     order: 2;
-    width: 100%;
-    text-align: center;
+    width: auto;
+    text-align: right;
   }
 
   .text-hide-mobile {
@@ -438,8 +440,8 @@ label {
   }
 
   .register-link a {
-    display: block;
-    margin-top: 5px;
+    display: inline-block;
+    margin-left: 4px;
   }
 
   .left-panel {
