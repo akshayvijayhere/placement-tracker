@@ -952,6 +952,7 @@ footer p {
     flex-direction: column;
     text-align: center;
     padding: 4rem 1.5rem;
+    gap: 2.5rem;
   }
 
   .hero-left p {
@@ -976,27 +977,43 @@ footer p {
 
 @media (max-width: 768px) {
   header {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    min-height: auto;
+    gap: 0.75rem;
   }
 
-  nav {
-    gap: 1.25rem;
+  .logo {
+    order: 1;
   }
 
   .auth-buttons {
-    width: 100%;
-    justify-content: center;
+    order: 2;
+    width: auto;
+    gap: 0.5rem;
   }
 
   .auth-buttons button {
-    flex: 1;
-    text-align: center;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 0.75rem;
+    gap: 1.5rem;
   }
 
   .hero-buttons {
     flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .primary-btn,
@@ -1005,25 +1022,11 @@ footer p {
     justify-content: center;
   }
 
+  /* Prevent mockup layout distortion - scale instead of break layout */
   .dashboard-mockup {
-    padding: 1rem;
-  }
-
-  .dashboard-layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-  }
-
-  .sidebar ul {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  .cards {
-    grid-template-columns: repeat(3, 1fr);
+    transform: scale(0.9);
+    transform-origin: top center;
+    margin-bottom: -30px;
   }
 
   .contact {
@@ -1040,6 +1043,35 @@ footer p {
 
   .about-right {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-mockup {
+    transform: scale(0.78);
+    transform-origin: top center;
+    margin-bottom: -80px;
+  }
+
+  .feature-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .features-header {
+    margin-bottom: 2rem;
+  }
+
+  .about-right {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .dashboard-mockup {
+    transform: scale(0.7);
+    transform-origin: top center;
+    margin-bottom: -110px;
   }
 }
 
