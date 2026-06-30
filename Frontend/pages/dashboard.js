@@ -83,8 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-
-
   // Render profile avatar if saved
   const avatarEl = document.querySelector(".avatar");
   if (avatarEl && currentUser && currentUser.profileImage) {
@@ -114,8 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
-
   // Pre-populate welcome greeting instantly to avoid flashes of wrong data
   const welcomeMsg = document.querySelector(".topbar p");
   if (welcomeMsg && currentUser && currentUser.name) {
@@ -137,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Load and Render Stats from backend
-  fetch("http://localhost:5001/api/dashboard", {
+  fetch(`${CONFIG.API_BASE_URL}/api/dashboard`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch user profile to render topbar fire badge
   function fetchAndRenderStreak() {
-    fetch("http://localhost:5001/api/profile", {
+    fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch DSA topics from backend
   function fetchDsaTopics() {
-    fetch("http://localhost:5001/api/dsa", {
+    fetch(`${CONFIG.API_BASE_URL}/api/dsa`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -390,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!topic) return;
 
     if (confirm(`Are you sure you want to delete the topic "${topic.name}"?`)) {
-      fetch(`http://localhost:5001/api/dsa/${id}`, {
+      fetch(`${CONFIG.API_BASE_URL}/api/dsa/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -476,7 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (editMode) {
-      fetch(`http://localhost:5001/api/dsa/${editIndex}`, {
+      fetch(`${CONFIG.API_BASE_URL}/api/dsa/${editIndex}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -497,7 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
           alert(err.message);
         });
     } else {
-      fetch("http://localhost:5001/api/dsa", {
+      fetch(`${CONFIG.API_BASE_URL}/api/dsa`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

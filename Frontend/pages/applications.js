@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch user profile to render topbar fire badge
   function fetchAndRenderStreak() {
-    fetch("http://localhost:5001/api/profile", {
+    fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch applications from backend
   function fetchApplications() {
-    fetch("http://localhost:5001/api/applications", {
+    fetch(`${CONFIG.API_BASE_URL}/api/applications`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle Delete Action
   function handleDelete(id) {
     if (confirm("Are you sure you want to delete this application?")) {
-      fetch(`http://localhost:5001/api/applications/${id}`, {
+      fetch(`${CONFIG.API_BASE_URL}/api/applications/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -433,7 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bodyData = { company, role, pkg, status, date: formattedDate };
 
     if (editMode) {
-      fetch(`http://localhost:5001/api/applications/${editId}`, {
+      fetch(`${CONFIG.API_BASE_URL}/api/applications/${editId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -454,7 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
           alert(err.message);
         });
     } else {
-      fetch("http://localhost:5001/api/applications", {
+      fetch(`${CONFIG.API_BASE_URL}/api/applications`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

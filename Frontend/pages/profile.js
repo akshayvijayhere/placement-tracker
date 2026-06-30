@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Load Dynamic Overview Counts from backend
-  fetch("http://localhost:5001/api/dashboard", {
+  fetch(`${CONFIG.API_BASE_URL}/api/dashboard`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     inputs[5].value = currentUser.college || "";
   }
 
-  fetch("http://localhost:5001/api/profile", {
+  fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -395,7 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        fetch("http://localhost:5001/api/profile", {
+        fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -509,7 +509,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const college = inputs[5] ? inputs[5].value.trim() : "";
 
         // Send to backend
-        fetch("http://localhost:5001/api/profile", {
+        fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -835,7 +835,7 @@ function initChangePasswordModal() {
     submitBtn.disabled = true;
     submitBtn.textContent = "Updating...";
 
-    fetch("http://localhost:5001/api/profile/change-password", {
+    fetch(`${CONFIG.API_BASE_URL}/api/profile/change-password`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

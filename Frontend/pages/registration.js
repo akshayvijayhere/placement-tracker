@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Send OTP first before creating the user
-      fetch("http://localhost:5001/api/auth/send-otp", {
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/send-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (resendOtpBtn) {
     resendOtpBtn.addEventListener("click", () => {
       const email = otpEmailPlaceholder.textContent;
-      fetch("http://localhost:5001/api/auth/send-otp", {
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = otpEmailPlaceholder.textContent;
       const password = document.getElementById("registerPassword").value;
 
-      fetch("http://localhost:5001/api/auth/register", {
+      fetch(`${CONFIG.API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, username, email, password, otp }),
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Developer Mock Sign-In Helper function
   const triggerMockGoogleSignIn = () => {
-    fetch("http://localhost:5001/api/auth/google/mock", {
+    fetch(`${CONFIG.API_BASE_URL}/api/auth/google/mock`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     })
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Google Sign-In Integration
-  fetch("http://localhost:5001/api/config/google")
+  fetch(`${CONFIG.API_BASE_URL}/api/config/google`)
     .then((response) => response.json())
     .then((data) => {
       const clientId = data.clientId;
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   function handleGoogleLogin(response) {
-    fetch("http://localhost:5001/api/auth/google", {
+    fetch(`${CONFIG.API_BASE_URL}/api/auth/google`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
