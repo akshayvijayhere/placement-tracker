@@ -924,7 +924,7 @@ function initChangePasswordModal() {
       })
         .then((res) => {
           forgotLink.style.pointerEvents = "auto";
-          forgotLink.textContent = "Forgot current password?";
+          forgotLink.textContent = "Forgot password?";
           if (!res.ok) {
             return res.json().then((err) => {
               throw new Error(err.message || "Failed to send reset code");
@@ -956,7 +956,7 @@ function initChangePasswordModal() {
         })
         .catch((err) => {
           forgotLink.style.pointerEvents = "auto";
-          forgotLink.textContent = "Forgot current password?";
+          forgotLink.textContent = "Forgot password?";
           alert(err.message);
         });
     });
