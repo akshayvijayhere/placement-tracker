@@ -71,8 +71,16 @@ router.post("/send-otp", async (req, res) => {
         `,
       };
 
-      await transporter.sendMail(mailOptions);
-      res.json({ message: "Verification email sent successfully" });
+      try {
+        await transporter.sendMail(mailOptions);
+        res.json({ message: "Verification email sent successfully" });
+      } catch (mailErr) {
+        console.error("SMTP Mail Send Failed:", mailErr.message);
+        res.json({
+          message: `Verification code generated. (Email delivery failed: ${mailErr.message})`,
+          otp,
+        });
+      }
     } else {
       // Fallback Developer Mode: log code to console
       console.log(`\n--------------------------------------------`);

@@ -99,6 +99,17 @@ document.addEventListener("DOMContentLoaded", () => {
           otpDigits[0].focus();
           startCountdown();
           alert(data.message);
+
+          if (data.otp) {
+            // Auto-fill fallback OTP fields instantly
+            const digits = data.otp.split("");
+            otpDigits.forEach((input, idx) => {
+              if (digits[idx]) {
+                input.value = digits[idx];
+              }
+            });
+            alert(`For testing purpose, verification code is: ${data.otp}`);
+          }
         })
         .catch((err) => {
           alert("Error: " + err.message);
@@ -165,6 +176,17 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((data) => {
           alert(data.message);
           startCountdown();
+
+          if (data.otp) {
+            // Auto-fill fallback OTP fields instantly
+            const digits = data.otp.split("");
+            otpDigits.forEach((input, idx) => {
+              if (digits[idx]) {
+                input.value = digits[idx];
+              }
+            });
+            alert(`For testing purpose, verification code is: ${data.otp}`);
+          }
         })
         .catch((err) => alert(err.message));
     });
