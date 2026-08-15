@@ -261,6 +261,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveBtn = document.querySelector(".save-btn");
   const inputs = document.querySelectorAll(".form-grid input");
 
+  // Coding platforms handles inputs
+  const lcInput = document.getElementById("leetcodeHandleInput");
+  const gfgInput = document.getElementById("gfgHandleInput");
+  const cfInput = document.getElementById("codeforcesHandleInput");
+  const githubInput = document.getElementById("githubHandleInput");
+
   // Pre-populate user details from localStorage instantly to avoid flashes of wrong data
   const profileCardName = document.querySelector(".profile-details h2");
   if (profileCardName && currentUser && currentUser.name) {
@@ -299,6 +305,13 @@ document.addEventListener("DOMContentLoaded", () => {
     inputs[3].value = currentUser.phone || "";
     inputs[4].value = currentUser.location || "India";
     inputs[5].value = currentUser.college || "";
+
+    if (currentUser.codingProfiles) {
+      if (lcInput) lcInput.value = currentUser.codingProfiles.leetcode || "";
+      if (gfgInput) gfgInput.value = currentUser.codingProfiles.gfg || "";
+      if (cfInput) cfInput.value = currentUser.codingProfiles.codeforces || "";
+      if (githubInput) githubInput.value = currentUser.codingProfiles.github || "";
+    }
   }
 
   fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
@@ -316,6 +329,14 @@ document.addEventListener("DOMContentLoaded", () => {
         inputs[3].value = user.phone || "";
         inputs[4].value = user.location || "India";
         inputs[5].value = user.college || "";
+
+        // Pre-populate handles from backend
+        if (user.codingProfiles) {
+          if (lcInput) lcInput.value = user.codingProfiles.leetcode || "";
+          if (gfgInput) gfgInput.value = user.codingProfiles.gfg || "";
+          if (cfInput) cfInput.value = user.codingProfiles.codeforces || "";
+          if (githubInput) githubInput.value = user.codingProfiles.github || "";
+        }
 
         // Update card avatar info
         const profileCardName = document.querySelector(".profile-details h2");
@@ -357,12 +378,16 @@ document.addEventListener("DOMContentLoaded", () => {
           location: user.location || "",
           college: user.college || "",
           profileImage: user.profileImage || "",
+          codingProfiles: user.codingProfiles || {},
         };
         localStorage.setItem("currentUser", JSON.stringify(localUser));
 
         // Render badges & streaks
         renderBadges(user.badges);
         renderStreakBadge(user.streakCount || 0);
+
+        // Load coding platform stats
+        loadCodingStats(false);
       }
     })
     .catch((err) => console.error("Error loading profile details:", err));
@@ -384,6 +409,13 @@ document.addEventListener("DOMContentLoaded", () => {
           profileImg && profileImg.src.startsWith("data:")
             ? profileImg.src
             : "";
+
+        const codingProfiles = {
+          leetcode: lcInput ? lcInput.value.trim() : "",
+          gfg: gfgInput ? gfgInput.value.trim() : "",
+          codeforces: cfInput ? cfInput.value.trim() : "",
+          github: githubInput ? githubInput.value.trim() : ""
+        };
 
         if (!name) {
           alert("Full Name is required.");
@@ -409,6 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
             location,
             college,
             profileImage,
+            codingProfiles
           }),
         })
           .then((response) => {
@@ -461,10 +494,14 @@ document.addEventListener("DOMContentLoaded", () => {
               location: updatedUser.location || "",
               college: updatedUser.college || "",
               profileImage: updatedUser.profileImage || "",
+              codingProfiles: updatedUser.codingProfiles || {},
             };
             localStorage.setItem("currentUser", JSON.stringify(localUser));
 
             showToast("Profile Settings Saved Successfully! 💾");
+            
+            // Reload stats with new handles
+            loadCodingStats(false);
           })
           .catch((err) => {
             alert(err.message);
@@ -633,6 +670,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize change password modal
   initChangePasswordModal();
+
+  // Initialize coding statistics sync button click listener
+  const syncCodingStatsBtn = document.getElementById("syncCodingStatsBtn");
+  if (syncCodingStatsBtn) {
+    syncCodingStatsBtn.addEventListener("click", () => {
+      loadCodingStats(true);
+    });
+  }
 });
 
 // Dynamic Notification Dropdown Setup Helper
@@ -1104,4 +1149,126 @@ function initChangePasswordModal() {
         .catch((err) => alert(err.message));
     });
   }
+}
+
+// Helper: Fetch and render coding stats
+function loadCodingStats(refresh = false) {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  const syncBtn = document.getElementById("syncCodingStatsBtn");
+  const syncIcon = syncBtn ? syncBtn.querySelector("i") : null;
+  
+  if (syncIcon) syncIcon.classList.add("spinning");
+  if (syncBtn) syncBtn.disabled = true;
+
+  const url = `${CONFIG.API_BASE_URL}/api/profile/coding-stats` + (refresh ? "?refresh=true" : "");
+
+  fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch coding stats");
+      return res.json();
+    })
+    .then((data) => {
+      // LeetCode Stats Render
+      const lcHandle = document.getElementById("lcHandleText");
+      if (lcHandle) lcHandle.textContent = data.leetcode ? `@${data.leetcode}` : "Not Configured";
+      if (data.leetcode && data.stats?.leetcode) {
+        const lcStats = data.stats.leetcode;
+        document.getElementById("lcTotal").textContent = lcStats.totalSolved;
+        document.getElementById("lcEasyCount").textContent = lcStats.easySolved;
+        document.getElementById("lcMediumCount").textContent = lcStats.mediumSolved;
+        document.getElementById("lcHardCount").textContent = lcStats.hardSolved;
+        document.getElementById("lcRank").textContent = lcStats.ranking ? lcStats.ranking.toLocaleString() : "N/A";
+        
+        // Calculate percentages for progress bars
+        const totalDiff = lcStats.easySolved + lcStats.mediumSolved + lcStats.hardSolved || 1;
+        document.getElementById("lcEasyBar").style.width = `${(lcStats.easySolved / totalDiff) * 100}%`;
+        document.getElementById("lcMediumBar").style.width = `${(lcStats.mediumSolved / totalDiff) * 100}%`;
+        document.getElementById("lcHardBar").style.width = `${(lcStats.hardSolved / totalDiff) * 100}%`;
+      } else {
+        document.getElementById("lcTotal").textContent = "-";
+        document.getElementById("lcEasyCount").textContent = "0";
+        document.getElementById("lcMediumCount").textContent = "0";
+        document.getElementById("lcHardCount").textContent = "0";
+        document.getElementById("lcEasyBar").style.width = "0%";
+        document.getElementById("lcMediumBar").style.width = "0%";
+        document.getElementById("lcHardBar").style.width = "0%";
+        document.getElementById("lcRank").textContent = "-";
+      }
+
+      // GFG Stats Render
+      const gfgHandle = document.getElementById("gfgHandleText");
+      if (gfgHandle) gfgHandle.textContent = data.gfg ? `@${data.gfg}` : "Not Configured";
+      if (data.gfg && data.stats?.gfg) {
+        const gfgStats = data.stats.gfg;
+        document.getElementById("gfgTotal").textContent = gfgStats.totalSolved || 0;
+        document.getElementById("gfgScore").textContent = gfgStats.score || 0;
+        document.getElementById("gfgStreak").textContent = gfgStats.streak || 0;
+        document.getElementById("gfgRank").textContent = gfgStats.rank || "N/A";
+      } else {
+        document.getElementById("gfgTotal").textContent = "-";
+        document.getElementById("gfgScore").textContent = "-";
+        document.getElementById("gfgStreak").textContent = "-";
+        document.getElementById("gfgRank").textContent = "-";
+      }
+
+      // Codeforces Stats Render
+      const cfHandle = document.getElementById("cfHandleText");
+      if (cfHandle) cfHandle.textContent = data.codeforces ? `@${data.codeforces}` : "Not Configured";
+      if (data.codeforces && data.stats?.codeforces) {
+        const cfStats = data.stats.codeforces;
+        document.getElementById("cfRating").textContent = cfStats.rating || 0;
+        document.getElementById("cfRankTier").textContent = cfStats.rank || "Unrated";
+        document.getElementById("cfMaxRating").textContent = cfStats.maxRating || 0;
+        document.getElementById("cfMaxRank").textContent = cfStats.maxRank || "N/A";
+        
+        // Style Rank Tier nicely based on CF rank color
+        const rankEl = document.getElementById("cfRankTier");
+        if (rankEl) {
+          rankEl.className = "cf-rating-tier";
+          if (cfStats.rating >= 2400) rankEl.style.color = "#ff0000"; // Red for GM
+          else if (cfStats.rating >= 2100) rankEl.style.color = "#ff8c00"; // Orange for Master
+          else if (cfStats.rating >= 1900) rankEl.style.color = "#aa00aa"; // Violet for Candidate Master
+          else if (cfStats.rating >= 1600) rankEl.style.color = "#0000ff"; // Blue for Expert
+          else if (cfStats.rating >= 1400) rankEl.style.color = "#03a89e"; // Cyan for Specialist
+          else if (cfStats.rating >= 1200) rankEl.style.color = "#008000"; // Green for Pupil
+          else rankEl.style.color = "#808080"; // Gray for Newbie
+        }
+      } else {
+        document.getElementById("cfRating").textContent = "-";
+        document.getElementById("cfRankTier").textContent = "Unrated";
+        const rankEl = document.getElementById("cfRankTier");
+        if (rankEl) rankEl.style.color = "";
+        document.getElementById("cfMaxRating").textContent = "-";
+        document.getElementById("cfMaxRank").textContent = "-";
+      }
+
+      // GitHub Stats Render
+      const githubHandle = document.getElementById("githubHandleText");
+      if (githubHandle) githubHandle.textContent = data.github ? `@${data.github}` : "Not Configured";
+      if (data.github && data.stats?.github) {
+        const ghStats = data.stats.github;
+        document.getElementById("githubRepos").textContent = ghStats.publicRepos;
+        document.getElementById("githubFollowers").textContent = `${ghStats.followers} Followers`;
+        document.getElementById("githubGists").textContent = `${ghStats.publicGists} Gists`;
+        document.getElementById("githubFollowing").textContent = ghStats.following;
+      } else {
+        document.getElementById("githubRepos").textContent = "-";
+        document.getElementById("githubFollowers").textContent = "0 Followers";
+        document.getElementById("githubGists").textContent = "0 Gists";
+        document.getElementById("githubFollowing").textContent = "-";
+      }
+    })
+    .catch((err) => {
+      console.error("Error loading coding stats:", err);
+    })
+    .finally(() => {
+      if (syncIcon) syncIcon.classList.remove("spinning");
+      if (syncBtn) syncBtn.disabled = false;
+    });
 }

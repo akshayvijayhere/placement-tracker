@@ -66,6 +66,12 @@ const userSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    codingProfiles: {
+      leetcode: { type: String, default: "" },
+      gfg: { type: String, default: "" },
+      codeforces: { type: String, default: "" },
+      github: { type: String, default: "" },
+    },
   },
   { timestamps: true },
 );

@@ -187,6 +187,173 @@
 
         <!-- SECTION 3 -->
 
+        <!-- Coding Platform Analytics Dashboard -->
+        <div class="personal-card" id="codingAnalyticsCard" style="margin-top: 22px">
+          <div class="section-header">
+            <div>
+              <h3>Coding Platforms Analytics</h3>
+              <p>Real-time insights from your LeetCode, GFG, Codeforces, and GitHub profiles.</p>
+            </div>
+            <button class="sync-btn" id="syncCodingStatsBtn" style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              padding: 8px 16px;
+              background: #5b5cff;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+            ">
+              <i class="fa-solid fa-rotate"></i> Sync Stats
+            </button>
+          </div>
+          
+          <div class="analytics-grid" id="analyticsGrid">
+            <!-- Platform: LeetCode -->
+            <div class="platform-card leetcode-theme" id="lcCard">
+              <div class="platform-header">
+                <div class="platform-title">
+                  <i class="fa-solid fa-code platform-icon"></i>
+                  <span>LeetCode</span>
+                </div>
+                <span class="platform-handle" id="lcHandleText">Not Configured</span>
+              </div>
+              <div class="platform-body">
+                <div class="stats-large-num" id="lcTotal">-</div>
+                <div class="stats-label">Problems Solved</div>
+                
+                <div class="difficulty-bars">
+                  <div class="difficulty-item">
+                    <div class="difficulty-header">
+                      <span>Easy</span>
+                      <span id="lcEasyCount">0</span>
+                    </div>
+                    <div class="progress-bar-bg"><div class="progress-bar easy" id="lcEasyBar" style="width: 0%"></div></div>
+                  </div>
+                  <div class="difficulty-item">
+                    <div class="difficulty-header">
+                      <span>Medium</span>
+                      <span id="lcMediumCount">0</span>
+                    </div>
+                    <div class="progress-bar-bg"><div class="progress-bar medium" id="lcMediumBar" style="width: 0%"></div></div>
+                  </div>
+                  <div class="difficulty-item">
+                    <div class="difficulty-header">
+                      <span>Hard</span>
+                      <span id="lcHardCount">0</span>
+                    </div>
+                    <div class="progress-bar-bg"><div class="progress-bar hard" id="lcHardBar" style="width: 0%"></div></div>
+                  </div>
+                </div>
+                
+                <div class="stats-footer">
+                  <div class="footer-stat">
+                    <span class="lbl">Rank</span>
+                    <span class="val" id="lcRank">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Platform: GeeksforGeeks -->
+            <div class="platform-card gfg-theme" id="gfgCard">
+              <div class="platform-header">
+                <div class="platform-title">
+                  <i class="fa-solid fa-graduation-cap platform-icon"></i>
+                  <span>GeeksforGeeks</span>
+                </div>
+                <span class="platform-handle" id="gfgHandleText">Not Configured</span>
+              </div>
+              <div class="platform-body">
+                <div class="stats-large-num" id="gfgTotal">-</div>
+                <div class="stats-label">Problems Solved</div>
+                
+                <div class="gfg-stats-grid">
+                  <div class="gfg-mini-stat">
+                    <span class="gfg-lbl">Coding Score</span>
+                    <span class="gfg-val" id="gfgScore">-</span>
+                  </div>
+                  <div class="gfg-mini-stat">
+                    <span class="gfg-lbl">Streak</span>
+                    <span class="gfg-val" id="gfgStreak">-</span>
+                  </div>
+                </div>
+                
+                <div class="stats-footer">
+                  <div class="footer-stat">
+                    <span class="lbl">Institute Rank</span>
+                    <span class="val" id="gfgRank">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Platform: Codeforces -->
+            <div class="platform-card cf-theme" id="cfCard">
+              <div class="platform-header">
+                <div class="platform-title">
+                  <i class="fa-solid fa-award platform-icon"></i>
+                  <span>Codeforces</span>
+                </div>
+                <span class="platform-handle" id="cfHandleText">Not Configured</span>
+              </div>
+              <div class="platform-body">
+                <div class="stats-large-num" id="cfRating">-</div>
+                <div class="stats-label">Current Rating</div>
+                
+                <div class="cf-rating-tier" id="cfRankTier">Unrated</div>
+                
+                <div class="stats-footer">
+                  <div class="footer-stat">
+                    <span class="lbl">Max Rating</span>
+                    <span class="val" id="cfMaxRating">-</span>
+                  </div>
+                  <div class="footer-stat">
+                    <span class="lbl">Max Rank</span>
+                    <span class="val" id="cfMaxRank">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Platform: GitHub -->
+            <div class="platform-card github-theme" id="githubCard">
+              <div class="platform-header">
+                <div class="platform-title">
+                  <i class="fa-brands fa-github platform-icon"></i>
+                  <span>GitHub</span>
+                </div>
+                <span class="platform-handle" id="githubHandleText">Not Configured</span>
+              </div>
+              <div class="platform-body">
+                <div class="stats-large-num" id="githubRepos">-</div>
+                <div class="stats-label">Repositories</div>
+                
+                <div class="github-stats-row">
+                  <div class="github-stat">
+                    <i class="fa-solid fa-users"></i>
+                    <span id="githubFollowers">0 Followers</span>
+                  </div>
+                  <div class="github-stat">
+                    <i class="fa-solid fa-code"></i>
+                    <span id="githubGists">0 Gists</span>
+                  </div>
+                </div>
+                
+                <div class="stats-footer">
+                  <div class="footer-stat">
+                    <span class="lbl">Following</span>
+                    <span class="val" id="githubFollowing">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Earned Badges Showcase -->
         <div class="personal-card" id="badgesCard" style="margin-top: 22px">
           <div class="section-header">
@@ -262,6 +429,50 @@
               <div class="input-box">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <input type="text" placeholder="Enter your college name" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coding Profiles Setup Card -->
+        <div class="personal-card" style="margin-top: 22px">
+          <div class="section-header">
+            <div>
+              <h3>Coding Profiles Setup</h3>
+              <p>Configure your handles to sync statistics and display analytics.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="input-group">
+              <label>LeetCode Username</label>
+              <div class="input-box">
+                <i class="fa-solid fa-code"></i>
+                <input type="text" id="leetcodeHandleInput" placeholder="Enter LeetCode username" />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>GeeksforGeeks Username</label>
+              <div class="input-box">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <input type="text" id="gfgHandleInput" placeholder="Enter GFG username" />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>Codeforces Username</label>
+              <div class="input-box">
+                <i class="fa-solid fa-award"></i>
+                <input type="text" id="codeforcesHandleInput" placeholder="Enter Codeforces username" />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>GitHub Username</label>
+              <div class="input-box">
+                <i class="fa-brands fa-github"></i>
+                <input type="text" id="githubHandleInput" placeholder="Enter GitHub username" />
               </div>
             </div>
           </div>
