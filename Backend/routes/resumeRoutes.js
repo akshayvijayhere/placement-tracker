@@ -59,7 +59,7 @@ router.post("/analyze", verifyToken, async (req, res) => {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash-lite" });
 
     const prompt = `
     You are an expert ATS (Applicant Tracking System) parser and professional career coach.
