@@ -22,3 +22,6 @@ yarn-error.log*
 
 # macOS
 .DS_Store
+
+# Mock Resumes
+sample_resume.pdf
