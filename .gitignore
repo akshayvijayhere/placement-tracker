@@ -22,7 +22,3 @@ yarn-error.log*
 
 # macOS
 .DS_Store
-
-# Seminar Reports
-placement_tracker_report.html
-placement_tracker_report.pdf
