@@ -24,8 +24,16 @@ router.post("/analyze", verifyToken, async (req, res) => {
     // Parse PDF text
     let resumeText = "";
     try {
-      const parsedData = await pdfParse(pdfBuffer);
-      resumeText = parsedData.text;
+      if (typeof pdfParse === "function") {
+        const parsedData = await pdfParse(pdfBuffer);
+        resumeText = parsedData.text;
+      } else if (pdfParse && typeof pdfParse.PDFParse === "function") {
+        const parser = new pdfParse.PDFParse({ data: pdfBuffer });
+        const parsedData = await parser.getText();
+        resumeText = parsedData.text;
+      } else {
+        throw new Error("Compatible pdf-parse library not found.");
+      }
     } catch (parseErr) {
       console.error("PDF Parsing error:", parseErr);
       return res.status(400).json({
