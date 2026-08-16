@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const isDark = document.body.classList.contains("dark-theme");
       localStorage.setItem("theme", isDark ? "dark" : "light");
       icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      showToast(isDark ? "Dark Mode Enabled 🌙" : "Light Mode Enabled ☀️");
     });
   }
 
@@ -728,5 +729,47 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     pagContainer.appendChild(nextBtn);
+  }
+
+  function showToast(message) {
+    let toast = document.querySelector(".toast-notification");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.className = "toast-notification";
+      toast.style.position = "fixed";
+      toast.style.bottom = "24px";
+      toast.style.right = "24px";
+      toast.style.background = "#10b981";
+      toast.style.color = "white";
+      toast.style.padding = "14px 20px";
+      toast.style.borderRadius = "12px";
+      toast.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
+      toast.style.zIndex = "9999";
+      toast.style.fontFamily = "'Inter', sans-serif";
+      toast.style.fontSize = "14px";
+      toast.style.fontWeight = "600";
+      toast.style.transition = "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)";
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(20px)";
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    
+    // Trigger layout reflow for transition
+    toast.offsetHeight;
+    
+    setTimeout(() => {
+      toast.style.opacity = "1";
+      toast.style.transform = "translateY(0)";
+    }, 10);
+    
+    if (toast.timeoutId) {
+      clearTimeout(toast.timeoutId);
+    }
+    
+    toast.timeoutId = setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(20px)";
+    }, 3000);
   }
 });
