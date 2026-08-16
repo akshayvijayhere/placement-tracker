@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Placement Tracker Seminar Report - Akshay Vijayvargiya</title>
+  <style>
+    /* Styling for Screen Preview & Print Formatting */
+    @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12pt;
+      line-height: 1.6;
+      color: #000;
+      background-color: #f0f0f0;
+    }
+
+    .report-container {
+      background-color: #fff;
+      width: 210mm; /* A4 Width */
+      min-height: 297mm; /* A4 Height */
+      margin: 30px auto;
+      padding: 20mm 20mm; /* 2cm print margins */
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+      box-sizing: border-box;
+    }
+
+    /* Page Breaks and Layouts */
+    .page-break {
+      page-break-after: always;
+      clear: both;
+      height: 1px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Times New Roman', Times, serif;
+      color: #000;
+      page-break-after: avoid;
+    }
+
+    h1 {
+      font-size: 20pt;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 15pt;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    h3 {
+      font-size: 13pt;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      text-align: justify;
+      margin-bottom: 15px;
+      text-indent: 0.5in;
+    }
+
+    p.no-indent {
+      text-indent: 0;
+    }
+
+    ol, ul {
+      margin-bottom: 20px;
+      padding-left: 25px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      text-align: justify;
+    }
+
+    /* Cover Page Specifics */
+    .cover-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 257mm; /* Adjust for padding spacing */
+      box-sizing: border-box;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .cover-top h3 {
+      font-size: 16pt;
+      margin: 0;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .cover-middle {
+      margin: 30px 0;
+    }
+
+    .cover-middle h1 {
+      font-size: 22pt;
+      font-family: 'Times New Roman', Times, serif;
+      margin: 10px 0;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    .cover-middle p {
+      font-size: 12pt;
+      margin: 15px 0;
+      text-indent: 0;
+    }
+
+    .college-logo-container {
+      margin: 20px 0;
+    }
+
+    .college-logo-container img {
+      height: 160px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .cover-author {
+      margin: 20px 0;
+    }
+
+    .cover-author p {
+      font-size: 13pt;
+      margin: 5px 0;
+      text-indent: 0;
+    }
+
+    .cover-author .name {
+      font-size: 16pt;
+      font-weight: bold;
+    }
+
+    .cover-bottom {
+      margin-top: auto;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .cover-bottom h3 {
+      font-size: 13pt;
+      margin: 5px 0;
+    }
+
+    .cover-bottom p {
+      font-size: 11pt;
+      margin: 5px 0;
+      text-indent: 0;
+    }
+
+    /* Certificate Page Border */
+    .certificate-border {
+      border: 3px double #000;
+      padding: 20px;
+      height: 247mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-college-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid #000;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+
+    .cert-college-logo {
+      height: 80px;
+      margin-right: 20px;
+    }
+
+    .cert-college-title {
+      text-align: left;
+    }
+
+    .cert-college-title h2 {
+      font-size: 16pt;
+      font-weight: bold;
+      margin: 0;
+      border: none;
+      padding: 0;
+      text-transform: uppercase;
+    }
+
+    .cert-college-title p {
+      font-size: 9pt;
+      margin: 3px 0 0 0;
+      text-indent: 0;
+      font-style: italic;
+    }
+
+    .cert-title {
+      text-align: center;
+      font-size: 20pt;
+      font-weight: bold;
+      text-decoration: underline;
+      margin: 20px 0;
+      letter-spacing: 2px;
+    }
+
+    .cert-body {
+      font-size: 13pt;
+      line-height: 1.8;
+      margin: 20px 0;
+      text-align: justify;
+    }
+
+    .cert-body span.highlight {
+      font-weight: bold;
+    }
+
+    .cert-date {
+      margin-top: 40px;
+      font-size: 12pt;
+    }
+
+    .cert-signatures {
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-bottom: 20px;
+    }
+
+    .cert-sign-block {
+      text-align: center;
+      width: 45%;
+    }
+
+    .cert-sign-line {
+      border-top: 1px solid #000;
+      margin-top: 50px;
+      padding-top: 5px;
+    }
+
+    /* Company Certificate Frame */
+    .company-border {
+      border: 15px solid #1a365d;
+      padding: 30px;
+      height: 247mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .company-border::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border: 2px solid #dd6b20;
+      pointer-events: none;
+    }
+
+    .company-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 20px;
+    }
+
+    .company-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .company-logo-box {
+      background-color: #1a365d;
+      color: #fff;
+      font-weight: bold;
+      font-size: 28pt;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      margin-right: 15px;
+    }
+
+    .company-logo-text h2 {
+      font-size: 20pt;
+      font-weight: 900;
+      margin: 0;
+      border: none;
+      color: #1a365d;
+      letter-spacing: 1px;
+    }
+
+    .company-logo-text p {
+      font-size: 8pt;
+      margin: 0;
+      text-indent: 0;
+      letter-spacing: 4px;
+      color: #dd6b20;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .company-cert-title {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .company-cert-title h1 {
+      font-size: 24pt;
+      color: #1a365d;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+      letter-spacing: 1px;
+    }
+
+    .company-cert-number {
+      text-align: left;
+      font-size: 11pt;
+      margin-top: 30px;
+      font-family: monospace;
+    }
+
+    .company-cert-body {
+      font-size: 14pt;
+      line-height: 2;
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .company-cert-body .underline-field {
+      border-bottom: 1px dashed #000;
+      padding: 0 15px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .company-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: auto;
+      padding-bottom: 20px;
+    }
+
+    .company-address-block {
+      font-size: 8pt;
+      color: #555;
+      width: 60%;
+      text-align: left;
+    }
+
+    .company-address-block p {
+      margin: 2px 0;
+      text-indent: 0;
+    }
+
+    .company-sign-block {
+      text-align: center;
+      width: 35%;
+    }
+
+    .company-sign-image {
+      height: 50px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .company-sign-line {
+      border-top: 1.5px solid #1a365d;
+      padding-top: 5px;
+      font-weight: bold;
+      color: #1a365d;
+      font-size: 11pt;
+    }
+
+    /* Table of Contents Formatting */
+    .toc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    .toc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 15px;
+      font-size: 12pt;
+    }
+
+    .toc-title-cell {
+      flex-grow: 1;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .toc-title-cell::after {
+      content: " ................................................................................................................................................................................";
+      white-space: nowrap;
+      overflow: hidden;
+      margin-left: 8px;
+      margin-right: 8px;
+      color: #888;
+    }
+
+    .toc-page-cell {
+      font-weight: bold;
+      min-width: 30px;
+      text-align: right;
+    }
+
+    .toc-indent-1 {
+      padding-left: 20px;
+    }
+
+    /* General Tables */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table.data-table th, table.data-table td {
+      border: 1px solid #aaa;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 11pt;
+    }
+
+    table.data-table th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+    }
+
+    /* Architecture Block Visual */
+    .architecture-box {
+      border: 1.5px solid #000;
+      padding: 15px;
+      margin: 20px 0;
+      background-color: #fafafa;
+    }
+
+    .arch-tier {
+      border: 1px solid #777;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+
+    .arch-tier-title {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 10.5pt;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    /* Footer styling for printing */
+    .report-footer {
+      display: none;
+    }
+
+    /* Media Print Overrides */
+    @media print {
+      body {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+
+      .report-container {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        width: auto;
+        min-height: auto;
+      }
+
+      .page-break {
+        page-break-after: always;
+        height: 0;
+        border: none;
+      }
+
+      /* Headers and footers standard formatting */
+      .print-header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        font-size: 9pt;
+        color: #666;
+        font-style: italic;
+      }
+
+      .print-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 9pt;
+        color: #666;
+        border-top: 1px solid #ddd;
+        padding-top: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="report-container">
+
+    <!-- PAGE 1: COVER PAGE -->
+    <div class="cover-page">
+      <div class="cover-top">
+        <h3>Third Year Industrial Training Seminar Report</h3>
+      </div>
+      
+      <div class="cover-middle">
+        <h1>Placement Tracker – A Comprehensive Student Placement & Coding Profile Aggregator</h1>
+        <p>Submitted in partial fulfilment of the Degree of Bachelor of Technology</p>
+        <p>Rajasthan Technical University</p>
+        
+        <div class="college-logo-container">
+          <!-- Official PIET / Poornima Group logo URL -->
+          <img src="https://www.poornima.org/wp-content/uploads/2020/09/piet-logo.png" alt="Poornima Group Logo">
+        </div>
+      </div>
+
+      <div class="cover-author">
+        <p>By</p>
+        <p class="name">Akshay Vijayvargiya</p>
+        <p>(PIET24CS014)</p>
+      </div>
+
+      <div class="cover-bottom">
+        <h3>Department of Computer Engineering</h3>
+        <p>Poornima Institute of Engineering & Technology, Jaipur</p>
+        <p>(Academic Year 2026-27)</p>
+      </div>
+    </div>
+    
+    <div class="page-break"></div>
+
+    <!-- PAGE 2: COLLEGE CERTIFICATE -->
+    <div class="certificate-border">
+      <div class="cert-college-header">
+        <img class="cert-college-logo" src="https://www.poornima.org/wp-content/uploads/2020/09/piet-logo.png" alt="Poornima Logo">
+        <div class="cert-college-title">
+          <h2>Poornima Institute of Engineering & Technology</h2>
+          <p>An Autonomous Institution approved by RTU, AICTE & UGC • NAAC 'A' Accredited</p>
+        </div>
+      </div>
+
+      <div class="cert-title">CERTIFICATE</div>
+
+      <div class="cert-body">
+        This is to certify that Third Year Industrial Training Seminar Report entitled 
+        <span class="highlight">"Placement Tracker – A Comprehensive Student Placement & Coding Profile Aggregator"</span> 
+        has been submitted by <span class="highlight">Akshay Vijayvargiya (PIET24CS014)</span>, for partial fulfilment 
+        of the Degree of Bachelor of Technology of Rajasthan Technical University. It is found satisfactory and 
+        approved for submission.
+      </div>
+
+      <div class="cert-date">
+        <strong>Date:</strong> 31st July 2026
+      </div>
+
+      <div class="cert-signatures">
+        <div class="cert-sign-block">
+          <div class="cert-sign-line">
+            <strong>Dr. Anil Kumar</strong><br>
+            Head, Department of Computer Engineering<br>
+            PIET, Jaipur
+          </div>
+        </div>
+        <div class="cert-sign-block">
+          <div class="cert-sign-line">
+            <strong>Dr. Dinesh Goyal</strong><br>
+            Director, PIET<br>
+            Jaipur
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PAGE 3: COMPANY CERTIFICATE -->
+    <div class="company-border">
+      <div class="company-header">
+        <div class="company-logo">
+          <div class="company-logo-box">Si</div>
+          <div class="company-logo-text">
+            <h2>SELDOM</h2>
+            <p>India Technologies</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="company-cert-title">
+        <h1>CERTIFICATE OF COMPLETION</h1>
+      </div>
+
+      <div class="company-cert-number">
+        Certificate No: WS/5354
+      </div>
+
+      <div class="company-cert-body">
+        This is to certify that <span class="underline-field">&nbsp;&nbsp;&nbsp;&nbsp;Akshay Vijayvargiya&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        of <span class="underline-field">&nbsp;&nbsp;&nbsp;&nbsp;PIET, Jaipur&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        successfully completed <span class="underline-field">&nbsp;&nbsp;&nbsp;&nbsp;Internship&nbsp;&nbsp;&nbsp;&nbsp;</span> on<br>
+        <span class="underline-field">&nbsp;&nbsp;&nbsp;&nbsp;Full Stack Development&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        During <span class="underline-field">&nbsp;&nbsp;&nbsp;&nbsp;18 May 2026&nbsp;&nbsp;&nbsp;&nbsp;</span> to <span class="underline-field">&nbsp;&nbsp;&nbsp;&nbsp;04 July 2026&nbsp;&nbsp;&nbsp;&nbsp;</span>.
+      </div>
+
+      <p style="text-align: center; text-indent: 0; font-size: 14pt;">All the best.</p>
+
+      <div class="company-footer">
+        <div class="company-address-block">
+          <p><strong>Seldom India:</strong></p>
+          <p>3rd Floor, Gopalpura Bypass Rd, above Brown Sugar, Basant Vihar, Jaipur, Rajasthan 302018</p>
+          <p><strong>Delhi Office:</strong> K-108/109, Street #2, Mangal Bazar, Laxmi Nagar, Delhi-110091</p>
+          <p>Email: cic@SeldomIndia.com | Phone: +91 900-1827-800</p>
+        </div>
+        
+        <div class="company-sign-block">
+          <div style="height: 60px;"></div> <!-- Sign spacing -->
+          <div class="company-sign-line">
+            Training Director<br>
+            Seldom India
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PAGE 4: DECLARATION -->
+    <h1>DECLARATION</h1>
+    <div style="margin-top: 50px;">
+      <p>I hereby declare that the Industrial Training Seminar report entitled <strong>"Placement Tracker – A Comprehensive Student Placement & Coding Profile Aggregator"</strong> was carried out and written by me under the guidance of <strong>Ms. Madhu Choudhary</strong> & <strong>Ms. Ashima Tiwari</strong>, Assistant Professor, Department of Computer Engineering, Poornima Institute of Engineering & Technology, Jaipur. This work has not been previously formed the basis for the award of any degree or diploma or certificate nor has been submitted elsewhere for the award of any degree or diploma.</p>
+    </div>
+
+    <div style="margin-top: 80px; display: flex; justify-content: space-between;">
+      <div>
+        <p class="no-indent"><strong>Place:</strong> JAIPUR</p>
+        <p class="no-indent"><strong>Date:</strong> 31st July 2026</p>
+      </div>
+      <div style="text-align: right;">
+        <p class="no-indent"><strong>Student Name:</strong> Akshay Vijayvargiya</p>
+        <p class="no-indent"><strong>Registration Number:</strong> PIET24CS014</p>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PAGE 5: ACKNOWLEDGEMENT -->
+    <h1>ACKNOWLEDGEMENT</h1>
+    <div style="margin-top: 40px;">
+      <p>A project of such a vast coverage cannot be realized without help from numerous sources and people in the organization. I am thankful to <strong>Dr. Dinesh Goyal</strong>, Director, PIET for providing me a platform to carry out such a training successfully.</p>
+      <p>I am also very grateful to <strong>Dr. Anil Kumar</strong> (HOD, CE) for his kind support.</p>
+      <p>I would like to take this opportunity to show my gratitude <strong>Ms. Ashima Tiwari</strong> & <strong>Ms. Madhu Choudhary</strong> who helped me in successful completion of my third year Industrial Training. They have guided, motivated & were source of inspiration for me to carry out the necessary proceedings for the training to be completed successfully.</p>
+      <p>I am also grateful to the <strong>Ajay Soni</strong> for his guidance and support, and for providing me expertise of the domain to develop the project.</p>
+      <p>I would also like to express my heart felt appreciation to all of my friends whose direct or indirect suggestions help me to develop this project.</p>
+      <p>Lastly, thanks to all faculty members of Computer Engineering department for their moral support and guidance.</p>
+    </div>
+
+    <div style="margin-top: 80px; text-align: right;">
+      <p class="no-indent">Submitted by:</p>
+      <p class="no-indent" style="margin-top: 10px;"><strong>Akshay Vijayvargiya</strong></p>
+      <p class="no-indent">(PIET24CS014)</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PAGE 6: ABSTRACT -->
+    <h1>ABSTRACT</h1>
+    <div style="margin-top: 30px;">
+      <p><strong>Placement Tracker</strong> is a web-based application developed to centralize and automate the tracking of job applications, Data Structures & Algorithms (DSA) preparation progress, and competitive coding profiles. Built using **Node.js, Express.js, MongoDB/Mongoose**, and a highly responsive **HTML5/CSS3/Vanilla JavaScript** frontend, the system streamlines the career placement pipeline for engineering students.</p>
+      <p>The system provides students with a simple and interactive dashboard divided into three core functional segments. An **Application Tracking Dashboard** enables logging, modifying, and filtering student job applications (Applied, Online Assessment, Interview, Selected, Rejected). A **DSA Preparation Tracker** keeps a record of questions solved across major topics (e.g., Array, Matrix, String) categorized by difficulty (Easy, Medium, Hard). A **Coding Profile Aggregator** crawls student statistics in real-time from competitive programming domains including **LeetCode** (GraphQL API), **Codeforces** (REST UserInfo API), **GitHub** (REST API), and **GeeksforGeeks** (custom HTML parser) with built-in caching to optimize page load speeds.</p>
+      <p>The platform also incorporates JWT-based Authentication for session security, Nodemailer for verification OTP dispatches, and responsive CSS grids supporting mobile views. Streamlining profile updates and password reset via OTP email authentication represents a major security enhancement.</p>
+      
+      <p class="no-indent" style="margin-top: 25px;"><strong>Keywords:</strong> Node.js, Express.js, MongoDB, Mongoose, Competitive Coding, Web Crawler, Job Tracker, Password Recovery.</p>
+      
+      <p class="no-indent" style="margin-top: 15px;"><strong>Implementation Software and Hardware:</strong></p>
+      <ul>
+        <li>Node.js (v18+)</li>
+        <li>Express.js (v5)</li>
+        <li>MongoDB Atlas / Mongoose</li>
+        <li>HTML5, CSS3, ES6 JavaScript</li>
+        <li>Axios HTTP Client</li>
+        <li>Cheerio / Scraper</li>
+        <li>Nodemailer & JWT</li>
+      </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PAGE 7: TABLE OF CONTENTS -->
+    <h1>Table of Content</h1>
+    <div style="margin-top: 40px;">
+      <div class="toc-table">
+        <div class="toc-row">
+          <div class="toc-title-cell">Certificate</div>
+          <div class="toc-page-cell">ii</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-title-cell">Company Certificate to Be Attached</div>
+          <div class="toc-page-cell">iii</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-title-cell">Declaration</div>
+          <div class="toc-page-cell">iv</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-title-cell">Acknowledgement</div>
+          <div class="toc-page-cell">v</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-title-cell">Abstract</div>
+          <div class="toc-page-cell">vi</div>
+        </div>
+        <div class="toc-row" style="font-weight: bold;">
+          <div class="toc-title-cell">Chapter 1: Introduction</div>
+          <div class="toc-page-cell">1</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">1.1 Significance of the Training</div>
+          <div class="toc-page-cell">1</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">1.2 Company Profile</div>
+          <div class="toc-page-cell">1</div>
+        </div>
+        <div class="toc-row style="font-weight: bold;">
+          <div class="toc-title-cell">Chapter 2: Technology Specification</div>
+          <div class="toc-page-cell">3</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">2.1 Language Learned</div>
+          <div class="toc-page-cell">3</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">2.2 Tools and Environment</div>
+          <div class="toc-page-cell">3</div>
+        </div>
+        <div class="toc-row style="font-weight: bold;">
+          <div class="toc-title-cell">Chapter 3: Project Description</div>
+          <div class="toc-page-cell">5</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">3.1 Overview</div>
+          <div class="toc-page-cell">5</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">3.2 System Architecture</div>
+          <div class="toc-page-cell">5</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">3.3 Data Models</div>
+          <div class="toc-page-cell">6</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">3.4 Authentication & Authorization</div>
+          <div class="toc-page-cell">7</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">3.5 Core Functional Modules</div>
+          <div class="toc-page-cell">8</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">3.6 REST API Endpoint Summary</div>
+          <div class="toc-page-cell">9</div>
+        </div>
+        <div class="toc-row style="font-weight: bold;">
+          <div class="toc-title-cell">Chapter 4: Limitations & Learning Outcomes</div>
+          <div class="toc-page-cell">10</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">4.1 Limitations of the Project</div>
+          <div class="toc-page-cell">10</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">4.2 Learning Outcomes</div>
+          <div class="toc-page-cell">10</div>
+        </div>
+        <div class="toc-row toc-indent-1">
+          <div class="toc-title-cell">4.3 Future Scope</div>
+          <div class="toc-page-cell">11</div>
+        </div>
+        <div class="toc-row style="font-weight: bold;">
+          <div class="toc-title-cell">Chapter 5: References</div>
+          <div class="toc-page-cell">12</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 1 -->
+    <h1>Chapter 1: Introduction</h1>
+    
+    <h2>1.1 Significance of the Training</h2>
+    <p>Industrial training forms an indispensable bridge between the theoretical knowledge acquired within the classroom and the practical, real-world demands of the software industry. During the course of a formal engineering education, a student is exposed to a wide variety of subjects such as data structures, algorithms, database systems, and networks. However, the manner in which these concepts converge inside a live, production-oriented software product can only be appreciated through hands-on exposure.</p>
+    <p>The present training was undertaken with the primary objective of understanding how a full-fledged, multi-tier web application is designed, developed, tested, and deployed using a modern tech stack (Node.js, Express.js, MongoDB). The training provided an opportunity to work on a real project titled <strong>"Placement Tracker"</strong>, an online career preparation portal that connects student metrics, logs placement progress, tracks DSA questions, and aggregates multi-platform coding performance. Working on this product provided insight into role-based security, API designs, HTML parsing, database schemas, and caching.</p>
+
+    <h2>1.2 Company Profile</h2>
+    <p>The training was carried out under the aegis of <strong>Seldom India Technologies</strong>, a technology-focused organization engaged in the design and development of custom web and mobile software solutions for clients spanning e-commerce, education, and placement analytics. The organization follows an agile methodology of software delivery, wherein cross-functional teams collaborate in short, iterative development cycles known as sprints.</p>
+    
+    <h3>1.2.1 Infrastructure</h3>
+    <p>The organization maintains a modern software development infrastructure comprising cloud-hosted development, staging, and production environments. Source code is version-controlled using Git and hosted on a centralized repository hosting platform, enabling distributed collaboration among team members. Continuous Integration and Continuous Deployment (CI/CD) pipelines are used to automatically build, test, and deploy code changes.</p>
+    
+    <h3>1.2.2 Organisational Structure</h3>
+    <p>The organization follows a flat, cross-functional organizational structure. At the apex sits the leadership team, followed by project managers who translate business requirements into technical roadmaps. Beneath this layer, squads consisting of frontend developers, backend developers, and QA engineers work collaboratively on assigned modules.</p>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 2 -->
+    <h1>Chapter 2: Technology Specification</h1>
+    
+    <h2>2.1 Language Learned</h2>
+    <p>The entire Placement Tracker project is implemented in JavaScript (modern ECMAScript), HTML5, and CSS3. Using a single programming language (JavaScript) across both the client-side files and the Express.js server-side backend considerably reduces context-switching and allows shared object formats.</p>
+    
+    <h3>2.1.1 Core JavaScript Concepts</h3>
+    <ul>
+      <li>Variables and scoping using <code>let</code> and <code>const</code>.</li>
+      <li>Arrow functions and the lexical binding of <code>this</code>.</li>
+      <li>Promises and the <code>async/await</code> syntax for asynchronous network operations and database queries.</li>
+      <li>Array higher-order functions such as <code>map</code>, <code>filter</code>, <code>reduce</code>, and <code>forEach</code> used extensively for transforming API response data before rendering.</li>
+      <li>DOM Manipulation methods like <code>querySelector</code>, <code>addEventListener</code>, and dynamic innerHTML injection to create responsive states.</li>
+    </ul>
+
+    <h2>2.2 Tools and Environment</h2>
+    
+    <h3>2.2.1 Frontend Stack</h3>
+    <ul>
+      <li><strong>HTML5 & CSS3:</strong> Used to define standard document structure and styling. The UI utilizes CSS custom properties (variables), gradients, transitions, and flexbox/grid alignments.</li>
+      <li><strong>Local Storage:</strong> Used to persist authentication tokens (JWT) and user data to avoid database hits on page refreshes.</li>
+      <li><strong>Vanilla JS DOM hooks:</strong> Dynamic routing and updates handled on client side using JS modules (`config.js`, `profile.js`).</li>
+    </ul>
+
+    <h3>2.2.2 Backend Stack</h3>
+    <ul>
+      <li><strong>Node.js:</strong> Serves as the runtime foundation.</li>
+      <li><strong>Express.js (v5):</strong> Used to implement REST routes, handle CORS requests, parse JSON bodies, and orchestrate middleware.</li>
+      <li><strong>MongoDB Atlas:</strong> A document-oriented NoSQL database used to persist collections.</li>
+      <li><strong>Mongoose:</strong> An Object Data Modelling (ODM) library used to structure schemas and interact with MongoDB.</li>
+      <li><strong>Nodemailer:</strong> Used to dispatch security OTP emails for authentication recovery.</li>
+      <li><strong>Axios & Cheerio:</strong> Employed to construct requests and extract statistical values from coding websites.</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 3 -->
+    <h1>Chapter 3: Project Description</h1>
+    
+    <h2>3.1 Overview</h2>
+    <p>Placement Tracker is a MERN/Vanilla JS web application designed to digitize student placement tracking. In traditional college environments, students track their corporate applications on scattered spreadsheets and log DSA problems on notes. Placement Tracker solves this by providing a unified student portal. The frontend renders dashboards, tracks company interview status pipelines, logs sheet-wise DSA problems, and pulls coding analytics (ratings, problems solved, repositories) automatically.</p>
+
+    <h2>3.2 System Architecture</h2>
+    <div class="architecture-box">
+      <div class="arch-tier">
+        <div class="arch-tier-title">1. Presentation Tier (Frontend Client)</div>
+        Static HTML5 pages, CSS3 variables/grids/flexbox, Vanilla JS event listeners. Connects to backend using Axios.
+      </div>
+      <div class="arch-tier">
+        <div class="arch-tier-title">2. Logic Tier (Express Server API)</div>
+        Exposes REST endpoints, validates input, manages security middleware, scrapes third-party servers, dispatches OTPs.
+      </div>
+      <div class="arch-tier">
+        <div class="arch-tier-title">3. Data Tier (Database Clusters)</div>
+        MongoDB Atlas cloud instance. Collections: Users, Applications, DsaTopics, Drives, Otps. Mapped using Mongoose.
+      </div>
+    </div>
+
+    <h2>3.3 Data Models</h2>
+
+    <h3>3.3.1 User Model (User.js)</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Field Name</th>
+          <th>Data Type</th>
+          <th>Default/Enum</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>name, email</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>Personal name and unique email keys.</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>Secure Bcrypt hashed password representation.</td>
+        </tr>
+        <tr>
+          <td>streakCount</td>
+          <td>Number</td>
+          <td>0</td>
+          <td>Current consecutive daily usage streak.</td>
+        </tr>
+        <tr>
+          <td>badges</td>
+          <td>Array (String)</td>
+          <td>[]</td>
+          <td>Gamification badges unlocked by the user.</td>
+        </tr>
+        <tr>
+          <td>codingProfiles</td>
+          <td>Object</td>
+          <td>{}</td>
+          <td>Contains usernames: `{leetcode, gfg, codeforces, github}`.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h3>3.3.2 Application Model (Application.js)</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Field Name</th>
+          <th>Data Type</th>
+          <th>Validation / Enum</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>company, role</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>Corporate name and designation.</td>
+        </tr>
+        <tr>
+          <td>pkg</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>Salary package (LPA).</td>
+        </tr>
+        <tr>
+          <td>status</td>
+          <td>String</td>
+          <td>Applied, OA, Interview, Selected, Rejected</td>
+          <td>State of the placement application.</td>
+        </tr>
+        <tr>
+          <td>user</td>
+          <td>ObjectId</td>
+          <td>Ref: 'User'</td>
+          <td>Reference key to the applicant user.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3.3.3 DSA Topic Model (DsaTopic.js)</h3>
+    <p class="no-indent">Stores tracking records of DSA topic sheets (e.g., Array, Matrix). Properties include <code>name</code> (String), <code>easySolved</code>, <code>mediumSolved</code>, <code>hardSolved</code>, and total counts for each category, mapping progress bars on the dashboard. Linked to <code>User</code> via Mongoose reference.</p>
+
+    <h2>3.4 Authentication & Authorization</h2>
+    <p>Auth uses JSON Web Tokens (JWT). When logging in, a token is signed with the user ID, stored on the client, and verified by server middlewares. To reset password from the profile, an OTP is dispatched to the user's email via Nodemailer. The user enters the OTP, which is validated against the MongoDB Otps collection before password updates are authorized.</p>
+
+    <h2>3.5 Core Functional Modules</h2>
+    <ul>
+      <li><strong>Applications Dashboard:</strong> CRUD utility for student job logs with pipeline visual status filters.</li>
+      <li><strong>DSA Progress Tracker:</strong> Sheet-wise problem categories mapping progress.</li>
+      <li><strong>Profile Analytics Aggregator:</strong> Calls APIs (LeetCode GraphQL, Codeforces User API, GitHub API) and scrapes GFG pages with user-agent headers. Caches outputs for 5 minutes in memory to prevent rate-limiting blocks.</li>
+    </ul>
+
+    <h2>3.6 REST API Endpoint Summary</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Endpoint</th>
+          <th>Authorization</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>POST</td>
+          <td>/api/auth/register</td>
+          <td>Public</td>
+          <td>Registers a new student account.</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/auth/login</td>
+          <td>Public</td>
+          <td>Validates user and issues JWT.</td>
+        </tr>
+        <tr>
+          <td>PUT</td>
+          <td>/api/profile</td>
+          <td>JWT (Header)</td>
+          <td>Updates info and coding platform usernames.</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/api/profile/coding-stats</td>
+          <td>JWT (Header)</td>
+          <td>Pulls and aggregates LeetCode, CF, GFG, GitHub stats.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 4 -->
+    <h1>Chapter 4: Limitations & Outcomes</h1>
+    
+    <h2>4.1 Limitations of the Project</h2>
+    <ul>
+      <li><strong>Scraper Vulnerability:</strong> GFG statistics scraping relies on the HTML page source. A change in the layout on GeeksforGeeks could break the regex extraction mechanism.</li>
+      <li><strong>Third-party API dependency:</strong> If external APIs (LeetCode, GitHub, Codeforces) undergo downtime, the profile stats card will display placeholders until the APIs recover.</li>
+      <li><strong>Client-side security:</strong> Storing JWT tokens in <code>localStorage</code> makes the application susceptible to cross-site scripting (XSS) risks compared to secure <code>httpOnly</code> cookie storage.</li>
+    </ul>
+
+    <h2>4.2 Learning Outcomes</h2>
+    <p>This training resulted in transferable full-stack engineering outcomes:
+    <ul>
+      <li>Understanding RESTful API designs, HTTP statuses, and CORS constraints.</li>
+      <li>Proficiency in modeling relational-like documents in NoSQL databases using Mongoose.</li>
+      <li>Familiarity with secure authentication patterns (JWT authorization headers, Bcrypt password hashing).</li>
+      <li>Experience building a web scraper, handling XML/JSON responses, and implementing in-memory caching mechanisms.</li>
+      <li>Designing responsive glassmorphic interfaces using CSS grids, custom properties, and transitions.</li>
+    </ul>
+    </p>
+
+    <h2>4.3 Future Scope</h2>
+    <p>The technology and application can be extended in multiple directions:
+    <ul>
+      <li><strong>AI Integration:</strong> Integrating AI agents to review student resumes and map them against corporate job application requirements automatically.</li>
+      <li><strong>Real-time Notifications:</strong> Introducing WebSocket connections for instant job drive notifications.</li>
+      <li><strong>Tele-Mentorship:</strong> Adding tele-consultation or mock interview rooms utilizing WebRTC.</li>
+    </ul>
+    </p>
+
+    <div class="page-break"></div>
+
+    <!-- REFERENCES -->
+    <h1>Chapter 5: References</h1>
+    <div style="margin-top: 40px; font-size: 11pt;">
+      <p class="no-indent">[1] Node.js documentation, available at: https://nodejs.org/en/docs/</p>
+      <p class="no-indent">[2] Express.js documentation, available at: https://expressjs.com/</p>
+      <p class="no-indent">[3] MongoDB database documentation, available at: https://www.mongodb.com/docs/</p>
+      <p class="no-indent">[4] Mongoose ODM documentation, available at: https://mongoosejs.com/docs/</p>
+      <p class="no-indent">[5] JSON Web Tokens specifications, available at: https://jwt.io/introduction</p>
+      <p class="no-indent">[6] LeetCode API references, available at: https://leetcode.com/graphql</p>
+      <p class="no-indent">[7] Codeforces API documentation, available at: https://codeforces.com/api/help</p>
+      <p class="no-indent">[8] MDN Web Docs - JavaScript, Mozilla, available at: https://developer.mozilla.org/en-US/docs/Web/JavaScript</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
