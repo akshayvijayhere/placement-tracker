@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Optimizer</title>
+    <link rel="stylesheet" href="resume-checker.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <script src="../js/config.js" defer></script>
+    <script src="../js/mobile-nav.js" defer></script>
+    <script src="resume-checker.js" defer></script>
+  </head>
+  <body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-logo">
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Placement Tracker</span>
+      </div>
+      <div class="mobile-avatar" id="mobileAvatar"></div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <button class="sidebar-close" id="sidebarClose">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="logo">
+          <div class="logo-box">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div class="logo-text">
+            <span>Placement</span>
+            <span>Tracker</span>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a href="dashboard.html" class="menu-item">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+          </a>
+          <a href="applications.html" class="menu-item">
+            <i class="fa-regular fa-clipboard"></i>
+            Applications
+          </a>
+          <a href="dsa_tracker.html" class="menu-item">
+            <i class="fa-solid fa-code"></i>
+            DSA Tracker
+          </a>
+          <a href="resume-checker.html" class="menu-item active">
+            <i class="fa-regular fa-file-lines"></i>
+            Resume Analyzer
+          </a>
+          <a href="profile.html" class="menu-item">
+            <i class="fa-regular fa-user"></i>
+            Profile
+          </a>
+        </nav>
+
+        <button class="logout-btn" id="logoutBtn">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          Logout
+        </button>
+      </aside>
+
+      <!-- Main Area -->
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h1>
+              <i class="fa-regular fa-file-lines"></i>
+              AI Resume Optimizer
+            </h1>
+            <p>Check ATS compatibility and optimize your resume keywords for target job roles.</p>
+          </div>
+          <div class="topbar-right">
+            <button class="theme-toggle-btn" id="themeToggleBtn">
+              <i class="fa-regular fa-moon"></i>
+            </button>
+            <div class="notification">
+              <i class="fa-regular fa-bell"></i>
+              <span class="badge"></span>
+            </div>
+            <div class="profile-summary">
+              <div class="avatar"></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="content-body">
+          <div class="resume-grid">
+            <!-- Setup Section -->
+            <section class="setup-card glass-card">
+              <h2><i class="fa-solid fa-sliders"></i> Analysis Setup</h2>
+              <p class="subtitle">Upload your resume in PDF format and paste the job description you want to target.</p>
+              
+              <div class="form-group">
+                <label>Upload Resume (PDF Only)</label>
+                <div class="upload-zone" id="uploadZone">
+                  <input type="file" id="resumeFileInput" accept=".pdf" style="display: none;" />
+                  <i class="fa-regular fa-file-pdf file-icon"></i>
+                  <p class="upload-text">Drag & drop your PDF resume here or <span class="browse-link">browse</span></p>
+                  <p class="file-info" id="fileInfoText"></p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="jdTextArea">Target Job Description</label>
+                <textarea id="jdTextArea" rows="10" placeholder="Paste the job description (skills, requirements, responsibilities) here..."></textarea>
+              </div>
+
+              <button class="action-btn" id="analyzeBtn" disabled>
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Resume
+              </button>
+            </section>
+
+            <!-- Results Section (Hidden initially) -->
+            <section class="results-card glass-card" id="resultsSection" style="display: none;">
+              <div class="results-header">
+                <h2><i class="fa-solid fa-chart-pie"></i> Analysis Report</h2>
+                <button class="re-analyze-btn" id="reAnalyzeBtn">
+                  <i class="fa-solid fa-rotate"></i> Reset
+                </button>
+              </div>
+
+              <!-- Loader view -->
+              <div class="results-loader" id="resultsLoader" style="display: none;">
+                <div class="spinner-container">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+                </div>
+                <p>AI is parsing your resume and evaluating ATS keywords...</p>
+                <div class="progress-bar-container">
+                  <div class="progress-fill" id="loaderProgressFill"></div>
+                </div>
+              </div>
+
+              <!-- Main Data View -->
+              <div class="results-content" id="resultsContent">
+                <!-- Score Block -->
+                <div class="score-block">
+                  <div class="radial-score-container">
+                    <svg class="radial-ring" viewBox="0 0 100 100">
+                      <circle class="ring-bg" cx="50" cy="50" r="45"></circle>
+                      <circle class="ring-val" id="scoreRing" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="283"></circle>
+                    </svg>
+                    <div class="score-text">
+                      <span class="score-number" id="scoreNumber">0%</span>
+                      <span class="score-label">ATS Match</span>
+                    </div>
+                  </div>
+                  <div class="status-badge-container">
+                    <span class="status-badge" id="statusBadge">-</span>
+                    <p id="scoreExplanation"></p>
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Keywords Match Block -->
+                <div class="keywords-block">
+                  <h3><i class="fa-solid fa-tags"></i> ATS Keyword Analytics</h3>
+                  <div class="keywords-columns">
+                    <div class="keywords-col matched">
+                      <h4><i class="fa-solid fa-circle-check"></i> Matched Keywords (<span id="matchedCount">0</span>)</h4>
+                      <div class="keyword-tags" id="matchedKeywordsContainer"></div>
+                    </div>
+                    <div class="keywords-col missing">
+                      <h4><i class="fa-solid fa-triangle-exclamation"></i> Missing Keywords (<span id="missingCount">0</span>)</h4>
+                      <div class="keyword-tags" id="missingKeywordsContainer"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Strengths & Weaknesses -->
+                <div class="eval-block">
+                  <div class="eval-column">
+                    <h3><i class="fa-regular fa-thumbs-up" style="color: var(--success-color);"></i> Key Strengths</h3>
+                    <ul id="strengthsList"></ul>
+                  </div>
+                  <div class="eval-column">
+                    <h3><i class="fa-regular fa-thumbs-down" style="color: var(--danger-color);"></i> Gap Analysis</h3>
+                    <ul id="weaknessesList"></ul>
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Structural Suggestions -->
+                <div class="suggestions-block">
+                  <h3><i class="fa-solid fa-lightbulb"></i> Section-Wise Suggestions</h3>
+                  <div class="suggestions-container" id="suggestionsContainer"></div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Optimized Bullet Points -->
+                <div class="edits-block">
+                  <h3><i class="fa-solid fa-pencil"></i> Optimized Resume Bullet Points</h3>
+                  <p class="subtitle">Replace weak sentences in your resume with these ATS-friendly versions:</p>
+                  <div class="edits-container" id="editsContainer"></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+  </body>
+</html>
