@@ -51,29 +51,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize Theme (Dark/Light mode)
   const themeToggleBtn = document.getElementById("themeToggleBtn");
   const savedTheme = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-  updateThemeIcon(savedTheme);
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
-      updateThemeIcon(newTheme);
-    });
+  
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-theme");
   }
 
-  function updateThemeIcon(theme) {
-    if (!themeToggleBtn) return;
+  if (themeToggleBtn) {
     const icon = themeToggleBtn.querySelector("i");
-    if (icon) {
-      if (theme === "dark") {
-        icon.className = "fa-regular fa-sun";
-      } else {
-        icon.className = "fa-regular fa-moon";
-      }
+    if (document.body.classList.contains("dark-theme")) {
+      icon.className = "fa-solid fa-sun";
+    } else {
+      icon.className = "fa-solid fa-moon";
     }
+
+    themeToggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-theme");
+      const isDark = document.body.classList.contains("dark-theme");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      showToast(isDark ? "Dark Mode Enabled 🌙" : "Light Mode Enabled ☀️");
+    });
   }
 
   // Mobile Navbar Handlers (uses existing mobile-nav.js triggers, linking sidebar bindings)
