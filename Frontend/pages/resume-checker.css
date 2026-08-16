@@ -197,41 +197,49 @@ body {
   gap: 20px;
 }
 
-.theme-toggle-btn, .notification {
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-color);
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s;
-}
-
-.theme-toggle-btn:hover, .notification:hover {
-  background-color: var(--border-color);
-}
-
-.notification .badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 8px;
-  height: 8px;
-  background-color: #ef4444;
+.theme-toggle-btn {
+  width: 50px;
+  height: 50px;
+  background: white;
   border-radius: 50%;
-  display: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  font-size: 18px;
+  color: #64748b;
 }
 
-.profile-summary .avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background-color: var(--border-color);
+.theme-toggle-btn:hover {
+  transform: translateY(-2px);
+  color: #5b5cff;
+}
+
+body.dark-theme .theme-toggle-btn {
+  background: #1e293b;
+  color: #fbbf24;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .theme-toggle-btn:hover {
+  color: #f59e0b;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #5b5cff;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   background-size: cover;
   background-position: center;
 }

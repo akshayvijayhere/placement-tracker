@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize Header and Sidebar user information
   if (currentUser) {
-    const avatarEl = document.querySelector(".profile-summary .avatar");
+    const avatarEl = document.querySelector(".topbar-right .avatar");
     const mobileAvatarEl = document.getElementById("mobileAvatar");
     
     const updateAvatar = (el) => {
