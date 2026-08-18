@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Mock Interview - Placement Tracker</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👔</text></svg>">
+  <link rel="stylesheet" href="mock-interview.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/mobile-nav.css">
+  <script src="../js/config.js" defer></script>
+  <script src="../js/mobile-nav.js" defer></script>
+  <script src="mock-interview.js" defer></script>
+</head>
+<body>
+
+  <!-- Mobile Header -->
+  <div class="mobile-header">
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="mobile-logo">
+      <i class="fa-solid fa-briefcase"></i>
+      <span>Placement Tracker</span>
+    </div>
+    <div class="mobile-avatar" id="mobileAvatar"></div>
+  </div>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <button class="sidebar-close" id="sidebarClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="logo">
+        <div class="logo-box">
+          <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <div class="logo-text">
+          <span>Placement</span>
+          <span>Tracker</span>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="dashboard.html" class="menu-item">
+          <i class="fa-solid fa-house"></i>
+          Dashboard
+        </a>
+        <a href="applications.html" class="menu-item">
+          <i class="fa-regular fa-clipboard"></i>
+          Applications
+        </a>
+        <a href="dsa_tracker.html" class="menu-item">
+          <i class="fa-solid fa-code"></i>
+          DSA Tracker
+        </a>
+        <a href="resume-checker.html" class="menu-item">
+          <i class="fa-regular fa-file-lines"></i>
+          Resume Analyzer
+        </a>
+        <a href="mock-interview.html" class="menu-item active">
+          <i class="fa-solid fa-user-tie"></i>
+          Mock Interview
+        </a>
+        <a href="profile.html" class="menu-item">
+          <i class="fa-regular fa-user"></i>
+          Profile
+        </a>
+      </nav>
+
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Logout
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div>
+          <h1>
+            <i class="fa-solid fa-user-tie"></i>
+            AI Mock Interview
+          </h1>
+          <p>Practice technical and behavioral interview questions and get evaluated by AI.</p>
+        </div>
+        <div class="topbar-right">
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <a href="profile.html" style="text-decoration: none">
+            <div class="avatar"></div>
+          </a>
+        </div>
+      </header>
+
+      <!-- Main Panel Container -->
+      <div class="content-body">
+        
+        <!-- SECTION 1: SETUP CARD -->
+        <div class="glass-card" id="setupCard">
+          <div class="card-header">
+            <h2>Start Practice Session</h2>
+            <p class="subtitle">Customize your session to match your target job profile.</p>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="roleInput">Job Role / Profile</label>
+              <select id="roleInput">
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Frontend Engineer">Frontend Engineer</option>
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="Full Stack Developer">Full Stack Developer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Product Manager">Product Manager</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="companyInput">Target Company</label>
+              <input type="text" id="companyInput" placeholder="e.g. Google, Amazon, Seldom India" required>
+            </div>
+            <div class="form-group">
+              <label for="experienceInput">Experience Level</label>
+              <select id="experienceInput">
+                <option value="Entry Level (Graduate/Intern)">Entry Level (Graduate/Intern)</option>
+                <option value="Associate / Junior (1-2 Years)">Associate / Junior (1-2 Years)</option>
+                <option value="Mid Level (3-5 Years)">Mid Level (3-5 Years)</option>
+                <option value="Senior Level (6+ Years)">Senior Level (6+ Years)</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top: 30px;">
+            <button class="primary-btn" id="startBtn">
+              <i class="fa-solid fa-bolt"></i> Generate Interview Questions
+            </button>
+          </div>
+        </div>
+
+        <!-- SECTION 2: LOADER CARD -->
+        <div class="glass-card" id="loaderCard" style="display: none;">
+          <div class="loader-content">
+            <div class="spinner">
+              <div class="double-bounce1"></div>
+              <div class="double-bounce2"></div>
+            </div>
+            <h3 id="loaderText">Generating Questions...</h3>
+            <p class="subtitle">Please wait while the AI compiles customized interview scenarios.</p>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="loaderProgressFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: WIZARD QUESTIONS CARD -->
+        <div class="glass-card" id="wizardCard" style="display: none;">
+          <div class="wizard-header">
+            <div class="step-indicator">
+              <span>Question <strong id="currentStepText">1</strong> of 5</span>
+              <div class="progress-line">
+                <div class="progress-line-fill" id="wizardProgressFill"></div>
+              </div>
+            </div>
+            <span class="type-badge" id="questionTypeBadge">Technical</span>
+          </div>
+
+          <div class="question-body">
+            <h2 class="question-title" id="questionTitle">Explain the differences between processes and threads.</h2>
+            <div class="form-group" style="margin-top: 20px;">
+              <label for="answerInput">Your Answer</label>
+              <textarea id="answerInput" placeholder="Type your detailed answer here. Focus on core technical terms and explain clearly..." rows="10"></textarea>
+            </div>
+          </div>
+
+          <div class="wizard-footer">
+            <button class="secondary-btn" id="prevBtn" disabled>
+              <i class="fa-solid fa-arrow-left"></i> Previous
+            </button>
+            <button class="primary-btn" id="nextBtn">
+              Next <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- SECTION 4: EVALUATION DASHBOARD CARD -->
+        <div class="glass-card" id="resultsCard" style="display: none;">
+          <div class="results-dashboard">
+            <!-- Score Ring -->
+            <div class="score-card">
+              <div class="score-ring-container">
+                <svg class="score-ring-svg">
+                  <circle cx="50" cy="50" r="45" class="ring-bg"></circle>
+                  <circle cx="50" cy="50" r="45" class="ring-fill" id="scoreRing"></circle>
+                </svg>
+                <div class="score-number-wrapper">
+                  <span class="score-number" id="scoreNumber">0%</span>
+                </div>
+              </div>
+              <div class="score-details">
+                <span class="status-badge" id="statusBadge">Passed</span>
+                <h3>Overall Grade</h3>
+                <p class="subtitle" id="scoreExplanation">Review your individual question critiques and optimal model answers below.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question-wise critiques -->
+          <div class="critique-section">
+            <h2>Detailed Evaluation</h2>
+            <div class="evaluations-container" id="evaluationsContainer">
+              <!-- Evaluation Item Template -->
+              <div class="eval-item">
+                <div class="eval-header">
+                  <span class="eval-id">Question 1</span>
+                  <span class="eval-score">8/10</span>
+                </div>
+                <div class="eval-question">Explain the difference between SQL and NoSQL.</div>
+                <div class="eval-answer">Your answer: <em>My answer text...</em></div>
+                <div class="eval-critique">Critique details...</div>
+                <div class="model-answer-box">
+                  <div class="model-answer-header">Model Answer</div>
+                  <div class="model-answer-content">Model answer text...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; display: flex; justify-content: flex-end;">
+            <button class="secondary-btn" id="resetBtn">
+              <i class="fa-solid fa-rotate-left"></i> Practice Another Interview
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+</body>
+</html>

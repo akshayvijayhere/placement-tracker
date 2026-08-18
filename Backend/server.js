@@ -15,6 +15,7 @@ const dsaRoutes = require("./routes/dsaRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const resumeRoutes = require("./routes/resumeRoutes");
+const interviewRoutes = require("./routes/interviewRoutes");
 
 const app = express();
 
@@ -81,6 +82,7 @@ app.use("/api/dsa", dsaRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/resume", resumeRoutes);
+app.use("/api/interview", interviewRoutes);
 
 // Config Route
 app.get("/api/config/google", (req, res) => {
