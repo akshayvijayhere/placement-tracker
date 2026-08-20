@@ -596,14 +596,4 @@ body {
   gap: 10px;
 }
 
-/* Responsive Header */
-@media (max-width: 1024px) {
-  .main-content {
-    margin-left: 0;
-    padding: 30px 20px;
-    padding-top: 100px;
-  }
-  .sidebar {
-    transform: translateX(-100%);
-  }
-}
+

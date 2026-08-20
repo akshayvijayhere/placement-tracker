@@ -332,13 +332,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Clean Code Block Helper
+  function cleanCodeBlock(rawCode) {
+    if (!rawCode) return "";
+    let code = rawCode;
+    
+    // Replace double-escaped newlines and tabs
+    code = code.replace(/\\n/g, "\n");
+    code = code.replace(/\\t/g, "  ");
+    
+    // Strip markdown code fences if present
+    code = code.replace(/^```[a-zA-Z]*\n?/, ""); // Remove leading fence
+    code = code.replace(/\n?```$/, "");         // Remove trailing fence
+    
+    return code.trim();
+  }
+
   // Render Grading Results drawer
   function renderReviewResults(data) {
     timeComplexityVal.textContent = data.timeComplexity || "N/A";
     spaceComplexityVal.textContent = data.spaceComplexity || "N/A";
     gradeVal.textContent = data.grade || "N/A";
     critiqueVal.textContent = data.critique || "No review returned.";
-    optimizedCodeVal.textContent = data.optimizedCode || "// No optimized code returned.";
+    
+    const cleanedCode = cleanCodeBlock(data.optimizedCode);
+    optimizedCodeVal.textContent = cleanedCode || "// No optimized code returned.";
     explanationVal.textContent = data.explanation || "";
 
     // Show warnings list if bugs are found
