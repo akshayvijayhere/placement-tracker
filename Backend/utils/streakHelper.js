@@ -10,7 +10,8 @@ async function updateStreak(userId) {
     const user = await User.findById(userId);
     if (!user) return null;
 
-    const todayStr = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
+    // Use Indian Standard Time (IST) local date comparison to avoid UTC timezone bugs resetting streaks
+    const todayStr = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }); // "YYYY-MM-DD"
 
     // Default fields if undefined
     if (user.streakCount === undefined) user.streakCount = 0;
@@ -31,7 +32,7 @@ async function updateStreak(userId) {
       return user;
     }
 
-    const lastActiveStr = user.lastActiveDate.toISOString().split("T")[0];
+    const lastActiveStr = user.lastActiveDate.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
 
     if (lastActiveStr === todayStr) {
       // Already active today. Maintain streak, save nothing extra unless first-action was added.

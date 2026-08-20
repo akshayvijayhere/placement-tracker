@@ -8,10 +8,14 @@ const nodemailer = require("nodemailer");
 const { verifyToken } = require("../middleware/authMiddleware");
 const bcrypt = require("bcryptjs");
 const axios = require("axios");
+const { updateStreak } = require("../utils/streakHelper");
 
 // Get user profile details
 router.get("/", verifyToken, async (req, res) => {
   try {
+    // Update streak on profile fetch (daily platform activity check)
+    await updateStreak(req.user.id);
+
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (err) {
