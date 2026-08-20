@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Code Playground & DSA Mentor - Placement Tracker</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+  <link rel="stylesheet" href="code-playground.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/mobile-nav.css">
+  <script src="../js/config.js" defer></script>
+  <script src="../js/mobile-nav.js" defer></script>
+  <script src="code-playground.js" defer></script>
+</head>
+<body>
+
+  <!-- Mobile Header -->
+  <div class="mobile-header">
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="mobile-logo">
+      <i class="fa-solid fa-briefcase"></i>
+      <span>Placement Tracker</span>
+    </div>
+    <div class="mobile-avatar" id="mobileAvatar"></div>
+  </div>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <button class="sidebar-close" id="sidebarClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="logo">
+        <div class="logo-box">
+          <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <div class="logo-text">
+          <span>Placement</span>
+          <span>Tracker</span>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="dashboard.html" class="menu-item">
+          <i class="fa-solid fa-house"></i>
+          Dashboard
+        </a>
+        <a href="applications.html" class="menu-item">
+          <i class="fa-regular fa-clipboard"></i>
+          Applications
+        </a>
+        <a href="dsa_tracker.html" class="menu-item">
+          <i class="fa-solid fa-code"></i>
+          DSA Tracker
+        </a>
+        <a href="resume-checker.html" class="menu-item">
+          <i class="fa-regular fa-file-lines"></i>
+          Resume Analyzer
+        </a>
+        <a href="mock-interview.html" class="menu-item">
+          <i class="fa-solid fa-user-tie"></i>
+          Mock Interview
+        </a>
+        <a href="code-playground.html" class="menu-item active">
+          <i class="fa-solid fa-laptop-code"></i>
+          Code Playground
+        </a>
+        <a href="profile.html" class="menu-item">
+          <i class="fa-regular fa-user"></i>
+          Profile
+        </a>
+      </nav>
+
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Logout
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div>
+          <h1>
+            <i class="fa-solid fa-laptop-code"></i>
+            Code Playground & DSA Mentor
+          </h1>
+          <p>Solve coding problems, check performance complexities, and get optimized solutions from AI.</p>
+        </div>
+        <div class="topbar-right">
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <a href="profile.html" style="text-decoration: none">
+            <div class="avatar"></div>
+          </a>
+        </div>
+      </header>
+
+      <!-- Main Split Workspace -->
+      <div class="workspace-grid">
+        
+        <!-- Left Pane: Problem Configurations -->
+        <div class="glass-card left-pane">
+          <div class="pane-header">
+            <h2><i class="fa-solid fa-gears"></i> Setup Problem</h2>
+          </div>
+          
+          <div class="form-group" style="margin-top: 15px;">
+            <label for="problemPreset">Preset Coding Challenges</label>
+            <select id="problemPreset">
+              <option value="custom">-- Write Custom Problem --</option>
+              <option value="twoSum">Two Sum (Array)</option>
+              <option value="validParens">Valid Parentheses (Stack)</option>
+              <option value="reverseList">Reverse Linked List (Linked List)</option>
+              <option value="maxSubarray">Maximum Subarray - Kadane's (Dynamic Programming)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-top: 15px;">
+            <label for="languageSelect">Programming Language</label>
+            <select id="languageSelect">
+              <option value="cpp">C++ (GCC)</option>
+              <option value="java">Java (OpenJDK)</option>
+              <option value="python">Python 3</option>
+              <option value="javascript">JavaScript (ES6)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-top: 15px; flex-grow: 1; display: flex; flex-direction: column;">
+            <label for="problemDescription">Problem Description</label>
+            <textarea id="problemDescription" placeholder="Paste the problem statement here..." style="flex-grow: 1; min-height: 180px; resize: vertical;"></textarea>
+          </div>
+        </div>
+
+        <!-- Right Pane: Code Editor Area -->
+        <div class="glass-card right-pane">
+          <div class="pane-header">
+            <h2><i class="fa-solid fa-code"></i> Editor Workspace</h2>
+          </div>
+          
+          <!-- Editor Wrapper -->
+          <div class="editor-container" style="margin-top: 15px;">
+            <!-- Line numbers gutter -->
+            <div class="line-numbers" id="editorLineNumbers">1</div>
+            <!-- Main code text area -->
+            <textarea class="editor-textarea" id="codeTextarea" placeholder="Write or paste your code here..." spellcheck="false"></textarea>
+          </div>
+
+          <div class="action-bar" style="margin-top: 20px;">
+            <button class="primary-btn" id="analyzeBtn">
+              <i class="fa-solid fa-circle-play"></i> Analyze & Review Code
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Loader Section -->
+      <div class="glass-card" id="loaderCard" style="display: none;">
+        <div class="loader-content">
+          <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
+          <h3>Analyzing Code Semantics...</h3>
+          <p class="subtitle">Our AI Mentor is evaluating time complexity, space complexity, and checking for logic bugs.</p>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="loaderProgressFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Display Drawer -->
+      <div class="glass-card" id="resultsCard" style="display: none;">
+        <div class="pane-header">
+          <h2><i class="fa-solid fa-chart-line"></i> AI Mentor Review Report</h2>
+        </div>
+        
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon"><i class="fa-regular fa-clock"></i></div>
+            <div class="metric-info">
+              <span class="metric-title">Time Complexity</span>
+              <span class="metric-val" id="timeComplexityVal">O(N)</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><i class="fa-solid fa-database"></i></div>
+            <div class="metric-info">
+              <span class="metric-title">Space Complexity</span>
+              <span class="metric-val" id="spaceComplexityVal">O(1)</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="metric-info">
+              <span class="metric-title">Efficiency Grade</span>
+              <span class="metric-val" id="gradeVal">A</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Critique Section -->
+        <div class="section-block">
+          <h3>Summary Critique</h3>
+          <p id="critiqueVal">Your code has good performance and handles edge cases correctly.</p>
+        </div>
+
+        <!-- Bugs & Gaps List -->
+        <div class="section-block" id="bugsBlock" style="display: none;">
+          <h3>Logic Warnings & Gaps</h3>
+          <ul class="bugs-list" id="bugsList">
+            <!-- Bug items go here -->
+          </ul>
+        </div>
+
+        <!-- Comparative Code Blocks -->
+        <div class="section-block">
+          <div class="code-header-bar">
+            <h3>Optimized Refactored Solution</h3>
+            <button class="copy-btn" id="copyCodeBtn">
+              <i class="fa-regular fa-copy"></i> Copy Code
+            </button>
+          </div>
+          <div class="optimized-code-wrapper">
+            <pre><code id="optimizedCodeVal" class="fira-code"></code></pre>
+          </div>
+          <p class="subtitle" style="margin-top: 10px;" id="explanationVal">Explanation of logic optimizations.</p>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+</body>
+</html>
