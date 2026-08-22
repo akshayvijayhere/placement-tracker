@@ -173,17 +173,27 @@
                 <i class="fa-solid fa-location-dot"></i>
                 <span class="meta-location">-</span>
               </div>
-              <div class="profile-meta-item">
+              
+              <!-- Dynamic Platform Links (Displayed only if username is configured) -->
+              <div class="profile-meta-item platform-link-item github-link" style="display: none;">
                 <i class="fa-brands fa-github"></i>
-                <a href="#" target="_blank" class="meta-github">Not Configured</a>
+                <a href="#" target="_blank" class="meta-github">-</a>
               </div>
-              <div class="profile-meta-item">
-                <i class="fa-brands fa-x-twitter"></i>
-                <a href="#" target="_blank" class="meta-twitter">Not Configured</a>
-              </div>
-              <div class="profile-meta-item">
+              <div class="profile-meta-item platform-link-item linkedin-link" style="display: none;">
                 <i class="fa-brands fa-linkedin-in"></i>
-                <a href="#" target="_blank" class="meta-linkedin">Not Configured</a>
+                <a href="#" target="_blank" class="meta-linkedin">-</a>
+              </div>
+              <div class="profile-meta-item platform-link-item leetcode-link" style="display: none;">
+                <i class="fa-solid fa-code"></i>
+                <a href="#" target="_blank" class="meta-leetcode">-</a>
+              </div>
+              <div class="profile-meta-item platform-link-item gfg-link" style="display: none;">
+                <i class="fa-solid fa-laptop-code"></i>
+                <a href="#" target="_blank" class="meta-gfg">-</a>
+              </div>
+              <div class="profile-meta-item platform-link-item cf-link" style="display: none;">
+                <i class="fa-solid fa-award"></i>
+                <a href="#" target="_blank" class="meta-cf">-</a>
               </div>
             </div>
           </div>
@@ -516,15 +526,7 @@
                 <input type="text" id="linkedinHandleInput" placeholder="Enter LinkedIn username" />
               </div>
             </div>
-
-            <div class="input-group">
-              <label>Twitter (X) Username</label>
-              <div class="input-box">
-                <i class="fa-brands fa-x-twitter"></i>
-                <input type="text" id="twitterHandleInput" placeholder="Enter Twitter (X) username" />
-              </div>
             </div>
-          </div>
         </div>
 
         <!-- Security -->

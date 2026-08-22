@@ -214,7 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const cfInput = document.getElementById("codeforcesHandleInput");
   const githubInput = document.getElementById("githubHandleInput");
   const linkedinInput = document.getElementById("linkedinHandleInput");
-  const twitterInput = document.getElementById("twitterHandleInput");
 
   // Pre-populate user details from localStorage instantly to avoid flashes of wrong data
   const profileCardName = document.querySelector(".profile-details h2");
@@ -261,7 +260,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cfInput) cfInput.value = currentUser.codingProfiles.codeforces || "";
       if (githubInput) githubInput.value = currentUser.codingProfiles.github || "";
       if (linkedinInput) linkedinInput.value = currentUser.codingProfiles.linkedin || "";
-      if (twitterInput) twitterInput.value = currentUser.codingProfiles.twitter || "";
       updateSocialLinksUI(currentUser.codingProfiles);
     }
   }
@@ -289,7 +287,6 @@ document.addEventListener("DOMContentLoaded", () => {
           if (cfInput) cfInput.value = user.codingProfiles.codeforces || "";
           if (githubInput) githubInput.value = user.codingProfiles.github || "";
           if (linkedinInput) linkedinInput.value = user.codingProfiles.linkedin || "";
-          if (twitterInput) twitterInput.value = user.codingProfiles.twitter || "";
           updateSocialLinksUI(user.codingProfiles);
         }
 
@@ -370,8 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
           gfg: gfgInput ? gfgInput.value.trim() : "",
           codeforces: cfInput ? cfInput.value.trim() : "",
           github: githubInput ? githubInput.value.trim() : "",
-          linkedin: linkedinInput ? linkedinInput.value.trim() : "",
-          twitter: twitterInput ? twitterInput.value.trim() : ""
+          linkedin: linkedinInput ? linkedinInput.value.trim() : ""
         };
 
         if (!name) {
@@ -1236,45 +1232,73 @@ function loadCodingStats(refresh = false) {
 function updateSocialLinksUI(codingProfiles) {
   codingProfiles = codingProfiles || {};
 
+  // GitHub
+  const githubLink = document.querySelector(".github-link");
   const metaGithub = document.querySelector(".meta-github");
-  if (metaGithub) {
-    const githubHandle = codingProfiles.github;
-    if (githubHandle) {
-      metaGithub.textContent = githubHandle;
-      metaGithub.href = `https://github.com/${githubHandle}`;
-      metaGithub.style.pointerEvents = "auto";
+  if (githubLink && metaGithub) {
+    const handle = codingProfiles.github;
+    if (handle) {
+      metaGithub.textContent = handle;
+      metaGithub.href = `https://github.com/${handle}`;
+      githubLink.style.display = "flex";
     } else {
-      metaGithub.textContent = "Not Configured";
-      metaGithub.removeAttribute("href");
-      metaGithub.style.pointerEvents = "none";
+      githubLink.style.display = "none";
     }
   }
 
-  const metaTwitter = document.querySelector(".meta-twitter");
-  if (metaTwitter) {
-    const twitterHandle = codingProfiles.twitter;
-    if (twitterHandle) {
-      metaTwitter.textContent = twitterHandle;
-      metaTwitter.href = `https://x.com/${twitterHandle}`;
-      metaTwitter.style.pointerEvents = "auto";
-    } else {
-      metaTwitter.textContent = "Not Configured";
-      metaTwitter.removeAttribute("href");
-      metaTwitter.style.pointerEvents = "none";
-    }
-  }
-
+  // LinkedIn
+  const linkedinLink = document.querySelector(".linkedin-link");
   const metaLinkedin = document.querySelector(".meta-linkedin");
-  if (metaLinkedin) {
-    const linkedinHandle = codingProfiles.linkedin;
-    if (linkedinHandle) {
-      metaLinkedin.textContent = linkedinHandle;
-      metaLinkedin.href = `https://linkedin.com/in/${linkedinHandle}`;
-      metaLinkedin.style.pointerEvents = "auto";
+  if (linkedinLink && metaLinkedin) {
+    const handle = codingProfiles.linkedin;
+    if (handle) {
+      metaLinkedin.textContent = handle;
+      metaLinkedin.href = `https://linkedin.com/in/${handle}`;
+      linkedinLink.style.display = "flex";
     } else {
-      metaLinkedin.textContent = "Not Configured";
-      metaLinkedin.removeAttribute("href");
-      metaLinkedin.style.pointerEvents = "none";
+      linkedinLink.style.display = "none";
+    }
+  }
+
+  // LeetCode
+  const leetcodeLink = document.querySelector(".leetcode-link");
+  const metaLeetcode = document.querySelector(".meta-leetcode");
+  if (leetcodeLink && metaLeetcode) {
+    const handle = codingProfiles.leetcode;
+    if (handle) {
+      metaLeetcode.textContent = handle;
+      metaLeetcode.href = `https://leetcode.com/u/${handle}`;
+      leetcodeLink.style.display = "flex";
+    } else {
+      leetcodeLink.style.display = "none";
+    }
+  }
+
+  // GeeksforGeeks
+  const gfgLink = document.querySelector(".gfg-link");
+  const metaGfg = document.querySelector(".meta-gfg");
+  if (gfgLink && metaGfg) {
+    const handle = codingProfiles.gfg;
+    if (handle) {
+      metaGfg.textContent = handle;
+      metaGfg.href = `https://www.geeksforgeeks.org/user/${handle}/`;
+      gfgLink.style.display = "flex";
+    } else {
+      gfgLink.style.display = "none";
+    }
+  }
+
+  // Codeforces
+  const cfLink = document.querySelector(".cf-link");
+  const metaCf = document.querySelector(".meta-cf");
+  if (cfLink && metaCf) {
+    const handle = codingProfiles.codeforces;
+    if (handle) {
+      metaCf.textContent = handle;
+      metaCf.href = `https://codeforces.com/profile/${handle}`;
+      cfLink.style.display = "flex";
+    } else {
+      cfLink.style.display = "none";
     }
   }
 }
