@@ -253,7 +253,20 @@ body.dark-theme .theme-toggle-btn:hover {
   border-radius: 16px;
   padding: 32px;
   box-shadow: var(--glass-shadow);
-  transition: background-color 0.3s, border-color 0.3s;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(91, 92, 255, 0.08);
+}
+
+body.dark-theme .glass-card:hover {
+  box-shadow: 0 16px 35px rgba(91, 92, 255, 0.15);
 }
 
 /* Main Layout Grid */
