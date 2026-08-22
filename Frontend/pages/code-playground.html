@@ -244,6 +244,44 @@
     </main>
   </div>
 
+  <!-- Floating Action Button for Mentor Chat -->
+  <button class="chat-toggle-btn" id="chatToggleBtn">
+    <i class="fa-solid fa-comments"></i> Ask DSA Mentor
+  </button>
+
+  <!-- Collapsible AI DSA Mentor Chat Drawer -->
+  <div class="chat-drawer" id="chatDrawer">
+    <div class="chat-drawer-header">
+      <div class="chat-drawer-title">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>AI DSA Coach</span>
+      </div>
+      <button class="chat-close-btn" id="chatCloseBtn">&times;</button>
+    </div>
+
+    <!-- Chat Messages thread -->
+    <div class="chat-messages" id="chatMessages">
+      <div class="message system">
+        <p>👋 Hello! I am your AI DSA Mentor. Ask me for hints, time/space complexity analysis, or conceptual explanations for this problem. I won't spoil the code unless you need me to!</p>
+      </div>
+    </div>
+
+    <!-- Suggestion Chips -->
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="suggestion-chip" data-prompt="Give me a conceptual hint to solve this problem.">💡 Get Hint</button>
+      <button class="suggestion-chip" data-prompt="Analyze the time and space complexity of my current code.">⏱️ Check Complexity</button>
+      <button class="suggestion-chip" data-prompt="Check my editor code for any edge-case bugs or logic flaws.">🐛 Find Bugs</button>
+    </div>
+
+    <!-- Message Input Bar -->
+    <div class="chat-input-bar">
+      <textarea id="chatInput" placeholder="Ask a question or type a message..." rows="1"></textarea>
+      <button id="chatSendBtn" title="Send Message">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
   <div id="toastContainer" class="toast-container"></div>
 
 </body>
