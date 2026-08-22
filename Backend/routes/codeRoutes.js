@@ -94,20 +94,6 @@ router.post("/chat", verifyToken, async (req, res) => {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash-lite" });
-
-    // Format chat history for Gemini API structure: { role: "user" | "model", parts: [{ text: turn.text }] }
-    const formattedHistory = [];
-    if (chatHistory && Array.isArray(chatHistory)) {
-      chatHistory.forEach((turn) => {
-        if (turn.role && turn.text) {
-          formattedHistory.push({
-            role: turn.role === "user" ? "user" : "model",
-            parts: [{ text: turn.text }],
-          });
-        }
-      });
-    }
 
     // System instruction prompt mapping the context of the editor
     const systemPrompt = `
@@ -132,10 +118,27 @@ Instructions for your behavior:
 3. Keep responses relatively concise, focused, formatted nicely in clean Markdown.
 `;
 
-    // Start a chat session with history and system instructions
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.5-flash-lite",
+      systemInstruction: systemPrompt,
+    });
+
+    // Format chat history for Gemini API structure: { role: "user" | "model", parts: [{ text: turn.text }] }
+    const formattedHistory = [];
+    if (chatHistory && Array.isArray(chatHistory)) {
+      chatHistory.forEach((turn) => {
+        if (turn.role && turn.text) {
+          formattedHistory.push({
+            role: turn.role === "user" ? "user" : "model",
+            parts: [{ text: turn.text }],
+          });
+        }
+      });
+    }
+
+    // Start a chat session with history
     const chat = model.startChat({
       history: formattedHistory,
-      systemInstruction: systemPrompt,
     });
 
     const result = await chat.sendMessage(message);
