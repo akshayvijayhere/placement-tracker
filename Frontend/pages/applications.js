@@ -77,6 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch user profile to render topbar fire badge
   function fetchAndRenderStreak() {
+    const cachedUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (cachedUser && cachedUser.streakCount !== undefined) {
+      renderStreakBadge(cachedUser.streakCount);
+    }
+
     fetch(`${CONFIG.API_BASE_URL}/api/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -86,6 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((user) => {
         if (user && user.streakCount !== undefined) {
           renderStreakBadge(user.streakCount);
+          if (cachedUser) {
+            cachedUser.streakCount = user.streakCount;
+            localStorage.setItem("currentUser", JSON.stringify(cachedUser));
+          }
         }
       })
       .catch((err) => console.error("Error fetching streak:", err));
