@@ -4,10 +4,12 @@ const Application = require("../models/Application");
 const DsaTopic = require("../models/DsaTopic");
 const User = require("../models/User");
 const { verifyToken } = require("../middleware/authMiddleware");
+const { updateStreak } = require("../utils/streakHelper");
 
 router.get("/", verifyToken, async (req, res) => {
   try {
     const userId = req.user.id;
+    await updateStreak(userId);
 
     // Applications stats
     const apps = await Application.find({ user: userId });

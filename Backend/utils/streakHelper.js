@@ -42,8 +42,11 @@ async function updateStreak(userId) {
       return user;
     }
 
-    const lastDate = new Date(lastActiveStr);
-    const todayDate = new Date(todayStr);
+    const [lastYear, lastMonth, lastDay] = lastActiveStr.split("-").map(Number);
+    const [todayYear, todayMonth, todayDay] = todayStr.split("-").map(Number);
+
+    const lastDate = new Date(Date.UTC(lastYear, lastMonth - 1, lastDay));
+    const todayDate = new Date(Date.UTC(todayYear, todayMonth - 1, todayDay));
     const diffTime = todayDate - lastDate;
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
