@@ -31,48 +31,93 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Helper to manage button loading states and Render wake-up warnings
+  function setButtonLoading(button, isLoading, text) {
+    if (!button) return;
+    if (isLoading) {
+      button.disabled = true;
+      button.dataset.originalText = button.innerHTML;
+      button.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> ${text}`;
+      
+      let helperText = document.getElementById("serverWakeupMessage");
+      if (!helperText) {
+        helperText = document.createElement("p");
+        helperText.id = "serverWakeupMessage";
+        helperText.style.fontSize = "13px";
+        helperText.style.color = "#fb923c"; // Sleek warning amber
+        helperText.style.marginTop = "14px";
+        helperText.style.textAlign = "center";
+        helperText.style.fontWeight = "500";
+        helperText.style.opacity = "0";
+        helperText.style.transition = "opacity 0.3s ease";
+        helperText.innerHTML = `<i class="fa-solid fa-server fa-bounce" style="margin-right: 6px;"></i> Note: Server is hosted on a free cloud tier. Waking it up might take ~1 minute if it was idle. Please hold on...`;
+        button.parentNode.insertBefore(helperText, button.nextSibling);
+      }
+      
+      button.wakeUpTimeout = setTimeout(() => {
+        helperText.style.opacity = "1";
+      }, 2500);
+    } else {
+      button.disabled = false;
+      if (button.dataset.originalText) {
+        button.innerHTML = button.dataset.originalText;
+      }
+      
+      if (button.wakeUpTimeout) {
+        clearTimeout(button.wakeUpTimeout);
+      }
+      const helperText = document.getElementById("serverWakeupMessage");
+      if (helperText) {
+        helperText.remove();
+      }
+    }
+  }
+
   // Form Validation and OTP dispatching
   const registerForm = document.querySelector("form");
   if (registerForm) {
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();
       console.log("Form submit event listener triggered! 📨");
-
+ 
       const passwordInput = document.getElementById("registerPassword");
       const emailInput = document.getElementById("registerEmail");
       const usernameInput = document.getElementById("registerUsername");
       const nameInput = document.getElementById("registerName");
-
+      const submitBtn = registerForm.querySelector("button[type='submit']");
+ 
       if (!nameInput || !usernameInput || !emailInput || !passwordInput) {
         console.error("Error: Some inputs could not be selected from the DOM.");
         alert("Error: Some form input fields could not be found!");
         return;
       }
-
+ 
       const name = nameInput.value.trim();
       const username = usernameInput.value.trim();
       const email = emailInput.value.trim();
       const password = passwordInput.value;
-
+ 
       if (name.length < 3) {
         alert("Full name must be at least 3 characters long.");
         return;
       }
-
+ 
       if (username.length < 3) {
         alert("Username must be at least 3 characters long.");
         return;
       }
-
+ 
       if (!email.includes("@")) {
         alert("Please enter a valid email address.");
         return;
       }
-
+ 
       if (password.length < 6) {
         alert("Password must be at least 6 characters long.");
         return;
       }
+ 
+      setButtonLoading(submitBtn, true, "Sending Code...");
 
       // Send OTP first before creating the user
       fetch(`${CONFIG.API_BASE_URL}/api/auth/send-otp`, {
@@ -83,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ email }),
       })
         .then((response) => {
+          setButtonLoading(submitBtn, false);
           if (!response.ok) {
             return response.json().then((err) => {
               throw new Error(
@@ -99,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
           otpDigits[0].focus();
           startCountdown();
           alert(data.message);
-
+ 
           if (data.otp) {
             // Auto-fill fallback OTP fields instantly
             const digits = data.otp.split("");
@@ -112,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         })
         .catch((err) => {
+          setButtonLoading(submitBtn, false);
           alert("Error: " + err.message);
         });
     });
@@ -207,12 +254,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = otpEmailPlaceholder.textContent;
       const password = document.getElementById("registerPassword").value;
 
+      setButtonLoading(submitOtpBtn, true, "Verifying...");
+
       fetch(`${CONFIG.API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, username, email, password, otp }),
       })
         .then((res) => {
+          setButtonLoading(submitOtpBtn, false);
           if (!res.ok) {
             return res.json().then((err) => {
               throw new Error(err.message || "Registration failed");
@@ -227,7 +277,10 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("currentUser", JSON.stringify(data.user));
           window.location.href = "dashboard.html";
         })
-        .catch((err) => alert(err.message));
+        .catch((err) => {
+          setButtonLoading(submitOtpBtn, false);
+          alert(err.message);
+        });
     });
   }
 

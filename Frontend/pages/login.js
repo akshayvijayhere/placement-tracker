@@ -17,6 +17,48 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Helper to manage button loading states and Render wake-up warnings
+  function setButtonLoading(button, isLoading, text) {
+    if (!button) return;
+    if (isLoading) {
+      button.disabled = true;
+      button.dataset.originalText = button.innerHTML;
+      button.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> ${text}`;
+      
+      let helperText = document.getElementById("serverWakeupMessage");
+      if (!helperText) {
+        helperText = document.createElement("p");
+        helperText.id = "serverWakeupMessage";
+        helperText.style.fontSize = "13px";
+        helperText.style.color = "#fb923c"; // Sleek warning amber
+        helperText.style.marginTop = "14px";
+        helperText.style.textAlign = "center";
+        helperText.style.fontWeight = "500";
+        helperText.style.opacity = "0";
+        helperText.style.transition = "opacity 0.3s ease";
+        helperText.innerHTML = `<i class="fa-solid fa-server fa-bounce" style="margin-right: 6px;"></i> Note: Server is hosted on a free cloud tier. Waking it up might take ~1 minute if it was idle. Please hold on...`;
+        button.parentNode.insertBefore(helperText, button.nextSibling);
+      }
+      
+      button.wakeUpTimeout = setTimeout(() => {
+        helperText.style.opacity = "1";
+      }, 2500);
+    } else {
+      button.disabled = false;
+      if (button.dataset.originalText) {
+        button.innerHTML = button.dataset.originalText;
+      }
+      
+      if (button.wakeUpTimeout) {
+        clearTimeout(button.wakeUpTimeout);
+      }
+      const helperText = document.getElementById("serverWakeupMessage");
+      if (helperText) {
+        helperText.remove();
+      }
+    }
+  }
+
   // Form submission and routing logic
   const loginForm = document.querySelector("form");
   if (loginForm) {
@@ -25,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const emailInput = document.getElementById("loginEmail");
       const passwordInput = document.getElementById("loginPassword");
+      const submitBtn = loginForm.querySelector("button[type='submit']");
 
       if (!emailInput || !passwordInput) return;
 
@@ -35,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please enter a valid email address.");
         return;
       }
+
+      setButtonLoading(submitBtn, true, "Logging in...");
 
       // Authenticate with backend API
       fetch(`${CONFIG.API_BASE_URL}/api/auth/login`, {
@@ -53,11 +98,13 @@ document.addEventListener("DOMContentLoaded", () => {
           return response.json();
         })
         .then((data) => {
+          setButtonLoading(submitBtn, false);
           localStorage.setItem("token", data.token);
           localStorage.setItem("currentUser", JSON.stringify(data.user));
           window.location.href = "dashboard.html";
         })
         .catch((err) => {
+          setButtonLoading(submitBtn, false);
           alert(err.message);
         });
     });
@@ -250,8 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      sendCodeBtn.disabled = true;
-      sendCodeBtn.textContent = "Sending...";
+      setButtonLoading(sendCodeBtn, true, "Sending Code...");
 
       fetch(`${CONFIG.API_BASE_URL}/api/auth/forgot-password`, {
         method: "POST",
@@ -259,8 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ email }),
       })
         .then((res) => {
-          sendCodeBtn.disabled = false;
-          sendCodeBtn.textContent = "Send Reset Code";
+          setButtonLoading(sendCodeBtn, false);
           if (!res.ok) {
             return res.json().then((err) => {
               throw new Error(err.message || "Failed to send reset code");
@@ -286,8 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         })
         .catch((err) => {
-          sendCodeBtn.disabled = false;
-          sendCodeBtn.textContent = "Send Reset Code";
+          setButtonLoading(sendCodeBtn, false);
           alert(err.message);
         });
     });
@@ -312,8 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      submitResetBtn.disabled = true;
-      submitResetBtn.textContent = "Resetting...";
+      setButtonLoading(submitResetBtn, true, "Resetting...");
 
       fetch(`${CONFIG.API_BASE_URL}/api/auth/reset-password`, {
         method: "POST",
@@ -321,8 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ email, otp, newPassword }),
       })
         .then((res) => {
-          submitResetBtn.disabled = false;
-          submitResetBtn.textContent = "Reset Password";
+          setButtonLoading(submitResetBtn, false);
           if (!res.ok) {
             return res.json().then((err) => {
               throw new Error(err.message || "Failed to reset password");
@@ -336,8 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
           forgotModal.style.display = "none";
         })
         .catch((err) => {
-          submitResetBtn.disabled = false;
-          submitResetBtn.textContent = "Reset Password";
+          setButtonLoading(submitResetBtn, false);
           alert(err.message);
         });
     });
