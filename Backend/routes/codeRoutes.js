@@ -14,10 +14,6 @@ router.post("/review", verifyToken, async (req, res) => {
     if (!language || language.trim() === "") {
       return res.status(400).json({ success: false, message: "Coding language is required." });
     }
-    if (!problemDescription || problemDescription.trim() === "") {
-      return res.status(400).json({ success: false, message: "Problem description is required." });
-    }
-
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({
@@ -31,10 +27,10 @@ router.post("/review", verifyToken, async (req, res) => {
 
     const prompt = `
     You are an expert software engineer and technical code reviewer.
-    Analyze the following code written in "${language}" solving the described coding problem.
+    Analyze the following code written in "${language}".
     
-    Problem Statement:
-    "${problemDescription}"
+    ${problemDescription && problemDescription.trim() !== "" ? `The code is designed to solve the following problem:
+    "${problemDescription}"` : `No problem description was provided. Please automatically infer the algorithm's objective, logic, and functional purpose directly from the code's syntax and structure.`}
     
     Candidate's Code:
     ${code}
@@ -102,9 +98,9 @@ The student is working on a coding challenge inside their playground editor.
 
 Current Context:
 - Programming Language: ${language || "Not specified"}
-- Problem Description:
+- Problem Description or Context:
 """
-${problemDescription || "Not specified"}
+${problemDescription && problemDescription.trim() !== "" ? problemDescription : "No description provided. Please automatically infer the algorithm's purpose and logic directly from the student's code structure."}
 """
 
 Student's Current Editor Code:

@@ -166,59 +166,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Preset Problems Mapping
-  const PRESET_PROBLEMS = {
-    custom: {
-      description: "",
-      templates: {
-        cpp: "// Write your custom C++ solution here...\n",
-        java: "// Write your custom Java solution here...\n",
-        python: "# Write your custom Python solution here...\n",
-        javascript: "// Write your custom JavaScript solution here...\n"
-      }
-    },
-    twoSum: {
-      description: "Given an array of integers 'nums' and an integer 'target', return indices of the two numbers such that they add up to 'target'.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.",
-      templates: {
-        cpp: `#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Write your code here\n        \n    }\n};`,
-        java: `import java.util.*;\n\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Write your code here\n        return new int[0];\n    }\n}`,
-        python: `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        # Write your code here\n        pass`,
-        javascript: `/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nfunction twoSum(nums, target) {\n    // Write your code here\n    \n}`
-      }
-    },
-    validParens: {
-      description: "Given a string 's' containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.",
-      templates: {
-        cpp: `#include <string>\n#include <stack>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isValid(string s) {\n        // Write your code here\n        \n    }\n};`,
-        java: `import java.util.*;\n\nclass Solution {\n    public boolean isValid(String s) {\n        // Write your code here\n        return false;\n    }\n}`,
-        python: `class Solution:\n    def isValid(self, s: str) -> bool:\n        # Write your code here\n        pass`,
-        javascript: `/**\n * @param {string} s\n * @return {boolean}\n */\nfunction isValid(s) {\n    // Write your code here\n    \n}`
-      }
-    },
-    reverseList: {
-      description: "Given the head of a singly linked list, reverse the list, and return the reversed list.",
-      templates: {
-        cpp: `/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        // Write your code here\n        \n    }\n};`,
-        java: `/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode reverseList(ListNode head) {\n        // Write your code here\n        return null;\n    }\n}`,
-        python: `# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        # Write your code here\n        pass`,
-        javascript: `/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nfunction reverseList(head) {\n    // Write your code here\n    \n}`
-      }
-    },
-    maxSubarray: {
-      description: "Given an integer array 'nums', find the subarray with the largest sum, and return its sum.",
-      templates: {
-        cpp: `#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxSubArray(vector<int>& nums) {\n        // Write your code here\n        \n    }\n};`,
-        java: `class Solution {\n    public int maxSubArray(int[] nums) {\n        // Write your code here\n        return 0;\n    }\n}`,
-        python: `class Solution:\n    def maxSubArray(self, nums: List[int]) -> int:\n        # Write your code here\n        pass`,
-        javascript: `/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction maxSubArray(nums) {\n    // Write your code here\n    \n}`
-      }
-    }
+  // Preset Templates Mapping
+  const PRESET_TEMPLATES = {
+    cpp: `// Write or paste your C++ code here\n#include <iostream>\nusing namespace std;\n\nint main() {\n    // your code\n    return 0;\n}`,
+    java: `// Write or paste your Java code here\nimport java.util.*;\n\npublic class Solution {\n    public static void main(String[] args) {\n        // your code\n    }\n}`,
+    python: `# Write or paste your Python code here\n\ndef main():\n    # your code\n    pass\n\nif __name__ == "__main__":\n    main()`,
+    javascript: `// Write or paste your JavaScript code here\nfunction main() {\n    // your code\n}\nmain();`
   };
 
   // Elements mapping
-  const problemPreset = document.getElementById("problemPreset");
   const languageSelect = document.getElementById("languageSelect");
-  const problemDescription = document.getElementById("problemDescription");
   const codeTextarea = document.getElementById("codeTextarea");
   const editorLineNumbers = document.getElementById("editorLineNumbers");
   const analyzeBtn = document.getElementById("analyzeBtn");
@@ -261,24 +218,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Template pre-population handler
   function updateTemplate() {
-    const selectedProblem = problemPreset.value;
     const selectedLang = languageSelect.value;
-    
-    if (selectedProblem && selectedLang) {
-      const data = PRESET_PROBLEMS[selectedProblem];
-      if (selectedProblem !== "custom") {
-        problemDescription.value = data.description;
-      }
-      codeTextarea.value = data.templates[selectedLang];
+    if (selectedLang) {
+      codeTextarea.value = PRESET_TEMPLATES[selectedLang];
       syncLineNumbers();
     }
   }
 
-  problemPreset.addEventListener("change", updateTemplate);
   languageSelect.addEventListener("change", updateTemplate);
 
-  // Load Two Sum by default on init
-  problemPreset.value = "twoSum";
+  // Load javascript by default on init
   languageSelect.value = "javascript";
   updateTemplate();
 
@@ -286,14 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
   analyzeBtn.addEventListener("click", async () => {
     const code = codeTextarea.value.trim();
     const language = languageSelect.options[languageSelect.selectedIndex].text;
-    const desc = problemDescription.value.trim();
 
     if (!code) {
       showToast("Please write or paste your code first.");
-      return;
-    }
-    if (!desc) {
-      showToast("Please enter the problem description.");
       return;
     }
 
@@ -309,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ code, language, problemDescription: desc }),
+        body: JSON.stringify({ code, language, problemDescription: "" }),
       });
 
       const result = await response.json();
@@ -563,7 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Context from editor
     const code = codeTextarea.value.trim();
     const language = languageSelect.options[languageSelect.selectedIndex].text;
-    const problemDescription = problemPreset.options[problemPreset.selectedIndex].text + "\n" + document.getElementById("problemDescription").value.trim();
+    const problemDescription = "";
 
     try {
       const response = await fetch(`${CONFIG.API_BASE_URL}/api/code/chat`, {

@@ -109,43 +109,18 @@
       <!-- Main Split Workspace -->
       <div class="workspace-grid">
         
-        <!-- Left Pane: Problem Configurations -->
-        <div class="glass-card left-pane">
-          <div class="pane-header">
-            <h2><i class="fa-solid fa-gears"></i> Setup Problem</h2>
-          </div>
-          
-          <div class="form-group" style="margin-top: 15px;">
-            <label for="problemPreset">Preset Coding Challenges</label>
-            <select id="problemPreset">
-              <option value="custom">-- Write Custom Problem --</option>
-              <option value="twoSum">Two Sum (Array)</option>
-              <option value="validParens">Valid Parentheses (Stack)</option>
-              <option value="reverseList">Reverse Linked List (Linked List)</option>
-              <option value="maxSubarray">Maximum Subarray - Kadane's (Dynamic Programming)</option>
-            </select>
-          </div>
-
-          <div class="form-group" style="margin-top: 15px;">
-            <label for="languageSelect">Programming Language</label>
-            <select id="languageSelect">
-              <option value="cpp">C++ (GCC)</option>
-              <option value="java">Java (OpenJDK)</option>
-              <option value="python">Python 3</option>
-              <option value="javascript">JavaScript (ES6)</option>
-            </select>
-          </div>
-
-          <div class="form-group" style="margin-top: 15px; flex-grow: 1; display: flex; flex-direction: column;">
-            <label for="problemDescription">Problem Description</label>
-            <textarea id="problemDescription" placeholder="Paste the problem statement here..." style="flex-grow: 1; min-height: 180px; resize: vertical;"></textarea>
-          </div>
-        </div>
-
-        <!-- Right Pane: Code Editor Area -->
-        <div class="glass-card right-pane">
-          <div class="pane-header">
+        <!-- Code Editor Area -->
+        <div class="glass-card right-pane" style="grid-column: span 2;">
+          <div class="pane-header" style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
             <h2><i class="fa-solid fa-code"></i> Editor Workspace</h2>
+            <div class="editor-toolbar">
+              <select id="languageSelect" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; outline: none; transition: border-color 0.2s;">
+                <option value="cpp">C++ (GCC)</option>
+                <option value="java">Java (OpenJDK)</option>
+                <option value="python">Python 3</option>
+                <option value="javascript" selected>JavaScript (ES6)</option>
+              </select>
+            </div>
           </div>
           
           <!-- Editor Wrapper -->
@@ -153,7 +128,7 @@
             <!-- Line numbers gutter -->
             <div class="line-numbers" id="editorLineNumbers">1</div>
             <!-- Main code text area -->
-            <textarea class="editor-textarea" id="codeTextarea" placeholder="Write or paste your code here..." spellcheck="false"></textarea>
+            <textarea class="editor-textarea" id="codeTextarea" placeholder="Write or paste any algorithm code here to analyze..." spellcheck="false"></textarea>
           </div>
 
           <div class="action-bar" style="margin-top: 20px;">
