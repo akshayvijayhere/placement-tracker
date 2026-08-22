@@ -490,6 +490,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Sync LeetCode Button click handler
+  const syncLeetcodeBtn = document.getElementById("syncLeetcodeBtn");
+  if (syncLeetcodeBtn) {
+    syncLeetcodeBtn.addEventListener("click", () => {
+      syncLeetcodeBtn.disabled = true;
+      syncLeetcodeBtn.classList.add("syncing");
+      const originalText = syncLeetcodeBtn.innerHTML;
+      syncLeetcodeBtn.innerHTML = `<i class="fa-solid fa-rotate"></i> Syncing...`;
+
+      fetch(`${CONFIG.API_BASE_URL}/api/dsa/sync-leetcode`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.message || "Failed to sync LeetCode solved counts");
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          showToast(data.message || "Successfully synced LeetCode solved counts!");
+          localStorage.removeItem("cachedDashboardData");
+          fetchDsaTopics(); // Reload table and stats dynamically!
+        })
+        .catch((err) => {
+          showToast(err.message);
+        })
+        .finally(() => {
+          syncLeetcodeBtn.disabled = false;
+          syncLeetcodeBtn.classList.remove("syncing");
+          syncLeetcodeBtn.innerHTML = originalText;
+        });
+    });
+  }
+
   // Initial render & fetch
   fetchDsaTopics();
   fetchAndRenderStreak();
