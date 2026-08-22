@@ -49,18 +49,26 @@ router.post("/", verifyToken, async (req, res) => {
       return res.status(400).json({ message: "Topic already exists" });
     }
 
+    let finalEasyTotal = Number(easyTotal);
+    let finalMediumTotal = Number(mediumTotal);
+    let finalHardTotal = Number(hardTotal);
+
+    if (Number(easySolved) > finalEasyTotal) finalEasyTotal = Number(easySolved);
+    if (Number(mediumSolved) > finalMediumTotal) finalMediumTotal = Number(mediumSolved);
+    if (Number(hardSolved) > finalHardTotal) finalHardTotal = Number(hardSolved);
+
     const solved =
       Number(easySolved) + Number(mediumSolved) + Number(hardSolved);
-    const total = Number(easyTotal) + Number(mediumTotal) + Number(hardTotal);
+    const total = finalEasyTotal + finalMediumTotal + finalHardTotal;
 
     const newTopic = await DsaTopic.create({
       name,
       easySolved: Number(easySolved),
-      easyTotal: Number(easyTotal),
+      easyTotal: finalEasyTotal,
       mediumSolved: Number(mediumSolved),
-      mediumTotal: Number(mediumTotal),
+      mediumTotal: finalMediumTotal,
       hardSolved: Number(hardSolved),
-      hardTotal: Number(hardTotal),
+      hardTotal: finalHardTotal,
       solved,
       total,
       user: req.user.id,
@@ -96,9 +104,17 @@ router.put("/:id", verifyToken, async (req, res) => {
       return res.status(401).json({ message: "Not authorized" });
     }
 
+    let finalEasyTotal = Number(easyTotal);
+    let finalMediumTotal = Number(mediumTotal);
+    let finalHardTotal = Number(hardTotal);
+
+    if (Number(easySolved) > finalEasyTotal) finalEasyTotal = Number(easySolved);
+    if (Number(mediumSolved) > finalMediumTotal) finalMediumTotal = Number(mediumSolved);
+    if (Number(hardSolved) > finalHardTotal) finalHardTotal = Number(hardSolved);
+
     const solved =
       Number(easySolved) + Number(mediumSolved) + Number(hardSolved);
-    const total = Number(easyTotal) + Number(mediumTotal) + Number(hardTotal);
+    const total = finalEasyTotal + finalMediumTotal + finalHardTotal;
 
     topic = await DsaTopic.findByIdAndUpdate(
       req.params.id,
@@ -106,11 +122,11 @@ router.put("/:id", verifyToken, async (req, res) => {
         $set: {
           name,
           easySolved: Number(easySolved),
-          easyTotal: Number(easyTotal),
+          easyTotal: finalEasyTotal,
           mediumSolved: Number(mediumSolved),
-          mediumTotal: Number(mediumTotal),
+          mediumTotal: finalMediumTotal,
           hardSolved: Number(hardSolved),
-          hardTotal: Number(hardTotal),
+          hardTotal: finalHardTotal,
           solved,
           total,
         },
@@ -243,9 +259,9 @@ router.post("/sync-leetcode", verifyToken, async (req, res) => {
     const syncedData = {};
 
     userTopics.forEach((topic) => {
-      // Find keys in topicMapping that target this topic name
+      // Find keys in topicMapping that target this topic name (case-insensitive)
       const matchingSlugs = Object.keys(topicMapping).filter(
-        (slug) => topicMapping[slug] === topic.name,
+        (slug) => topicMapping[slug].toLowerCase() === topic.name.toLowerCase(),
       );
 
       // Sum the solved counts from LeetCode for these matching slugs
@@ -262,6 +278,10 @@ router.post("/sync-leetcode", verifyToken, async (req, res) => {
         topic.easySolved += diff;
         topic.solved =
           topic.easySolved + topic.mediumSolved + topic.hardSolved;
+        if (topic.easySolved > topic.easyTotal) {
+          topic.easyTotal = topic.easySolved;
+        }
+        topic.total = topic.easyTotal + topic.mediumTotal + topic.hardTotal;
         updatePromises.push(topic.save());
         syncedData[topic.name] = totalSolvedFromLeetcode;
       }
