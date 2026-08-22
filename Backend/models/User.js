@@ -71,6 +71,8 @@ const userSchema = new mongoose.Schema(
       gfg: { type: String, default: "" },
       codeforces: { type: String, default: "" },
       github: { type: String, default: "" },
+      linkedin: { type: String, default: "" },
+      twitter: { type: String, default: "" },
     },
   },
   { timestamps: true },

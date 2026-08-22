@@ -213,6 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const gfgInput = document.getElementById("gfgHandleInput");
   const cfInput = document.getElementById("codeforcesHandleInput");
   const githubInput = document.getElementById("githubHandleInput");
+  const linkedinInput = document.getElementById("linkedinHandleInput");
+  const twitterInput = document.getElementById("twitterHandleInput");
 
   // Pre-populate user details from localStorage instantly to avoid flashes of wrong data
   const profileCardName = document.querySelector(".profile-details h2");
@@ -258,6 +260,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (gfgInput) gfgInput.value = currentUser.codingProfiles.gfg || "";
       if (cfInput) cfInput.value = currentUser.codingProfiles.codeforces || "";
       if (githubInput) githubInput.value = currentUser.codingProfiles.github || "";
+      if (linkedinInput) linkedinInput.value = currentUser.codingProfiles.linkedin || "";
+      if (twitterInput) twitterInput.value = currentUser.codingProfiles.twitter || "";
+      updateSocialLinksUI(currentUser.codingProfiles);
     }
   }
 
@@ -283,6 +288,9 @@ document.addEventListener("DOMContentLoaded", () => {
           if (gfgInput) gfgInput.value = user.codingProfiles.gfg || "";
           if (cfInput) cfInput.value = user.codingProfiles.codeforces || "";
           if (githubInput) githubInput.value = user.codingProfiles.github || "";
+          if (linkedinInput) linkedinInput.value = user.codingProfiles.linkedin || "";
+          if (twitterInput) twitterInput.value = user.codingProfiles.twitter || "";
+          updateSocialLinksUI(user.codingProfiles);
         }
 
         // Update card avatar info
@@ -361,7 +369,9 @@ document.addEventListener("DOMContentLoaded", () => {
           leetcode: lcInput ? lcInput.value.trim() : "",
           gfg: gfgInput ? gfgInput.value.trim() : "",
           codeforces: cfInput ? cfInput.value.trim() : "",
-          github: githubInput ? githubInput.value.trim() : ""
+          github: githubInput ? githubInput.value.trim() : "",
+          linkedin: linkedinInput ? linkedinInput.value.trim() : "",
+          twitter: twitterInput ? twitterInput.value.trim() : ""
         };
 
         if (!name) {
@@ -429,6 +439,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const metaCollege = document.querySelector(".meta-college");
             if (metaCollege)
               metaCollege.textContent = updatedUser.college || "Not Provided";
+
+            // Update left card metadata social links
+            updateSocialLinksUI(updatedUser.codingProfiles);
 
             // Cache the latest user object in localStorage to sync header avatars
             const localUser = {
@@ -1218,4 +1231,50 @@ function loadCodingStats(refresh = false) {
       if (syncIcon) syncIcon.classList.remove("spinning");
       if (syncBtn) syncBtn.disabled = false;
     });
+}
+
+function updateSocialLinksUI(codingProfiles) {
+  codingProfiles = codingProfiles || {};
+
+  const metaGithub = document.querySelector(".meta-github");
+  if (metaGithub) {
+    const githubHandle = codingProfiles.github;
+    if (githubHandle) {
+      metaGithub.textContent = githubHandle;
+      metaGithub.href = `https://github.com/${githubHandle}`;
+      metaGithub.style.pointerEvents = "auto";
+    } else {
+      metaGithub.textContent = "Not Configured";
+      metaGithub.removeAttribute("href");
+      metaGithub.style.pointerEvents = "none";
+    }
+  }
+
+  const metaTwitter = document.querySelector(".meta-twitter");
+  if (metaTwitter) {
+    const twitterHandle = codingProfiles.twitter;
+    if (twitterHandle) {
+      metaTwitter.textContent = twitterHandle;
+      metaTwitter.href = `https://x.com/${twitterHandle}`;
+      metaTwitter.style.pointerEvents = "auto";
+    } else {
+      metaTwitter.textContent = "Not Configured";
+      metaTwitter.removeAttribute("href");
+      metaTwitter.style.pointerEvents = "none";
+    }
+  }
+
+  const metaLinkedin = document.querySelector(".meta-linkedin");
+  if (metaLinkedin) {
+    const linkedinHandle = codingProfiles.linkedin;
+    if (linkedinHandle) {
+      metaLinkedin.textContent = linkedinHandle;
+      metaLinkedin.href = `https://linkedin.com/in/${linkedinHandle}`;
+      metaLinkedin.style.pointerEvents = "auto";
+    } else {
+      metaLinkedin.textContent = "Not Configured";
+      metaLinkedin.removeAttribute("href");
+      metaLinkedin.style.pointerEvents = "none";
+    }
+  }
 }
