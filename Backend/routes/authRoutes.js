@@ -312,6 +312,8 @@ router.post("/register", async (req, res) => {
         email: user.email,
         role: user.role,
         profileImage: user.profileImage || "",
+        streakCount: user.streakCount || 0,
+        longestStreak: user.longestStreak || 0,
       },
     });
   } catch (err) {
@@ -357,6 +359,8 @@ router.post("/login", async (req, res) => {
         email: user.email,
         role: user.role,
         profileImage: user.profileImage || "",
+        streakCount: user.streakCount || 0,
+        longestStreak: user.longestStreak || 0,
       },
     });
   } catch (err) {
@@ -530,6 +534,8 @@ router.post("/google", async (req, res) => {
         email: user.email,
         role: user.role,
         profileImage: user.profileImage || "",
+        streakCount: user.streakCount || 0,
+        longestStreak: user.longestStreak || 0,
       },
     });
   } catch (err) {
@@ -676,6 +682,8 @@ router.post("/google/mock", async (req, res) => {
         email: user.email,
         role: user.role,
         profileImage: user.profileImage || "",
+        streakCount: user.streakCount || 0,
+        longestStreak: user.longestStreak || 0,
       },
     });
   } catch (err) {

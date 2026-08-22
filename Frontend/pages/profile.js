@@ -1,47 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Inject Streak & Badges styles
-  function injectStreakStyles() {
-    if (document.getElementById("streakStyles")) return;
+  // Inject Badges styles
+  function injectBadgeStyles() {
+    if (document.getElementById("badgeStyles")) return;
     const style = document.createElement("style");
-    style.id = "streakStyles";
+    style.id = "badgeStyles";
     style.textContent = `
-      .streak-badge {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        background: #ffffff;
-        border: 1px solid #e5e7eb;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 700;
-        color: #ea580c;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-        cursor: pointer;
-        user-select: none;
-        transition: all 0.2s ease;
-        margin-right: 12px;
-      }
-      .streak-badge:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(234, 88, 12, 0.15);
-      }
-      .streak-badge .fire-icon {
-        font-size: 16px;
-        animation: wiggle 1s infinite alternate;
-        display: inline-block;
-      }
-      @keyframes wiggle {
-        0% { transform: rotate(-5deg) scale(1); }
-        100% { transform: rotate(10deg) scale(1.1); }
-      }
-      body.dark-theme .streak-badge {
-        background: #1e1e30;
-        border-color: #2d2d44;
-        color: #fb923c;
-        box-shadow: none;
-      }
-
       /* Badges Grid styling */
       .badges-grid {
         display: grid;
@@ -108,31 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Render Streak Topbar fire icon
   function renderStreakBadge(streakCount) {
-    injectStreakStyles();
-    const container = document.querySelector(".top-actions, .topbar-right");
-    if (!container) return;
-
-    if (document.getElementById("streakBadge")) {
-      document
-        .getElementById("streakBadge")
-        .querySelector(".streak-count").textContent = streakCount || 0;
-      return;
-    }
-
-    const badge = document.createElement("div");
-    badge.id = "streakBadge";
-    badge.className = "streak-badge";
-    badge.title = "Your daily consistency streak!";
-    badge.innerHTML = `
-      <span class="fire-icon">🔥</span>
-      <span class="streak-count">${streakCount || 0}</span>
-    `;
-
-    const avatarLink = container.querySelector("a[href='profile.html']");
-    if (avatarLink) {
-      container.insertBefore(badge, avatarLink);
-    } else {
-      container.appendChild(badge);
+    const badge = document.getElementById("streakBadge");
+    if (badge) {
+      badge.querySelector(".streak-count").textContent = streakCount || 0;
+      badge.style.display = "inline-flex";
     }
   }
 
@@ -164,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   function renderBadges(unlockedIds) {
-    injectStreakStyles();
+    injectBadgeStyles();
     const grid = document.getElementById("badgesGrid");
     if (!grid) return;
     grid.innerHTML = "";
@@ -188,6 +130,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!token || !currentUser) {
     window.location.href = "login.html";
     return;
+  }
+
+  // Render streak badge from cache instantly
+  if (currentUser && currentUser.streakCount !== undefined) {
+    renderStreakBadge(currentUser.streakCount);
   }
 
   // Global Theme Check
