@@ -2,7 +2,7 @@
 .mobile-header {
   display: none;
   height: 60px;
-  background: #070709;
+  background: #020c35;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0 20px;
   align-items: center;
@@ -40,7 +40,7 @@
 }
 
 .mobile-logo i {
-  color: #10b981;
+  color: #6d5cff;
   font-size: 18px;
 }
 
@@ -57,7 +57,7 @@
   border-radius: 50%;
   background: #1e293b;
   overflow: hidden;
-  border: 1.5px solid rgba(16, 185, 129, 0.4);
+  border: 1.5px solid rgba(109, 92, 255, 0.4);
   cursor: pointer;
 }
 

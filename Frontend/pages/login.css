@@ -30,7 +30,7 @@ body {
 
 .logo i {
   font-size: 28px;
-  color: #10b981;
+  color: #5b5cff;
 }
 
 .logo span {
@@ -45,7 +45,7 @@ body {
 .register-link a {
   text-decoration: none;
   font-weight: 600;
-  color: #10b981;
+  color: #5b5cff;
 }
 
 .text-hide-mobile {
@@ -122,7 +122,7 @@ body {
   align-items: center;
   margin: auto;
   font-size: 38px;
-  color: #10b981;
+  color: #5b5cff;
 }
 
 .login-card h2 {
@@ -173,7 +173,7 @@ label {
 
 .forgot-password a {
   text-decoration: none;
-  color: #10b981;
+  color: #5b5cff;
   font-weight: 500;
 }
 
@@ -183,7 +183,7 @@ label {
   margin-top: 25px;
   border: none;
   border-radius: 12px;
-  background: #10b981;
+  background: #5b5cff;
   color: white;
   font-size: 18px;
   font-weight: 500;
@@ -233,7 +233,7 @@ label {
 
 .terms a {
   text-decoration: none;
-  color: #10b981;
+  color: #5b5cff;
 }
 
 /* RESPONSIVE DESIGN */
@@ -731,7 +731,7 @@ label {
 
 .otp-modal-header i {
   font-size: 40px;
-  color: #10b981;
+  color: #5b5cff;
   background: #f0f0ff;
   width: 80px;
   height: 80px;
@@ -776,8 +776,8 @@ label {
 }
 
 .otp-digit:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  border-color: #5b5cff;
+  box-shadow: 0 0 0 4px rgba(91, 92, 255, 0.15);
 }
 
 .otp-timer {
@@ -788,7 +788,7 @@ label {
 }
 
 .otp-timer span {
-  color: #10b981;
+  color: #5b5cff;
   font-weight: 600;
 }
 
