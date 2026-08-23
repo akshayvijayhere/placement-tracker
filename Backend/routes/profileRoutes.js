@@ -171,14 +171,14 @@ async function fetchGfgStats(username) {
     const html = response.data;
     if (!html) return null;
 
-    const scoreMatch = html.match(/"score":\s*([0-9]+)/);
-    const solvedMatch = html.match(/"total_problems_solved":\s*([0-9]+)/);
-    const rankMatch = html.match(/"institute_rank":\s*"([^"]*)"/);
-    const streakMatch = html.match(/"pod_solved_longest_streak":\s*([0-9]+)/);
+    const scoreMatch = html.match(/(?:\\"|")score(?:\\"|")\s*:\s*([0-9]+)/);
+    const solvedMatch = html.match(/(?:\\"|")total_problems_solved(?:\\"|")\s*:\s*([0-9]+)/);
+    const rankMatch = html.match(/(?:\\"|")institute_rank(?:\\"|")\s*:\s*([0-9]+|(?:\\"|")[^\\"]*(?:\\"|"))/);
+    const streakMatch = html.match(/(?:\\"|")pod_solved_longest_streak(?:\\"|")\s*:\s*([0-9]+)/);
 
     const score = scoreMatch ? parseInt(scoreMatch[1], 10) : 0;
     const solved = solvedMatch ? parseInt(solvedMatch[1], 10) : 0;
-    const rank = rankMatch ? rankMatch[1] : "N/A";
+    const rank = rankMatch ? rankMatch[1].replace(/[\\"]/g, '') : "N/A";
     const streak = streakMatch ? parseInt(streakMatch[1], 10) : 0;
 
     return {
