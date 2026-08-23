@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         filter: none;
         background: white;
         box-shadow: 0 4px 12px rgba(91, 92, 255, 0.05);
-        border-color: rgba(91, 92, 255, 0.15);
+        border-color: rgba(16, 185, 129, 0.15);
       }
       .badge-item.unlocked:hover {
         transform: translateY(-5px);
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       body.dark-theme .badge-item.unlocked {
         background: #1e1e30;
-        border-color: rgba(91, 92, 255, 0.2);
+        border-color: rgba(16, 185, 129, 0.2);
       }
       body.dark-theme .badge-name {
         color: #f1f5f9;

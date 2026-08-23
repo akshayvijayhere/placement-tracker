@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formTitle.textContent = "Add New Topic";
     submitBtn.textContent = "Add Topic";
-    submitBtn.style.background = "#5b5cff";
+    submitBtn.style.background = "#10b981";
   }
 
   // Add / Edit submission

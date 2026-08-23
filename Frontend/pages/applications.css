@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  background: #f8f9ff;
+  background: #f3f5f3;
   overflow-x: hidden;
 }
 
@@ -26,7 +26,7 @@ body {
 .sidebar {
   width: 250px;
   height: 100dvh;
-  background: #020c35;
+  background: #070709;
   padding: 22px;
   position: fixed;
   top: 0;
@@ -52,7 +52,7 @@ body {
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #6d63ff, #4f46e5);
+  background: linear-gradient(135deg, #10b981, #059669);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,11 +95,11 @@ body {
 }
 
 .menu-item:hover {
-  background: #101f59;
+  background: #151518;
 }
 
 .menu-item.active {
-  background: linear-gradient(90deg, #5b5cff, #4f46e5);
+  background: linear-gradient(90deg, #10b981, #059669);
   font-weight: 600;
 }
 
@@ -137,7 +137,7 @@ body {
   flex-direction: column;
   gap: 28px;
   min-height: 100vh;
-  background: #f8f9ff;
+  background: #f3f5f3;
 }
 
 /* Topbar */
@@ -165,7 +165,7 @@ body {
 }
 
 .topbar h1 i {
-  color: #5b5cff;
+  color: #10b981;
   margin-right: 12px;
 }
 
@@ -227,7 +227,7 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #5b5cff, #4f46e5);
+  background: linear-gradient(135deg, #10b981, #059669);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -295,7 +295,7 @@ body {
 
 .app-count {
   background: #ede9fe;
-  color: #5b5cff;
+  color: #10b981;
   padding: 6px 14px;
   border-radius: 30px;
   font-size: 13px;
@@ -326,8 +326,8 @@ body {
 }
 
 .search-box:focus-within {
-  border-color: #5b5cff;
-  box-shadow: 0 0 0 3px rgba(91, 92, 255, 0.1);
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .search-box i {
@@ -363,8 +363,8 @@ body {
 
 .filters select:focus {
   outline: none;
-  border-color: #5b5cff;
-  box-shadow: 0 0 0 3px rgba(91, 92, 255, 0.1);
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 /* SECTION 3 */
@@ -377,7 +377,7 @@ body {
 }
 
 .applications-table thead {
-  background: #f8f9ff;
+  background: #f3f5f3;
 }
 
 .applications-table th {
@@ -417,7 +417,7 @@ body {
 
 .applied {
   background: #ede9fe;
-  color: #5b5cff;
+  color: #10b981;
 }
 
 .interview {
@@ -455,7 +455,7 @@ body {
 
 .edit-btn {
   background: #eef2ff;
-  color: #5b5cff;
+  color: #10b981;
 }
 
 .edit-btn:hover {
@@ -495,14 +495,14 @@ body {
 }
 
 .pagination button:hover {
-  border-color: #5b5cff;
-  color: #5b5cff;
+  border-color: #10b981;
+  color: #10b981;
 }
 
 .active-page {
-  background: #5b5cff !important;
+  background: #10b981 !important;
   color: white !important;
-  border-color: #5b5cff !important;
+  border-color: #10b981 !important;
 }
 
 /* SECTION 4 */
@@ -539,12 +539,12 @@ body {
 .card-header h3 {
   font-size: 17px;
   font-weight: 700;
-  color: #1f2937;
+  color: #1c1c1f;
   margin: 0;
 }
 
 .card-header h3 i {
-  color: #5b5cff;
+  color: #10b981;
   margin-right: 8px;
 }
 
@@ -564,7 +564,7 @@ body {
 
 .small-add-btn:hover {
   background: #e5e7eb;
-  color: #1f2937;
+  color: #1c1c1f;
   transform: translateY(-1px);
 }
 
@@ -594,7 +594,7 @@ body {
   border-radius: 10px;
   font-size: 14px;
   outline: none;
-  color: #1f2937;
+  color: #1c1c1f;
   background: #f9fafb;
   transition: all 0.2s ease;
 }
@@ -605,9 +605,9 @@ body {
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: #5b5cff;
+  border-color: #10b981;
   background: white;
-  box-shadow: 0 0 0 3px rgba(91, 92, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 /* Submit Button */
@@ -617,12 +617,12 @@ body {
   height: 44px;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(90deg, #5b5cff, #4f46e5);
+  background: linear-gradient(90deg, #10b981, #059669);
   color: white;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(91, 92, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
   transition: all 0.2s ease;
 }
 
@@ -656,7 +656,7 @@ body {
 }
 
 .summary-header i {
-  color: #5b5cff;
+  color: #10b981;
   margin-right: 8px;
 }
 
@@ -1151,12 +1151,12 @@ body {
 
 /* ===== DARK MODE OVERRIDES ===== */
 body.dark-theme {
-  background: #090d16;
+  background: #070708;
   color: #f1f5f9;
 }
 
 body.dark-theme .main-content {
-  background: #090d16;
+  background: #070708;
 }
 
 body.dark-theme .topbar h1 {
@@ -1168,7 +1168,7 @@ body.dark-theme .topbar p {
 }
 
 body.dark-theme .notification {
-  background: #111827;
+  background: #0f0f11;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -1180,7 +1180,7 @@ body.dark-theme .progress-card,
 body.dark-theme .applications-card,
 body.dark-theme .add-application-card,
 body.dark-theme .summary-card {
-  background: #111827;
+  background: #0f0f11;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   color: #f1f5f9;
 }
@@ -1194,12 +1194,12 @@ body.dark-theme .summary-card h3 {
 }
 
 body.dark-theme .app-count {
-  background: rgba(91, 92, 255, 0.15);
+  background: rgba(16, 185, 129, 0.15);
   color: #a5b4fc;
 }
 
 body.dark-theme .search-box {
-  background: #1f2937;
+  background: #1c1c1f;
   border-color: #374151;
 }
 
@@ -1208,28 +1208,28 @@ body.dark-theme .search-box input {
 }
 
 body.dark-theme .filters select {
-  background: #1f2937;
+  background: #1c1c1f;
   border-color: #374151;
   color: #cbd5e1;
 }
 
 body.dark-theme .applications-table th {
-  background: #1f2937;
+  background: #1c1c1f;
   color: #94a3b8;
   border-bottom-color: #374151;
 }
 
 body.dark-theme .applications-table td {
   color: #cbd5e1;
-  border-bottom-color: #1f2937;
+  border-bottom-color: #1c1c1f;
 }
 
 body.dark-theme .applications-table tbody tr:hover {
-  background: #1f2937;
+  background: #1c1c1f;
 }
 
 body.dark-theme .action-btn {
-  background: #1f2937;
+  background: #1c1c1f;
   color: #f1f5f9;
   border-color: #374151;
 }
@@ -1245,7 +1245,7 @@ body.dark-theme .input-group label {
 body.dark-theme .input-group input,
 body.dark-theme .input-group select,
 body.dark-theme .input-group textarea {
-  background: #1f2937;
+  background: #1c1c1f;
   border: 1px solid #374151;
   color: #f1f5f9;
 }
@@ -1312,7 +1312,7 @@ body.dark-theme .input-group textarea:focus {
 .mark-all-read-btn {
   background: none;
   border: none;
-  color: #5b5cff;
+  color: #10b981;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -1344,7 +1344,7 @@ body.dark-theme .input-group textarea:focus {
 
 .notification-item.unread {
   background: rgba(91, 92, 255, 0.04);
-  border-left: 3px solid #5b5cff;
+  border-left: 3px solid #10b981;
 }
 
 .notification-item p {
@@ -1379,7 +1379,7 @@ body.dark-theme .input-group textarea:focus {
 }
 
 .view-all-link:hover {
-  color: #5b5cff;
+  color: #10b981;
   text-decoration: underline;
 }
 
@@ -1448,19 +1448,19 @@ body.dark-theme .view-all-link {
 }
 
 body.dark-theme .pagination button {
-  background: #1f2937;
+  background: #1c1c1f;
   border-color: #374151;
   color: #d1d5db;
 }
 
 body.dark-theme .pagination button:hover {
-  border-color: #5b5cff;
-  color: #5b5cff;
+  border-color: #10b981;
+  color: #10b981;
 }
 
 body.dark-theme .pagination button:disabled {
-  background: #111827 !important;
-  border-color: #1f2937 !important;
+  background: #0f0f11 !important;
+  border-color: #1c1c1f !important;
   color: #4b5563 !important;
 }
 
@@ -1472,7 +1472,7 @@ body.dark-theme .summary-item {
 }
 
 body.dark-theme .summary-item:hover {
-  box-shadow: 0 6px 16px rgba(91, 92, 255, 0.15);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.15);
   background: rgba(255, 255, 255, 0.01);
 }
 
@@ -1541,7 +1541,7 @@ body.dark-theme .summary-item.selected strong {
 
 .theme-toggle-btn:hover {
   transform: translateY(-2px);
-  color: #5b5cff;
+  color: #10b981;
 }
 
 body.dark-theme .theme-toggle-btn {
@@ -1566,7 +1566,7 @@ body.dark-theme .add-application-card h3 {
 }
 
 body.dark-theme .add-application-card .small-add-btn {
-  background: #1f2937;
+  background: #1c1c1f;
   color: #9ca3af;
 }
 
@@ -1588,7 +1588,7 @@ body.dark-theme .add-application-card .form-group select {
 
 body.dark-theme .add-application-card .form-group input:focus,
 body.dark-theme .add-application-card .form-group select:focus {
-  border-color: #5b5cff;
+  border-color: #10b981;
   background: #1e1e30;
 }
 
@@ -1611,5 +1611,5 @@ body.dark-theme .add-application-card .form-group select:focus {
 body.dark-theme .applications-card:hover,
 body.dark-theme .add-application-card:hover,
 body.dark-theme .summary-card:hover {
-  box-shadow: 0 16px 35px rgba(91, 92, 255, 0.15);
+  box-shadow: 0 16px 35px rgba(16, 185, 129, 0.15);
 }

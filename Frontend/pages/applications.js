@@ -345,7 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formTitle.innerHTML = `<i class="fa-regular fa-file-lines"></i> Add New Application`;
     submitBtn.textContent = "Add Application";
-    submitBtn.style.background = "#5b5cff";
+    submitBtn.style.background = "#10b981";
   }
 
   // Reset Form Button handler

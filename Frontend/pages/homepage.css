@@ -2,7 +2,7 @@
 :root {
   --primary-dark: #070e24;
   --secondary-dark: #0d1735;
-  --accent-purple: #6d5cff;
+  --accent-purple: #10b981;
   --accent-light: #8f84ff;
   --text-white: #ffffff;
   --text-gray: #b3bdcc;
@@ -118,7 +118,7 @@ nav a:hover {
 .register-btn:hover {
   background: #5b4be6;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(109, 92, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
 }
 
 /* ===== HERO SECTION ===== */
@@ -507,7 +507,7 @@ nav a:hover {
 .feature-card h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  color: #1c1c1f;
 }
 
 .feature-card p {
@@ -1188,7 +1188,7 @@ footer p {
   right: 15%;
   width: 300px;
   height: 300px;
-  background: #6d5cff;
+  background: #10b981;
   animation: floatBlob1 20s infinite alternate ease-in-out;
 }
 

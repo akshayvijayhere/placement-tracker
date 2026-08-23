@@ -1,6 +1,6 @@
 /* Design Tokens and Root Variables */
 :root {
-  --primary-color: #4f46e5;
+  --primary-color: #059669;
   --primary-hover: #4338ca;
   --bg-color: #f8fafc;
   --card-bg: rgba(255, 255, 255, 0.7);
@@ -56,7 +56,7 @@ body {
 .sidebar {
   width: var(--sidebar-width);
   height: 100dvh;
-  background-color: #020c35;
+  background-color: #070709;
   color: white;
   padding: 22px;
   display: flex;
@@ -84,7 +84,7 @@ body {
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #6d63ff, #4f46e5);
+  background: linear-gradient(135deg, #10b981, #059669);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,12 +130,12 @@ body {
 }
 
 .menu-item:hover {
-  background: #101f59;
+  background: #151518;
   color: white;
 }
 
 .menu-item.active {
-  background: linear-gradient(90deg, #5b5cff, #4f46e5);
+  background: linear-gradient(90deg, #10b981, #059669);
   font-weight: 600;
   color: white;
 }
@@ -225,7 +225,7 @@ body {
 
 .theme-toggle-btn:hover {
   transform: translateY(-2px);
-  color: #5b5cff;
+  color: #10b981;
 }
 
 body.dark-theme .theme-toggle-btn {
@@ -290,7 +290,7 @@ body.dark-theme .theme-toggle-btn:hover {
 }
 
 body.dark-theme .glass-card:hover {
-  box-shadow: 0 16px 35px rgba(91, 92, 255, 0.15);
+  box-shadow: 0 16px 35px rgba(16, 185, 129, 0.15);
 }
 
 .pane-header h2 {
@@ -386,7 +386,7 @@ body.dark-theme .glass-card:hover {
 }
 
 .primary-btn {
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  background: linear-gradient(135deg, #6366f1, #059669);
   color: white;
   border: none;
   padding: 14px 28px;
