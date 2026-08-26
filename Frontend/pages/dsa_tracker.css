@@ -1,3 +1,28 @@
+:root {
+  /* Theme tokens */
+  --bg-dark: #070709;
+  --bg-light: #f8fafc;
+  --panel-dark: rgba(15, 23, 42, 0.45);
+  --panel-light: rgba(255, 255, 255, 0.7);
+  --border-dark: rgba(255, 255, 255, 0.05);
+  --border-light: rgba(15, 23, 42, 0.06);
+  --text-dark-primary: #f8fafc;
+  --text-dark-secondary: #94a3b8;
+  --text-light-primary: #0f172a;
+  --text-light-secondary: #475569;
+  
+  /* Primary emerald & teal gradient accents */
+  --color-primary: #10b981;
+  --color-secondary: #0ea5e9;
+  --gradient-accent: linear-gradient(135deg, #10b981, #0ea5e9);
+  --gradient-sidebar: linear-gradient(180deg, #070709 0%, #030305 100%);
+  
+  /* Easing & Shadows */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px 0 rgba(16, 185, 129, 0.15);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,8 +37,15 @@ body {
 }
 
 body {
-  background: #f8f9ff;
+  background: var(--bg-light);
   overflow-x: hidden;
+  color: var(--text-light-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme {
+  background: var(--bg-dark);
+  color: var(--text-dark-primary);
 }
 
 .dashboard-container {
@@ -26,8 +58,9 @@ body {
 .sidebar {
   width: 250px;
   height: 100dvh;
-  background: #020c35;
-  padding: 22px;
+  background: var(--gradient-sidebar);
+  border-right: 1px solid var(--border-dark);
+  padding: 24px;
   position: fixed;
   top: 0;
   left: 0;
@@ -52,54 +85,72 @@ body {
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #6d63ff, #4f46e5);
+  background: var(--gradient-accent);
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-size: 20px;
+  box-shadow: var(--shadow-glow);
 }
 
 .logo-text {
   display: flex;
   flex-direction: column;
-  color: white;
-  font-size: 16px;
-  font-weight: 700;
   line-height: 1.2;
+}
+
+.logo-text span:first-child {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-text span:last-child {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dark-secondary);
 }
 
 /* MENU */
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .menu-item {
   text-decoration: none;
-  color: white;
-  padding: 15px 18px;
-  border-radius: 14px;
+  color: var(--text-dark-secondary);
+  padding: 14px 18px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
-  transition: all 0.3s ease;
-  font-size: 15px;
+  transition: all 0.4s var(--ease-spring);
+  font-size: 14px;
   font-weight: 500;
+  border: 1px solid transparent;
 }
 
 .menu-item i {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .menu-item:hover {
-  background: #101f59;
+  color: var(--text-dark-primary);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 .menu-item.active {
-  background: linear-gradient(90deg, #5b5cff, #4f46e5);
+  background: var(--gradient-accent);
+  color: white;
   font-weight: 600;
+  box-shadow: var(--shadow-glow);
 }
 
 /* LOGOUT */
@@ -107,23 +158,25 @@ body {
   margin-top: auto;
   margin-bottom: 20px;
   width: 100%;
-  height: 48px;
-  border: none;
+  height: 46px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: 12px;
-  background: #09164d;
-  color: white;
+  background: rgba(239, 68, 68, 0.05);
+  color: #fca5a5;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: all 0.2s ease;
+  transition: all 0.4s var(--ease-spring);
 }
 
 .logout-btn:hover {
-  background: #0d1f4a;
+  background: rgba(239, 68, 68, 0.15);
+  color: white;
+  border-color: rgba(239, 68, 68, 0.4);
 }
 
 /* MAIN */
@@ -252,16 +305,30 @@ body {
 }
 
 .stat-card {
-  background: white;
+  background: var(--panel-light);
   padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  border-radius: 18px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s var(--ease-spring);
+  backdrop-filter: blur(12px);
 }
 
 .stat-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+body.dark-theme .stat-card {
+  background: var(--panel-dark);
+  border-color: var(--border-dark);
+  box-shadow: var(--shadow-premium);
+}
+
+body.dark-theme .stat-card:hover {
+  box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+  border-color: rgba(16, 185, 129, 0.3);
 }
 
 .card-top {
@@ -276,18 +343,29 @@ body {
 }
 
 .card-title {
-  font-size: 13px;
-  color: #64748b;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+  color: var(--text-light-secondary);
   display: block;
   margin-bottom: 8px;
 }
 
+body.dark-theme .card-title {
+  color: var(--text-dark-secondary);
+}
+
 .stat-card h2 {
-  font-size: 36px;
+  font-size: clamp(28px, 2.5vw, 36px);
   margin: 0;
   font-weight: 800;
-  color: #4f46e5;
+  color: var(--text-light-primary);
+  line-height: 1.1;
+}
+
+body.dark-theme .stat-card h2 {
+  color: var(--text-dark-primary);
 }
 
 .green-text {
@@ -366,11 +444,19 @@ body {
 }
 
 .topics-card {
-  background: white;
-  border-radius: 16px;
+  background: var(--panel-light);
+  border-radius: 18px;
   padding: 28px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.04);
   overflow-x: auto;
+  backdrop-filter: blur(12px);
+}
+
+body.dark-theme .topics-card {
+  background: var(--panel-dark);
+  border-color: var(--border-dark);
+  box-shadow: var(--shadow-premium);
 }
 
 /* Header */
@@ -392,11 +478,16 @@ body {
 }
 
 .left-header h2 {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-light-primary);
   margin: 0;
   white-space: nowrap;
+  letter-spacing: -0.3px;
+}
+
+body.dark-theme .left-header h2 {
+  color: var(--text-dark-primary);
 }
 
 .topic-count {

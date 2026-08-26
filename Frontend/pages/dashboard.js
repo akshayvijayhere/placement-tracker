@@ -162,10 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const donutChart = document.querySelector(".donut-chart");
     if (donutChart) {
       donutChart.style.background = `conic-gradient(
-        #5b5cff 0% ${pApplied}%,
-        #3b82f6 ${pApplied}% ${pApplied + pInterview}%,
-        #facc15 ${pApplied + pInterview}% ${pApplied + pInterview + pRejected}%,
-        #10b981 ${pApplied + pInterview + pRejected}% 100%
+        #10b981 0% ${pApplied}%,
+        #0ea5e9 ${pApplied}% ${pApplied + pInterview}%,
+        #f43f5e ${pApplied + pInterview}% ${pApplied + pInterview + pRejected}%,
+        #8b5cf6 ${pApplied + pInterview + pRejected}% 100%
       )`;
     }
 
